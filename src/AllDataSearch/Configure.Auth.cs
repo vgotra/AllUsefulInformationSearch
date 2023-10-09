@@ -1,9 +1,7 @@
-using Microsoft.AspNetCore.Hosting;
-using ServiceStack;
 using ServiceStack.Auth;
 using ServiceStack.FluentValidation;
 
-[assembly: HostingStartup(typeof(AllDataSearch.ConfigureAuth))]
+[assembly: HostingStartup(typeof(ConfigureAuth))]
 
 namespace AllDataSearch;
 

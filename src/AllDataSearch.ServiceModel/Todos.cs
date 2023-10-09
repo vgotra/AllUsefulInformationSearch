@@ -1,7 +1,3 @@
-using ServiceStack;
-using ServiceStack.Model;
-using System.Collections.Generic;
-
 namespace AllDataSearch.ServiceModel;
 
 [Tag("todos")]
@@ -18,7 +14,7 @@ public class QueryTodos : QueryData<Todo>
 public class CreateTodo : IPost, IReturn<Todo>
 {
     [ValidateNotEmpty]
-    public string Text { get; set; }
+    public string Text { get; set; } = null!;
 }
 
 [Tag("todos")]
@@ -27,7 +23,8 @@ public class UpdateTodo : IPut, IReturn<Todo>
 {
     public long Id { get; set; }
     [ValidateNotEmpty]
-    public string Text { get; set; }
+    public string Text { get; set; } = null!;
+
     public bool IsFinished { get; set; }
 }
 
@@ -42,12 +39,12 @@ public class DeleteTodo : IDelete, IReturnVoid
 [Route("/todos", "DELETE")]
 public class DeleteTodos : IDelete, IReturnVoid
 {
-    public List<long> Ids { get; set; }
+    public List<long> Ids { get; set; } = null!;
 }
 
 public class Todo : IHasId<long>
 {
     public long Id { get; set; }
-    public string Text { get; set; }
+    public string Text { get; set; } = null!;
     public bool IsFinished { get; set; }
 }

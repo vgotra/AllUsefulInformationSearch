@@ -1,8 +1,6 @@
 using System.Net;
 using Microsoft.AspNetCore.Components.Authorization;
-using ServiceStack;
 using ServiceStack.Blazor;
-using AllDataSearch;
 
 var builder = WebApplication.CreateBuilder(args);
 

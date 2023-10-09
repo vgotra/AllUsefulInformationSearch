@@ -1,9 +1,3 @@
-using System;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
-using ServiceStack;
 using ServiceStack.Blazor;
 
 namespace AllDataSearch;
@@ -11,7 +5,7 @@ namespace AllDataSearch;
 /// <summary>
 /// For Pages and Components that make use of ServiceStack functionality, e.g. Client
 /// </summary>
-public abstract class AppComponentBase : ServiceStack.Blazor.BlazorComponentBase, IHasJsonApiClient
+public abstract class AppComponentBase : BlazorComponentBase, IHasJsonApiClient
 {
 }
 

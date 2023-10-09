@@ -1,13 +1,8 @@
-using System;
-using System.Linq;
-using ServiceStack;
-using AllDataSearch.ServiceModel;
-
 namespace AllDataSearch.ServiceInterface;
 
 public class TodosServices : Service
 {
-    public IAutoQueryData AutoQuery { get; set; }
+    public IAutoQueryData AutoQuery { get; set; } = null!;
 
     static readonly PocoDataSource<Todo> Todos = PocoDataSource.Create(new Todo[]
     {

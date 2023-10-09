@@ -1,9 +1,8 @@
-using ServiceStack;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 using AllDataSearch.Migrations;
 
-[assembly: HostingStartup(typeof(AllDataSearch.ConfigureDbMigrations))]
+[assembly: HostingStartup(typeof(ConfigureDbMigrations))]
 
 namespace AllDataSearch;
 

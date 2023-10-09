@@ -1,8 +1,4 @@
-using NUnit.Framework;
 using Funq;
-using ServiceStack;
-using AllDataSearch.ServiceInterface;
-using AllDataSearch.ServiceModel;
 
 namespace AllDataSearch.Tests;
 

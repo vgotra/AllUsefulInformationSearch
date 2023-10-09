@@ -1,7 +1,6 @@
-using ServiceStack;
 using ServiceStack.Redis;
 
-[assembly: HostingStartup(typeof(AllDataSearch.ConfigureRedis))]
+[assembly: HostingStartup(typeof(ConfigureRedis))]
 
 namespace AllDataSearch;
 

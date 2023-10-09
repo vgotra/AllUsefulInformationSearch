@@ -1,7 +1,5 @@
-using NUnit.Framework;
 using ServiceStack.OrmLite;
 using AllDataSearch.Migrations;
-using ServiceStack;
 using ServiceStack.Data;
 
 namespace AllDataSearch.Tests;

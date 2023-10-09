@@ -1,7 +1,3 @@
-using ServiceStack;
-using AllDataSearch.ServiceModel;
-using System;
-
 namespace AllDataSearch.ServiceInterface;
 
 public class MyServices : Service

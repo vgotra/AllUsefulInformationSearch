@@ -1,8 +1,7 @@
 using Funq;
-using ServiceStack;
 using AllDataSearch.ServiceInterface;
 
-[assembly: HostingStartup(typeof(AllDataSearch.AppHost))]
+[assembly: HostingStartup(typeof(AppHost))]
 
 namespace AllDataSearch;
 

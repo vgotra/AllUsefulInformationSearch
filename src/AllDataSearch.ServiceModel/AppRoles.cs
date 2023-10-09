@@ -1,4 +1,4 @@
-namespace AllDataSearch;
+namespace AllDataSearch.ServiceModel;
 
 public static class AppRoles
 {

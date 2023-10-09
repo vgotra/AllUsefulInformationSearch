@@ -1,4 +1,3 @@
-using ServiceStack;
 using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
 
@@ -10,7 +9,7 @@ public class Migration1000 : MigrationBase
     {
         [AutoIncrement]
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
         public RoomType RoomType { get; set; }
         public int RoomNumber { get; set; }
         public DateTime BookingStartDate { get; set; }
@@ -25,8 +24,8 @@ public class Migration1000 : MigrationBase
 
     public class Coupon
     {
-        public string Id { get; set; }
-        public string Description { get; set; }
+        public string Id { get; set; } = null!;
+        public string Description { get; set; } = null!;
         public int Discount { get; set; }
         public DateTime ExpiryDate { get; set; }
     }

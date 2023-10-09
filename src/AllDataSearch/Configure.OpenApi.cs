@@ -1,15 +1,13 @@
-using ServiceStack;
 using ServiceStack.Api.OpenApi;
 
-[assembly: HostingStartup(typeof(AllDataSearch.ConfigureOpenApi))]
+[assembly: HostingStartup(typeof(ConfigureOpenApi))]
 
-namespace AllDataSearch
+namespace AllDataSearch;
+
+public class ConfigureOpenApi : IHostingStartup
 {
-    public class ConfigureOpenApi : IHostingStartup
-    {
-        public void Configure(IWebHostBuilder builder) => builder
-            .ConfigureAppHost(appHost => {
-                appHost.Plugins.Add(new OpenApiFeature());
-            });
-    }
+    public void Configure(IWebHostBuilder builder) => builder
+        .ConfigureAppHost(appHost => {
+            appHost.Plugins.Add(new OpenApiFeature());
+        });
 }

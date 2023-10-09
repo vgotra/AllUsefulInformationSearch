@@ -1,6 +1,4 @@
-using ServiceStack;
-
-[assembly: HostingStartup(typeof(AllDataSearch.ConfigureProfiling))]
+[assembly: HostingStartup(typeof(ConfigureProfiling))]
 
 namespace AllDataSearch;
 

@@ -1,10 +1,6 @@
 // Complete declarative AutoQuery services for Bookings CRUD example:
 // https://docs.servicestack.net/autoquery-crud-bookings
 
-using System;
-using ServiceStack;
-using ServiceStack.DataAnnotations;
-
 namespace AllDataSearch.ServiceModel;
 
 [Icon(Svg = Icons.Booking)]
@@ -14,7 +10,7 @@ public class Booking : AuditBase
 {
     [AutoIncrement]
     public int Id { get; set; }
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
     public RoomType RoomType { get; set; }
     public int RoomNumber { get; set; }
     [IntlDateTime(DateStyle.Long)]
@@ -29,7 +25,7 @@ public class Booking : AuditBase
     public string? CouponId { get; set; }
 
     [Reference]
-    public Coupon Discount { get; set; }
+    public Coupon? Discount { get; set; }
     public string? Notes { get; set; }
     public bool? Cancelled { get; set; }
 }
@@ -65,7 +61,8 @@ public class QueryBookings : QueryDb<Booking>
 public class CreateBooking : ICreateDb<Booking>, IReturn<IdResponse>
 {
     [Description("Name this Booking is for"), ValidateNotEmpty]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
+
     public RoomType RoomType { get; set; }
     [ValidateGreaterThan(0)]
     public int RoomNumber { get; set; }
@@ -115,8 +112,8 @@ public class DeleteBooking : IDeleteDb<Booking>, IReturnVoid
 [Icon(Svg = Icons.Coupon)]
 public class Coupon
 {
-    public string Id { get; set; }
-    public string Description { get; set; }
+    public string Id { get; set; } = null!;
+    public string Description { get; set; } = null!;
     public int Discount { get; set; }
     public DateTime ExpiryDate { get; set; }
 }
@@ -125,7 +122,7 @@ public class Coupon
 [Route("/coupons", "GET")]
 public class QueryCoupons : QueryDb<Coupon>
 {
-    public string Id { get; set; }
+    public string Id { get; set; } = null!;
 }
 
 [Tag("bookings")]
@@ -134,7 +131,8 @@ public class QueryCoupons : QueryDb<Coupon>
 public class CreateCoupon : ICreateDb<Coupon>, IReturn<IdResponse>
 {
     [ValidateNotEmpty]
-    public string Description { get; set; }
+    public string Description { get; set; } = null!;
+
     [ValidateGreaterThan(0)]
     public int Discount { get; set; }
     [ValidateNotNull]
@@ -146,9 +144,11 @@ public class CreateCoupon : ICreateDb<Coupon>, IReturn<IdResponse>
 [ValidateHasRole("Employee")]
 public class UpdateCoupon : IPatchDb<Coupon>, IReturn<IdResponse>
 {
-    public string Id { get; set; }
+    public string Id { get; set; } = null!;
+
     [ValidateNotEmpty]
-    public string? Description { get; set; }
+    public string Description { get; set; } = null!;
+
     [ValidateNotNull, ValidateGreaterThan(0)]
     public int? Discount { get; set; }
     [ValidateNotNull]
@@ -160,5 +160,5 @@ public class UpdateCoupon : IPatchDb<Coupon>, IReturn<IdResponse>
 [ValidateHasRole("Manager")]
 public class DeleteCoupon : IDeleteDb<Coupon>, IReturnVoid
 {
-    public string Id { get; set; }
+    public string Id { get; set; } = null!;
 }
