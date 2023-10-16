@@ -19,14 +19,16 @@
         <PackageReference Include="ServiceStack.Api.OpenApi" Version="6.11.0" />
         <PackageReference Include="ServiceStack.Blazor" Version="6.*" />
         <PackageReference Include="ServiceStack.OrmLite.PostgreSQL" Version="6.11.0" />
-        <PackageReference Include="ServiceStack.OrmLite.Sqlite.Data" Version="6.*" />
-        <PackageReference Include="ServiceStack.Redis" Version="6.11.0" />
         <PackageReference Include="ServiceStack.Server" Version="6.11.0" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\AllDataSearch.ServiceInterface\AllDataSearch.ServiceInterface.csproj" />
         <ProjectReference Include="..\AllDataSearch.ServiceModel\AllDataSearch.ServiceModel.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="App_Data\" />
     </ItemGroup>
 
     <Target Name="CreateAppDataFolderBuild" AfterTargets="AfterBuild">

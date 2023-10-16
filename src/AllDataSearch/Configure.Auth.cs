@@ -1,4 +1,5 @@
 using ServiceStack.Auth;
+using ServiceStack.Caching;
 using ServiceStack.FluentValidation;
 
 [assembly: HostingStartup(typeof(ConfigureAuth))]
@@ -26,7 +27,7 @@ public class CustomRegistrationValidator : RegistrationValidator
 public class ConfigureAuth : IHostingStartup
 {
     public void Configure(IWebHostBuilder builder) => builder
-        //.ConfigureServices(services => services.AddSingleton<ICacheClient>(new MemoryCacheClient()))
+        .ConfigureServices(services => services.AddSingleton<ICacheClient>(new MemoryCacheClient()))
         .ConfigureAppHost(appHost =>
         {
             var appSettings = appHost.AppSettings;
@@ -36,9 +37,6 @@ public class ConfigureAuth : IHostingStartup
                         AuthKeyBase64 = appSettings.GetString("AuthKeyBase64") ?? "cARl12kvS/Ra4moVBIaVsrWwTpXYuZ0mZf/gNLUhDW5=",
                     },
                     new CredentialsAuthProvider(appSettings),     /* Sign In with Username / Password credentials */
-                    new FacebookAuthProvider(appSettings),        /* Create App https://developers.facebook.com/apps */
-                    new GoogleAuthProvider(appSettings),          /* Create App https://console.developers.google.com/apis/credentials */
-                    new MicrosoftGraphAuthProvider(appSettings),  /* Create App https://apps.dev.microsoft.com */
                 })
             {
                 IncludeDefaultLogin = false

@@ -1,4 +1,4 @@
-namespace AllDataSearch;
+namespace AllDataSearch.Auth;
 
 /// <summary>
 /// Manages App Authentication State

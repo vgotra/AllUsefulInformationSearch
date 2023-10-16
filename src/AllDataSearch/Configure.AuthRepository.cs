@@ -1,6 +1,7 @@
 using ServiceStack.Web;
 using ServiceStack.Data;
 using ServiceStack.Auth;
+using ServiceStack.Configuration;
 
 [assembly: HostingStartup(typeof(ConfigureAuthRepository))]
 
@@ -41,18 +42,16 @@ public class ConfigureAuthRepository : IHostingStartup
         .ConfigureAppHost(appHost => {
             var authRepo = appHost.Resolve<IAuthRepository>();
             authRepo.InitSchema();
-            // CreateUser(authRepo, "admin@email.com", "Admin User", "p@55wOrd", roles:new[]{ RoleNames.Admin });
+            CreateUser(authRepo, "admin@email.com", "Admin User", Environment.GetEnvironmentVariable("ADMIN_PASSWORD") ?? "admin", roles:new[]{ RoleNames.Admin });
         }, afterConfigure: appHost => 
             appHost.AssertPlugin<AuthFeature>().AuthEvents.Add(new AppUserAuthEvents()));
 
     // Add initial Users to the configured Auth Repository
-    public void CreateUser(IAuthRepository authRepo, string email, string name, string password, string[] roles)
+    private void CreateUser(IAuthRepository authRepo, string email, string name, string password, string[] roles)
     {
-        if (authRepo.GetUserAuthByUserName(email) == null)
-        {
-            var newAdmin = new AppUser { Email = email, DisplayName = name };
-            var user = authRepo.CreateUserAuth(newAdmin, password);
-            authRepo.AssignRoles(user, roles);
-        }
+        if (authRepo.GetUserAuthByUserName(email) != null) return;
+        var newAdmin = new AppUser { Email = email, DisplayName = name };
+        var user = authRepo.CreateUserAuth(newAdmin, password);
+        authRepo.AssignRoles(user, roles);
     }
 }
