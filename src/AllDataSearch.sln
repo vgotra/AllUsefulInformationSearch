@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllDataSearch.Tests", "AllD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllDataSearch.StackOverflow", "AllDataSearch.StackOverflow\AllDataSearch.StackOverflow.csproj", "{7D0E0538-8D45-4FA5-985A-0AAB68736567}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllDataSearch.StackOverflow.Tests", "AllDataSearch.StackOverflow.Tests\AllDataSearch.StackOverflow.Tests.csproj", "{D36A776F-0DB8-474B-9F11-DC88F8DDA4D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7D0E0538-8D45-4FA5-985A-0AAB68736567}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D0E0538-8D45-4FA5-985A-0AAB68736567}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D0E0538-8D45-4FA5-985A-0AAB68736567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D36A776F-0DB8-474B-9F11-DC88F8DDA4D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D36A776F-0DB8-474B-9F11-DC88F8DDA4D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D36A776F-0DB8-474B-9F11-DC88F8DDA4D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D36A776F-0DB8-474B-9F11-DC88F8DDA4D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

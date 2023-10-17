@@ -9,10 +9,8 @@ public interface IStackOverflowArchiveParser
 
 public class StackOverflowArchiveParser : IStackOverflowArchiveParser
 {
-    private const string StackOverflowArchiveUrl = "https://archive.org/details/stackexchange";
-    private static readonly Regex ItemsRegex = new(
-        """<tr>\s*<td>\s*<a.*?href="(?<Link>[^<]*?7z[^<]*?)">(?<Name>[^<]*?7z[^<]*?)<\/a>.*?<\/td>\s*<td>(?<LastModified>.*?)<\/td>\s*<td>(?<Size>.*?)<\/td>\s*<\/tr>""",
-        RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+    private const string StackOverflowArchiveUrl = "https://archive.org/download/stackexchange";
+    private const string ItemsPattern = """<tr\s*>\s*<td>\s*<a href="(?<Link>[^<]*?7z[^<]*?)">(?<Name>[^<]*?7z[^<]*?)<\/a>.*<\/td>\s*<td>(?<LastModified>.*?)<\/td>\s*<td>(?<Size>.*?)<\/td>\s*<\/tr>""";
 
     private readonly IHttpClientFactory _httpClientFactory;
 
@@ -32,7 +30,7 @@ public class StackOverflowArchiveParser : IStackOverflowArchiveParser
     private List<StackOverflowDataFile> ParseLines(string htmlText)
     {
         var result = new List<StackOverflowDataFile>();
-        var matches = ItemsRegex.Matches(htmlText);
+        var matches = Regex.Matches(htmlText, ItemsPattern, RegexOptions.Multiline);
         foreach (Match match in matches)
         {
             var item = ParseLine(match);
