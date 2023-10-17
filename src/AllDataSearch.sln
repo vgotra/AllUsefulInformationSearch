@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllDataSearch.StackOverflow
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllDataSearch.StackOverflow.Tests", "AllDataSearch.StackOverflow.Tests\AllDataSearch.StackOverflow.Tests.csproj", "{D36A776F-0DB8-474B-9F11-DC88F8DDA4D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllDataSearch.Wikipedia", "AllDataSearch.Wikipedia\AllDataSearch.Wikipedia.csproj", "{221D20D6-A80B-4BB7-A61B-FDB2C6D3A761}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllDataSearch.Wikipedia.Tests", "AllDataSearch.Wikipedia.Tests\AllDataSearch.Wikipedia.Tests.csproj", "{23D8086B-4607-4C3D-A154-B9B3B4477D6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{D36A776F-0DB8-474B-9F11-DC88F8DDA4D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D36A776F-0DB8-474B-9F11-DC88F8DDA4D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D36A776F-0DB8-474B-9F11-DC88F8DDA4D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{221D20D6-A80B-4BB7-A61B-FDB2C6D3A761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{221D20D6-A80B-4BB7-A61B-FDB2C6D3A761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{221D20D6-A80B-4BB7-A61B-FDB2C6D3A761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{221D20D6-A80B-4BB7-A61B-FDB2C6D3A761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23D8086B-4607-4C3D-A154-B9B3B4477D6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23D8086B-4607-4C3D-A154-B9B3B4477D6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23D8086B-4607-4C3D-A154-B9B3B4477D6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23D8086B-4607-4C3D-A154-B9B3B4477D6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

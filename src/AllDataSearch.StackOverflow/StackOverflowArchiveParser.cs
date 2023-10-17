@@ -21,12 +21,13 @@ public class StackOverflowArchiveParser : IStackOverflowArchiveParser
 
     public async Task<List<StackOverflowDataFile>> GetDataFileInfoListAsync()
     {
-        var httpClient = _httpClientFactory.CreateClient();
-        var archiveHtmlPage = await httpClient.GetStringAsync(StackOverflowArchiveUrl);
+        var archiveHtmlPage = await DownloadPageAsync();
         var result = ParseLines(archiveHtmlPage);
         return result;
     }
 
+    protected virtual Task<string> DownloadPageAsync() => _httpClientFactory.CreateClient().GetStringAsync(StackOverflowArchiveUrl);
+    
     private List<StackOverflowDataFile> ParseLines(string htmlText)
     {
         var result = new List<StackOverflowDataFile>();
