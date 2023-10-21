@@ -2,7 +2,7 @@ namespace AllDataSearch.StackOverflow.Tests;
 
 public class IntegrationTests
 {
-    [Test] //, Ignore("To not download the whole archive every time during CI/CD")]
+    [Test, Ignore("To not download the whole archive every time during CI/CD")]
     public async Task CanDownloadAndParseLinksToFiles()
     {
         var httpClientFactory = new Mock<IHttpClientFactory>();

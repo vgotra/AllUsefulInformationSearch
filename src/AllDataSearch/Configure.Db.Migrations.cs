@@ -1,6 +1,6 @@
+using AllDataSearch.DatabaseMigrations.Migrations;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
-using AllDataSearch.Migrations;
 
 [assembly: HostingStartup(typeof(ConfigureDbMigrations))]
 

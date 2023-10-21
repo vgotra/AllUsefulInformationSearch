@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\AllDataSearch.DatabaseMigrations\AllDataSearch.DatabaseMigrations.csproj" />
         <ProjectReference Include="..\AllDataSearch.ServiceInterface\AllDataSearch.ServiceInterface.csproj" />
         <ProjectReference Include="..\AllDataSearch.ServiceModel\AllDataSearch.ServiceModel.csproj" />
     </ItemGroup>

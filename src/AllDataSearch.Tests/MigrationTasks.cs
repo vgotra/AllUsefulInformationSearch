@@ -1,5 +1,5 @@
+using AllDataSearch.DatabaseMigrations.Migrations;
 using ServiceStack.OrmLite;
-using AllDataSearch.Migrations;
 using ServiceStack.Data;
 
 namespace AllDataSearch.Tests;
