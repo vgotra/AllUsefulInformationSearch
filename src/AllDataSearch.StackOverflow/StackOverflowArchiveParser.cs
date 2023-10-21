@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using AllDataSearch.StackOverflow.Extensions;
 
 namespace AllDataSearch.StackOverflow;
 
@@ -46,7 +47,8 @@ public class StackOverflowArchiveParser : IStackOverflowArchiveParser
         var name = match.Groups["Name"].Value;
         var lastModified = DateTime.Parse(match.Groups["LastModified"].Value);
         var size = match.Groups["Size"].Value;
+        var fileSize = size.GetFileSize();
 
-        return new StackOverflowDataFile { Name = name, Link = link, Size = size, LastModified = lastModified };
+        return new StackOverflowDataFile { Name = name, Link = link, Size = fileSize, LastModified = lastModified };
     }
 }

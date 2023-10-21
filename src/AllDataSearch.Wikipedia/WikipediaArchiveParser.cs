@@ -46,7 +46,7 @@ public class WikipediaArchiveParser : IWikipediaArchiveParser
         var link = match.Groups["Link"].Value;
         var name = match.Groups["Name"].Value;
         var lastModified = DateTime.Parse(match.Groups["LastModified"].Value);
-        var size = match.Groups["Size"].Value;
+        var size = long.Parse(match.Groups["Size"].Value);
 
         return new WikipediaDataFile { Name = name, Link = link, Size = size, LastModified = lastModified };
     }
