@@ -1,34 +1,39 @@
 using System.Text.RegularExpressions;
+using AllUsefulInformationSearch.Common.Http;
 using AllUsefulInformationSearch.StackOverflow.Extensions;
 
 namespace AllUsefulInformationSearch.StackOverflow;
 
 public interface IStackOverflowArchiveParser
 {
-    Task<List<StackOverflowDataFile>> GetDataFileInfoListAsync();
+    Task<List<StackOverflowDataFile>> GetDataFileInfoListAsync(CancellationToken cancellationToken = default);
 }
 
 public class StackOverflowArchiveParser : IStackOverflowArchiveParser
 {
     private const string StackOverflowArchiveUrl = "https://archive.org/download/stackexchange";
-    private const string ItemsPattern = """<tr\s*>\s*<td>\s*<a href="(?<Link>[^<]*?7z[^<]*?)">(?<Name>[^<]*?7z[^<]*?)<\/a>.*<\/td>\s*<td>(?<LastModified>.*?)<\/td>\s*<td>(?<Size>.*?)<\/td>\s*<\/tr>""";
 
-    private readonly IHttpClientFactory _httpClientFactory;
+    private const string ItemsPattern =
+        """<tr\s*>\s*<td>\s*<a href="(?<Link>[^<]*?7z[^<]*?)">(?<Name>[^<]*?7z[^<]*?)<\/a>.*<\/td>\s*<td>(?<LastModified>.*?)<\/td>\s*<td>(?<Size>.*?)<\/td>\s*<\/tr>""";
 
-    public StackOverflowArchiveParser(IHttpClientFactory httpClientFactory)
+    private readonly IHttpClientFactoryWrapper _httpClientFactory;
+
+    public StackOverflowArchiveParser(IHttpClientFactoryWrapper httpClientFactory)
     {
         _httpClientFactory = httpClientFactory;
     }
 
-    public async Task<List<StackOverflowDataFile>> GetDataFileInfoListAsync()
+    public async Task<List<StackOverflowDataFile>> GetDataFileInfoListAsync(
+        CancellationToken cancellationToken = default)
     {
-        var archiveHtmlPage = await DownloadPageAsync();
+        var archiveHtmlPage = await DownloadPageAsync(cancellationToken);
         var result = ParseLines(archiveHtmlPage);
         return result;
     }
 
-    protected virtual Task<string> DownloadPageAsync() => _httpClientFactory.CreateClient().GetStringAsync(StackOverflowArchiveUrl);
-    
+    private Task<string> DownloadPageAsync(CancellationToken cancellationToken = default) =>
+        _httpClientFactory.CreateClient().GetStringAsync(StackOverflowArchiveUrl, cancellationToken);
+
     private List<StackOverflowDataFile> ParseLines(string htmlText)
     {
         var result = new List<StackOverflowDataFile>();
@@ -38,6 +43,7 @@ public class StackOverflowArchiveParser : IStackOverflowArchiveParser
             var item = ParseLine(match);
             result.Add(item);
         }
+
         return result;
     }
 
