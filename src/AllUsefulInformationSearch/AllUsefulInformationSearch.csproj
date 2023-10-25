@@ -9,8 +9,8 @@
 
     <ItemGroup>
         <PackageReference Include="Markdig" Version="0.30.3"/>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="6.0.9"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.13"/>
+        <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="7.0.13"/>
         <PackageReference Include="ServiceStack" Version="6.*"/>
         <PackageReference Include="ServiceStack.Api.OpenApi" Version="6.11.0"/>
         <PackageReference Include="ServiceStack.Blazor" Version="6.*"/>

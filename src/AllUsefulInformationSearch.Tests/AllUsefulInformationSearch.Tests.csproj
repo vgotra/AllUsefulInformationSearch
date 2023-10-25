@@ -22,14 +22,11 @@
     <ItemGroup>
         <ProjectReference Include="..\AllUsefulInformationSearch.ServiceInterface\AllUsefulInformationSearch.ServiceInterface.csproj" />
         <ProjectReference Include="..\AllUsefulInformationSearch.ServiceModel\AllUsefulInformationSearch.ServiceModel.csproj" />
+        <ProjectReference Include="..\AllUsefulInformationSearch.Tests.Common\AllUsefulInformationSearch.Tests.Common.csproj" />
         <ProjectReference Include="..\AllUsefulInformationSearch\AllUsefulInformationSearch.csproj" />
 
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
-        <PackageReference Include="NUnit" Version="3.*" />
-        <PackageReference Include="NUnit3TestAdapter" Version="4.*" />
-        <PackageReference Include="coverlet.collector" Version="3.*" />
-        <PackageReference Include="bunit" Version="1.4.*" />
-
+        <PackageReference Include="NUnit3TestAdapter" Version="4.*"/>
         <PackageReference Include="ServiceStack" Version="6.*" />
         <PackageReference Include="ServiceStack.Kestrel" Version="6.*" />
     </ItemGroup>
