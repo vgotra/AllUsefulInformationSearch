@@ -1,5 +1,5 @@
 
-# .NET 6.0 Blazor Server Tailwind Template
+# .NET 8.0 Blazor Server Tailwind Template
 
 [![](https://raw.githubusercontent.com/ServiceStack/Assets/master/csharp-templates/blazor-server.png)](https://blazor-server.jamstacks.net)
 

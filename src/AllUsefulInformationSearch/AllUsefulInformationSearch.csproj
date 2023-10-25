@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>latestmajor</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Markdig" Version="0.30.3"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="6.0.9"/>
+        <PackageReference Include="ServiceStack" Version="6.*"/>
+        <PackageReference Include="ServiceStack.Api.OpenApi" Version="6.11.0"/>
+        <PackageReference Include="ServiceStack.Blazor" Version="6.*"/>
+        <PackageReference Include="ServiceStack.OrmLite.PostgreSQL" Version="6.11.0"/>
+        <PackageReference Include="ServiceStack.Server" Version="6.11.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\AllUsefulInformationSearch.DatabaseMigrations\AllUsefulInformationSearch.DatabaseMigrations.csproj"/>
+        <ProjectReference Include="..\AllUsefulInformationSearch.ServiceInterface\AllUsefulInformationSearch.ServiceInterface.csproj"/>
+        <ProjectReference Include="..\AllUsefulInformationSearch.ServiceModel\AllUsefulInformationSearch.ServiceModel.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="App_Data\"/>
+    </ItemGroup>
+
+    <Target Name="CreateAppDataFolderBuild" AfterTargets="AfterBuild">
+        <MakeDir Directories="$(BuildDir)App_Data" Condition="!Exists('$(BuildDir)App_Data')"/>
+    </Target>
+
+    <Target Name="CreateAppDataFolder" AfterTargets="AfterPublish">
+        <MakeDir Directories="$(PublishDir)App_Data" Condition="!Exists('$(PublishDir)App_Data')"/>
+    </Target>
+
+    <PropertyGroup>
+        <ClientDir>$(MSBuildProjectDirectory)/../AllUsefulInformationSearch.Client</ClientDir>
+        <WwwRoot>$(ClientDir)/wwwroot</WwwRoot>
+        <TestsDir>$(MSBuildProjectDirectory)/../AllUsefulInformationSearch.Tests</TestsDir>
+    </PropertyGroup>
+</Project>
