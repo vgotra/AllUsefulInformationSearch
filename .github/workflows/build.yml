@@ -11,16 +11,16 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: checkout
-        uses: actions/checkout@v2.0.0
+        uses: actions/checkout@v3
 
       - name: setup .net core
-        uses: actions/setup-dotnet@v1.7.2
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 8.0 # check version later
+          dotnet-version: '8.0'
 
       - name: build
         run: dotnet build
-        working-directory: .
+        working-directory: ./src
 
       - name: test
         run: |
@@ -31,5 +31,5 @@ jobs:
             echo TESTS FAILED
             exit 1
           fi
-        working-directory: ./AllUsefulInformationSearch.Tests
+        working-directory: ./src
 
