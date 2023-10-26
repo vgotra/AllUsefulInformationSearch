@@ -5,7 +5,7 @@ namespace AllUsefulInformationSearch.Tests;
 public class IntegrationTest
 {
     const string BaseUri = "http://localhost:2000/";
-    private readonly ServiceStackHost appHost;
+    private readonly ServiceStackHost _appHost = new AppHost().Init().Start(BaseUri);
 
     class AppHost : AppSelfHostBase
     {
@@ -16,17 +16,10 @@ public class IntegrationTest
         }
     }
 
-    public IntegrationTest()
-    {
-        appHost = new AppHost()
-            .Init()
-            .Start(BaseUri);
-    }
-
     [OneTimeTearDown]
-    public void OneTimeTearDown() => appHost.Dispose();
+    public void OneTimeTearDown() => _appHost.Dispose();
 
-    public IServiceClient CreateClient() => new JsonServiceClient(BaseUri);
+    private IServiceClient CreateClient() => new JsonServiceClient(BaseUri);
 
     [Test]
     public void Can_call_Hello_Service()

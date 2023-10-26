@@ -1,7 +1,7 @@
 namespace AllUsefulInformationSearch.DataAccess.Entities;
 
 [Alias("InformationSourceDataFiles")]
-public class InformationSourceDataFile
+public class InformationSourceDataFile : IEntity<Guid>
 {
     //TODO Specify string length, etc later
 

@@ -14,14 +14,12 @@ public class CustomUserSession : AuthUserSession
 // Custom Validator to add custom validators to built-in /register Service requiring DisplayName and ConfirmPassword
 public class CustomRegistrationValidator : RegistrationValidator
 {
-    public CustomRegistrationValidator()
-    {
+    public CustomRegistrationValidator() =>
         RuleSet(ApplyTo.Post, () =>
         {
             RuleFor(x => x.DisplayName).NotEmpty();
             RuleFor(x => x.ConfirmPassword).NotEmpty();
         });
-    }
 }
 
 public class ConfigureAuth : IHostingStartup
@@ -32,15 +30,11 @@ public class ConfigureAuth : IHostingStartup
         {
             var appSettings = appHost.AppSettings;
             appHost.Plugins.Add(new AuthFeature(() => new CustomUserSession(),
-                new IAuthProvider[] {
-                    new JwtAuthProvider(appSettings) {
-                        AuthKeyBase64 = appSettings.GetString("AuthKeyBase64") ?? "cARl12kvS/Ra4moVBIaVsrWwTpXYuZ0mZf/gNLUhDW5=",
-                    },
-                    new CredentialsAuthProvider(appSettings),     /* Sign In with Username / Password credentials */
-                })
-            {
-                IncludeDefaultLogin = false
-            });
+                new IAuthProvider[]
+                {
+                    new JwtAuthProvider(appSettings) { AuthKeyBase64 = appSettings.GetString("AuthKeyBase64") ?? "cARl12kvS/Ra4moVBIaVsrWwTpXYuZ0mZf/gNLUhDW5=", },
+                    new CredentialsAuthProvider(appSettings), /* Sign In with Username / Password credentials */
+                }) { IncludeDefaultLogin = false });
 
             appHost.Plugins.Add(new RegistrationFeature()); //Enable /register Service
 

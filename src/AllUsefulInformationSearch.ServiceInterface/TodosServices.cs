@@ -4,11 +4,8 @@ public class TodosServices : Service
 {
     public IAutoQueryData AutoQuery { get; set; } = null!;
 
-    static readonly PocoDataSource<Todo> Todos = PocoDataSource.Create(new Todo[]
-    {
-        new () { Id = 1, Text = "Learn" },
-        new () { Id = 2, Text = "Blazor", IsFinished = true },
-    }, nextId: x => x.Select(e => e.Id).Max());
+    static readonly PocoDataSource<Todo> Todos = PocoDataSource.Create(new Todo[] { new() { Id = 1, Text = "Learn" }, new() { Id = 2, Text = "Blazor", IsFinished = true }, },
+        nextId: x => x.Select(e => e.Id).Max());
 
     public object Get(QueryTodos query)
     {

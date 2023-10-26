@@ -11,8 +11,7 @@ public class AppHost : AppHostBase, IHostingStartup
 
     public override void Configure(Container container)
     {
-        SetConfig(new HostConfig {
-        });
+        SetConfig(new HostConfig());
 
         Plugins.Add(new CorsFeature(allowedHeaders: "Content-Type,Authorization",
             allowOriginWhitelist: new[]{
@@ -22,7 +21,5 @@ public class AppHost : AppHostBase, IHostingStartup
         }, allowCredentials: true));
     }
 
-    public void Configure(IWebHostBuilder builder) => builder
-        .ConfigureServices((context, services) => 
-            services.ConfigureNonBreakingSameSiteCookies(context.HostingEnvironment));
+    public void Configure(IWebHostBuilder builder) => builder.ConfigureServices((context, services) => services.ConfigureNonBreakingSameSiteCookies(context.HostingEnvironment));
 }

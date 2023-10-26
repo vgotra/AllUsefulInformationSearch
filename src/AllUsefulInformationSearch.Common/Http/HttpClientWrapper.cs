@@ -10,6 +10,5 @@ public class HttpClientWrapper : HttpClient
     
     public HttpClientWrapper(HttpClient httpClient) => _httpClient = httpClient;
 
-    public virtual Task<string> GetStringAsync(string? requestUri, CancellationToken cancellationToken = default) =>
-        _httpClient.GetAsync(requestUri, cancellationToken).GetResponseAsStringAsync();
+    public virtual Task<string> GetStringAsync(string? requestUri, CancellationToken token = default) => _httpClient.GetAsync(requestUri, token).GetResponseAsStringAsync();
 }
