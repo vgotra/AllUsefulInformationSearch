@@ -1,19 +1,19 @@
-﻿namespace AllUsefulInformationSearch.StackOverflow;
+﻿using AllUsefulInformationSearch.Common;
+
+namespace AllUsefulInformationSearch.StackOverflow;
 
 public class StackOverflowSynchronizationService : IStackOverflowSynchronizationService
 {
-    private readonly IInformationSourceDataFileRepository _repository;
     private readonly IStackOverflowArchiveParser _parser;
 
-    public StackOverflowSynchronizationService(IInformationSourceDataFileRepository repository, IStackOverflowArchiveParser parser)
+    public StackOverflowSynchronizationService(IStackOverflowArchiveParser parser)
     {
-        _repository = repository;
         _parser = parser;
     }
     
     public async Task SynchronizeAsync(CancellationToken cancellationToken = default)
     {
-        var dataFiles = await _repository.GetAllByProviderAsync(InformationProvider.StackOverflow, cancellationToken);
+        var dataFiles = new List<InformationSourceDataFile>();
         var dataFileDict = dataFiles.ToDictionary(x => x.Name, x => x);
         var archiveFiles = await _parser.GetFileInfoListAsync(cancellationToken);
         var archiveFileDict = archiveFiles.ToDictionary(x => x.Name, x => x);
