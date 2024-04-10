@@ -1,33 +1,34 @@
-using System.Text.RegularExpressions;
-using AllUsefulInformationSearch.Common.Http;
-using AllUsefulInformationSearch.StackOverflow.Extensions;
+using Microsoft.Extensions.Logging;
 
 namespace AllUsefulInformationSearch.StackOverflow;
 
-public class StackOverflowArchiveParser : IStackOverflowArchiveParser
+public class StackOverflowArchiveParser(ILogger<StackOverflowArchiveParser> logger) : IStackOverflowArchiveParser
 {
     private const string StackOverflowArchiveUrl = "https://archive.org/download/stackexchange";
-
-    private const string ItemsPattern = """<tr\s*>\s*<td>\s*<a href="(?<Link>[^<]*?7z[^<]*?)">(?<Name>[^<]*?7z[^<]*?)<\/a>.*<\/td>\s*<td>(?<LastModified>.*?)<\/td>\s*<td>(?<Size>.*?)<\/td>\s*<\/tr>""";
-
-    private readonly IHttpClientFactoryWrapper _httpClientFactory;
-
-    public StackOverflowArchiveParser(IHttpClientFactoryWrapper httpClientFactory) => _httpClientFactory = httpClientFactory;
+    private const string ItemsPattern = """<tr\s*>\s*<td>\s*<a href="(?<Link>[^<]*?7z[^<]*?)">(?<Name>[^<]*?7z[^<]*?)<\/a>.*<\/td>\s*<td>(?<LastModified>.*?)<\/td>\s*<td>(?<Size>[\d,\.]+[KMG]?)<\/td>\s*<\/tr>""";
 
     public async Task<List<StackOverflowDataFile>> GetFileInfoListAsync(CancellationToken cancellationToken = default)
     {
-        var archiveHtmlPage = await DownloadPageAsync(cancellationToken);
+        var archiveHtmlPage = await StackOverflowArchiveUrl.GetStringAsync(cancellationToken: cancellationToken);
         return ParseLines(archiveHtmlPage);
     }
-
-    private Task<string> DownloadPageAsync(CancellationToken cancellationToken = default) => _httpClientFactory.CreateClient().GetStringAsync(StackOverflowArchiveUrl, cancellationToken);
 
     private List<StackOverflowDataFile> ParseLines(string htmlText)
     {
         var result = new List<StackOverflowDataFile>();
         var matches = Regex.Matches(htmlText, ItemsPattern, RegexOptions.Multiline);
         foreach (Match match in matches)
-            result.Add(ParseLine(match));
+        {
+            try
+            {
+                result.Add(ParseLine(match));
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "Cannot parse line data. Line raw data: {LineRawData}", match.Value);
+            }
+        }
+
         return result;
     }
 

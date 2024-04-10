@@ -1,3 +1,5 @@
-global using AllUsefulInformationSearch.Tests.Common;
-global using Moq;
-global using NUnit.Framework;
+﻿global using AllUsefulInformationSearch.Tests.Common;
+
+global using Microsoft.Extensions.Logging;
+global using Microsoft.VisualStudio.TestTools.UnitTesting;
+global using System.Threading.Tasks;

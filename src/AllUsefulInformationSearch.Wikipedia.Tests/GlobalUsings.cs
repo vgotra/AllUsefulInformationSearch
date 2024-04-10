@@ -1,3 +1,3 @@
-global using AllUsefulInformationSearch.Tests.Common;
-global using Moq;
-global using NUnit.Framework;
+﻿// Global using directives
+
+global using Microsoft.VisualStudio.TestTools.UnitTesting;

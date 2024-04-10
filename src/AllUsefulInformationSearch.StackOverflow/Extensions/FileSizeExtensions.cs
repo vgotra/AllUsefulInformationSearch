@@ -9,7 +9,7 @@ public static class FileSizeExtensions
         if (string.IsNullOrWhiteSpace(fileSize))
             return 0;
 
-        var fileSizeWithoutMultiplier = float.Parse(fileSize[..^1].Replace('.', ','), NumberStyles.Number);
+        var fileSizeWithoutMultiplier = float.Parse(fileSize[..^1].Replace(",",string.Empty), CultureInfo.InvariantCulture);
         var multiplier = GetMultiplier(fileSize);
         return (long)(fileSizeWithoutMultiplier * multiplier);
     }

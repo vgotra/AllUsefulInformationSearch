@@ -2,20 +2,13 @@
 
 namespace AllUsefulInformationSearch.StackOverflow;
 
-public class StackOverflowSynchronizationService : IStackOverflowSynchronizationService
+public class StackOverflowSynchronizationService(IStackOverflowArchiveParser parser) : IStackOverflowSynchronizationService
 {
-    private readonly IStackOverflowArchiveParser _parser;
-
-    public StackOverflowSynchronizationService(IStackOverflowArchiveParser parser)
-    {
-        _parser = parser;
-    }
-    
     public async Task SynchronizeAsync(CancellationToken cancellationToken = default)
     {
         var dataFiles = new List<InformationSourceDataFile>();
         var dataFileDict = dataFiles.ToDictionary(x => x.Name, x => x);
-        var archiveFiles = await _parser.GetFileInfoListAsync(cancellationToken);
+        var archiveFiles = await parser.GetFileInfoListAsync(cancellationToken);
         var archiveFileDict = archiveFiles.ToDictionary(x => x.Name, x => x);
         var newFiles = archiveFileDict.Values.Where(x => !dataFileDict.ContainsKey(x.Name)).ToList();
         var updatedFiles = dataFileDict.Values.Where(x => archiveFileDict.ContainsKey(x.Name) && x.ProviderLastModified != archiveFileDict[x.Name].LastModified).ToList();

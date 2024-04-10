@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="7z.Libs" Version="23.1.0" />
+      <PackageReference Include="Flurl.Http" Version="4.0.2" />
     </ItemGroup>
 
     <ItemGroup>

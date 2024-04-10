@@ -2,27 +2,21 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <DebugType>portable</DebugType>
-        <OutputType>Library</OutputType>
-        <LangVersion>latestmajor</LangVersion>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*"/>
-        <PackageReference Include="NUnit3TestAdapter" Version="4.*"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
+        <PackageReference Include="coverlet.collector" Version="6.0.0"/>
+        <PackageReference Include="MSTest.TestAdapter" Version="3.1.1"/>
+        <PackageReference Include="MSTest.TestFramework" Version="3.1.1"/>
     </ItemGroup>
-
+    
     <ItemGroup>
         <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow\AllUsefulInformationSearch.StackOverflow.csproj"/>
         <ProjectReference Include="..\AllUsefulInformationSearch.Tests.Common\AllUsefulInformationSearch.Tests.Common.csproj"/>
     </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="TestFiles\CorrectStackOverflowResponse.html">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
-
+    
 </Project>

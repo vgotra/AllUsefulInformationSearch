@@ -1,26 +1,18 @@
 using System.Text.RegularExpressions;
-using AllUsefulInformationSearch.Common.Http;
 
 namespace AllUsefulInformationSearch.Wikipedia;
 
 public class WikipediaArchiveParser : IWikipediaArchiveParser
 {
-    //TODO Improve it later to include files which you need
     private const string WikipediaArchiveUrl = "https://dumps.wikimedia.org/enwiki/latest/";
 
     private const string ItemsPattern = """<a href="(?<Link>[^<]*?gz)">(?<Name>[^<]*?gz)<\/a>\s*(?<LastModified>.* \d{2}:\d{2})\s*(?<Size>.*?)\s""";
 
-    private readonly IHttpClientFactoryWrapper _httpClientFactory;
-
-    public WikipediaArchiveParser(IHttpClientFactoryWrapper httpClientFactory) => _httpClientFactory = httpClientFactory;
-
     public async Task<List<WikipediaDataFile>> GetFileInfoListAsync(CancellationToken cancellationToken = default)
     {
-        var archiveHtmlPage = await DownloadPageAsync(cancellationToken);
+        var archiveHtmlPage = await WikipediaArchiveUrl.GetStringAsync(cancellationToken: cancellationToken);
         return ParseLines(archiveHtmlPage);
     }
-
-    private Task<string> DownloadPageAsync(CancellationToken cancellationToken = default) => _httpClientFactory.CreateClient().GetStringAsync(WikipediaArchiveUrl, cancellationToken);
 
     private List<WikipediaDataFile> ParseLines(string htmlText)
     {
