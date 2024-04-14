@@ -2,3 +2,5 @@
 
 global using AllUsefulInformationSearch.DataAccess.Common;
 global using AllUsefulInformationSearch.StackOverflow.DataAccess.Entities;
+
+global using Dapper;

@@ -1,6 +1,4 @@
-﻿using Dapper; 
-
-namespace AllUsefulInformationSearch.StackOverflow.DataAccess;
+﻿namespace AllUsefulInformationSearch.StackOverflow.DataAccess;
 
 public class SettingsRepository : ISettingsRepository
 {

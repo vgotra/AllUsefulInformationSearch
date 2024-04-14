@@ -2,7 +2,7 @@
 
 public enum ProcessingStatus
 {
-    NotProcessed,
-    Processing,
+    Unknown = 0,
+    InProgress,
     Processed
 }
