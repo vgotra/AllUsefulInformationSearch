@@ -2,5 +2,8 @@
 
 static class Program
 {
-    static void Main(string[] args) => Console.WriteLine($"Applying database migrations for {nameof(AllUsefulInformationSearch)}");
+    static void Main(string[] args)
+    {
+        Console.WriteLine($"Applying database migrations for {nameof(AllUsefulInformationSearch)}");
+    }
 }

@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllUsefulInformationSearch.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllUsefulInformationSearch.StackOverflow.Common", "InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.Common\AllUsefulInformationSearch.StackOverflow.Common.csproj", "{1A1DE6D6-15B1-414F-A559-B5F9D41F49AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllUsefulInformationSearch.DatabaseMigrations", "AllUsefulInformationSearch.DatabaseMigrations\AllUsefulInformationSearch.DatabaseMigrations.csproj", "{81C97ACF-1364-4766-A00E-F202C03477D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{1A1DE6D6-15B1-414F-A559-B5F9D41F49AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A1DE6D6-15B1-414F-A559-B5F9D41F49AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A1DE6D6-15B1-414F-A559-B5F9D41F49AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81C97ACF-1364-4766-A00E-F202C03477D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81C97ACF-1364-4766-A00E-F202C03477D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81C97ACF-1364-4766-A00E-F202C03477D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81C97ACF-1364-4766-A00E-F202C03477D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
