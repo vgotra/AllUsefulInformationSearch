@@ -13,7 +13,7 @@ public class DatabaseMigrationService : IDatabaseMigrationService
         _logger = logger;
     }
     
-    public async Task ApplyMigrations(CancellationToken cancellationToken = default)
+    public async Task ApplyMigrationsAsync(CancellationToken cancellationToken = default)
     {
         //TODO Structure, improve, add rollbacks, etc 
         _logger.LogInformation("Started applying migrations...");

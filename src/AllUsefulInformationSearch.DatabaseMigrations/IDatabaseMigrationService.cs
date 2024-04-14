@@ -2,5 +2,5 @@
 
 public interface IDatabaseMigrationService
 {
-    Task ApplyMigrations(CancellationToken cancellationToken = default);
+    Task ApplyMigrationsAsync(CancellationToken cancellationToken = default);
 }
