@@ -13,7 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AllUsefulInformationSearch.Common\AllUsefulInformationSearch.Common.csproj" />
+      <ProjectReference Include="..\..\..\AllUsefulInformationSearch.Common\AllUsefulInformationSearch.Common.csproj" />
     </ItemGroup>
 
 </Project>

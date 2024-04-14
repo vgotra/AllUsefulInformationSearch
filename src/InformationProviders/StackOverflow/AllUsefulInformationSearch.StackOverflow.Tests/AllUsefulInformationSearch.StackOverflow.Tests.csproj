@@ -16,7 +16,7 @@
     
     <ItemGroup>
         <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow\AllUsefulInformationSearch.StackOverflow.csproj"/>
-        <ProjectReference Include="..\AllUsefulInformationSearch.Tests.Common\AllUsefulInformationSearch.Tests.Common.csproj"/>
+        <ProjectReference Include="..\..\..\AllUsefulInformationSearch.Tests.Common\AllUsefulInformationSearch.Tests.Common.csproj"/>
     </ItemGroup>
     
 </Project>
