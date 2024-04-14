@@ -1,4 +1,5 @@
-﻿global using AllUsefulInformationSearch.Tests.Common;
+﻿global using AllUsefulInformationSearch.StackOverflow.WebParser;
+global using AllUsefulInformationSearch.Tests.Common;
 
 global using Microsoft.Extensions.Logging;
 global using Microsoft.VisualStudio.TestTools.UnitTesting;

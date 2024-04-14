@@ -1,6 +1,4 @@
-﻿using AllUsefulInformationSearch.Common;
-
-namespace AllUsefulInformationSearch.StackOverflow;
+﻿namespace AllUsefulInformationSearch.StackOverflow.Workflows;
 
 public class StackOverflowSynchronizationService(IStackOverflowArchiveParser parser) : IStackOverflowSynchronizationService
 {

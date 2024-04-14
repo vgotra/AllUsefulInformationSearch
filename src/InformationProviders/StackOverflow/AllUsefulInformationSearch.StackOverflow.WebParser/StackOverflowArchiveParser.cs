@@ -1,6 +1,4 @@
-using Microsoft.Extensions.Logging;
-
-namespace AllUsefulInformationSearch.StackOverflow;
+namespace AllUsefulInformationSearch.StackOverflow.WebParser;
 
 public class StackOverflowArchiveParser(ILogger<StackOverflowArchiveParser> logger) : IStackOverflowArchiveParser
 {

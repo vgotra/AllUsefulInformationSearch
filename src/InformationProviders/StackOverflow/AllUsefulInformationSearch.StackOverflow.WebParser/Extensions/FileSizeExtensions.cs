@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace AllUsefulInformationSearch.StackOverflow.Extensions;
+namespace AllUsefulInformationSearch.StackOverflow.WebParser.Extensions;
 
 public static class FileSizeExtensions
 {

@@ -1,4 +1,4 @@
-﻿namespace AllUsefulInformationSearch.StackOverflow;
+﻿namespace AllUsefulInformationSearch.StackOverflow.Common;
 
 public record StackOverflowDataFile
 {
