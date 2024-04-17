@@ -6,13 +6,13 @@ public class DbConnectionFactory : IDbConnectionFactory
 
     public DbConnectionFactory(string connectionString) => _connectionString = connectionString; // TODO Add options later
 
-    public DbConnection GetDefaultDbConnection() => GetDbConnection(_connectionString);
-    public async Task<DbConnection> GetAndOpenDefaultDbConnection(CancellationToken cancellationToken = default)
+    public NpgsqlConnection  GetDefaultDbConnection() => GetDbConnection(_connectionString);
+    public async Task<NpgsqlConnection > GetAndOpenDefaultDbConnection(CancellationToken cancellationToken = default)
     {
         var dbConnection = GetDefaultDbConnection();
         await dbConnection.OpenAsync(cancellationToken);
         return dbConnection;
     }
 
-    public DbConnection GetDbConnection(string connectionString) => new NpgsqlConnection(connectionString);
+    public NpgsqlConnection  GetDbConnection(string connectionString) => new(connectionString);
 }

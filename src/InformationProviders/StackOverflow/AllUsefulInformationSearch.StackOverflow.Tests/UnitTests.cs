@@ -9,8 +9,8 @@ public class UnitTests
     [Ignore("Only for integration")]
     public async Task CanDownloadAndParseLinksToFiles()
     {
-        var logger = new TestContextLogger<StackOverflowArchiveParser>(TestContext);
-        var parser = new StackOverflowArchiveParser(logger);
+        var logger = new TestContextLogger<WebArchiveParser>(TestContext);
+        var parser = new WebArchiveParser(logger);
         var items = await parser.GetFileInfoListAsync();
         Assert.IsTrue(items.Count > 0);
     }

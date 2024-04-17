@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.DataAccess\AllUsefulInformationSearch.StackOverflow.DataAccess.csproj" />
       <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.WebParser\AllUsefulInformationSearch.StackOverflow.WebParser.csproj" />
     </ItemGroup>
 

@@ -2,9 +2,9 @@
 
 public interface IDbConnectionFactory
 {
-    DbConnection GetDefaultDbConnection();
+    NpgsqlConnection GetDefaultDbConnection();
 
-    Task<DbConnection> GetAndOpenDefaultDbConnection(CancellationToken cancellationToken = default);
+    Task<NpgsqlConnection> GetAndOpenDefaultDbConnection(CancellationToken cancellationToken = default);
     
-    DbConnection GetDbConnection(string connectionString);
+    NpgsqlConnection GetDbConnection(string connectionString);
 }

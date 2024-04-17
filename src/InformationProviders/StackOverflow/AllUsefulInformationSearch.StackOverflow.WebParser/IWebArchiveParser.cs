@@ -1,6 +1,6 @@
 ﻿namespace AllUsefulInformationSearch.StackOverflow.WebParser;
 
-public interface IStackOverflowArchiveParser
+public interface IWebArchiveParser
 {
     Task<List<StackOverflowDataFile>> GetFileInfoListAsync(CancellationToken cancellationToken = default);
 }

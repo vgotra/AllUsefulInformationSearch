@@ -3,6 +3,7 @@
 public enum ProcessingStatus
 {
     Unknown = 0,
+    New,
     InProgress,
     Processed
 }

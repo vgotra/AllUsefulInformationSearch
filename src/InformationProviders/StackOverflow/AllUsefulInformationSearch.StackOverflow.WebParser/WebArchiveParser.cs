@@ -1,6 +1,6 @@
 namespace AllUsefulInformationSearch.StackOverflow.WebParser;
 
-public class StackOverflowArchiveParser(ILogger<StackOverflowArchiveParser> logger) : IStackOverflowArchiveParser
+public class WebArchiveParser(ILogger<WebArchiveParser> logger) : IWebArchiveParser
 {
     private const string StackOverflowArchiveUrl = "https://archive.org/download/stackexchange";
     private const string ItemsPattern = """<tr\s*>\s*<td>\s*<a href="(?<Link>[^<]*?7z[^<]*?)">(?<Name>[^<]*?7z[^<]*?)<\/a>.*<\/td>\s*<td>(?<LastModified>.*?)<\/td>\s*<td>(?<Size>[\d,\.]+[KMG]?)<\/td>\s*<\/tr>""";

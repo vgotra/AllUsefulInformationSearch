@@ -18,8 +18,8 @@
     </ItemGroup>
     
     <ItemGroup>
-        <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.WebParser\AllUsefulInformationSearch.StackOverflow.WebParser.csproj" />
         <ProjectReference Include="..\..\..\AllUsefulInformationSearch.Tests.Common\AllUsefulInformationSearch.Tests.Common.csproj"/>
+        <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.Workflows\AllUsefulInformationSearch.StackOverflow.Workflows.csproj" />
     </ItemGroup>
     
 </Project>
