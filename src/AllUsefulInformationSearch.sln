@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllUsefulInformationSearch.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllUsefulInformationSearch.DatabaseMigrations", "AllUsefulInformationSearch.DatabaseMigrations\AllUsefulInformationSearch.DatabaseMigrations.csproj", "{81C97ACF-1364-4766-A00E-F202C03477D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllUsefulInformationSearch.StackOverflow.PostsParser", "InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.PostsParser\AllUsefulInformationSearch.StackOverflow.PostsParser.csproj", "{5F0A4669-2E1B-412F-9EC0-ACFCCD478246}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,10 @@ Global
 		{81C97ACF-1364-4766-A00E-F202C03477D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81C97ACF-1364-4766-A00E-F202C03477D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81C97ACF-1364-4766-A00E-F202C03477D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F0A4669-2E1B-412F-9EC0-ACFCCD478246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F0A4669-2E1B-412F-9EC0-ACFCCD478246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F0A4669-2E1B-412F-9EC0-ACFCCD478246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F0A4669-2E1B-412F-9EC0-ACFCCD478246}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +119,7 @@ Global
 		{F7383F64-619C-4F8A-B7E8-B29DF0535BEF} = {8D894C72-1DAB-44C9-88FD-915F98696E7D}
 		{08326D35-0B7B-48A0-9D45-5C4AAA10484B} = {8D894C72-1DAB-44C9-88FD-915F98696E7D}
 		{1A1DE6D6-15B1-414F-A559-B5F9D41F49AB} = {8D894C72-1DAB-44C9-88FD-915F98696E7D}
+		{5F0A4669-2E1B-412F-9EC0-ACFCCD478246} = {8D894C72-1DAB-44C9-88FD-915F98696E7D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {368DD370-0A1A-49D8-AD36-650059283198}

@@ -1,4 +1,6 @@
-﻿namespace AllUsefulInformationSearch.StackOverflow.Tests;
+﻿using AllUsefulInformationSearch.StackOverflow.PostsParser;
+
+namespace AllUsefulInformationSearch.StackOverflow.Tests;
 
 [TestClass]
 public class WebDataFilesServiceTests : BaseTests
@@ -6,6 +8,9 @@ public class WebDataFilesServiceTests : BaseTests
     [TestMethod]
     public async Task CanDownloadAndParseAndSaveFilesToDb()
     {
+        //TODO Improve it later
+        const string stackOverflowArchiveUrl = "https://archive.org/download/stackexchange";
+        
         var dbContext = new StackOverflowDbContextTestFactory().CreateDbContext(null!);
         var repository = new WebDataFilesRepository(dbContext);
         var logger = new TestContextLogger<WebArchiveParser>(TestContext);
@@ -14,5 +19,11 @@ public class WebDataFilesServiceTests : BaseTests
         await service.SynchronizeWebDataFilesAsync();
         var itemsCount = await dbContext.WebDataFiles.CountAsync();
         Assert.IsTrue(itemsCount > 0);
+        
+        var webDataFile = await dbContext.WebDataFiles.FirstOrDefaultAsync(x => x.Name .StartsWith("3dprinting.meta.stackexchange.com"));
+        Assert.IsNotNull(webDataFile);
+
+        var file = $"{stackOverflowArchiveUrl}/{webDataFile.Link}";
+        await new WebArchiveFileService().UnzipWebFileAsync(file);
     }
 }
