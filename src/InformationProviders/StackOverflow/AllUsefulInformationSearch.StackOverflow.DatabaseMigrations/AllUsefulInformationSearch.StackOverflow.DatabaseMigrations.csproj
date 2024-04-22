@@ -8,12 +8,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="..\..\..\AllUsefulInformationSearch.DatabaseMigrations\README.md">
-          <Link>MigrationScripts\README.md</Link>
-        </Content>
-        <Content Include="MigrationScripts\**\*.sql">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
         <None Update="appsettings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
@@ -21,6 +15,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\AllUsefulInformationSearch.DatabaseMigrations\AllUsefulInformationSearch.DatabaseMigrations.csproj"/>
+        <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.DataAccess\AllUsefulInformationSearch.StackOverflow.DataAccess.csproj" />
     </ItemGroup>
 
     <ItemGroup>

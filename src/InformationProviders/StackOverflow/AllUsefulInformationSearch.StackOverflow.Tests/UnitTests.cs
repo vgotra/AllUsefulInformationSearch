@@ -1,10 +1,8 @@
 namespace AllUsefulInformationSearch.StackOverflow.Tests;
 
 [TestClass]
-public class UnitTests
+public class UnitTests : BaseTests
 {
-    public TestContext TestContext { get; set; }
-    
     [TestMethod]
     [Ignore("Only for integration")]
     public async Task CanDownloadAndParseLinksToFiles()
