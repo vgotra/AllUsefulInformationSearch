@@ -2,8 +2,8 @@
 
 [Serializable]
 [XmlRoot(Namespace = "", IsNullable = false)]
-public class PostHistory
+public class Comments
 {
     [XmlElement("row", Form = XmlSchemaForm.Unqualified)]
-    public List<PostHistoryRow> Items { get; set; } = new();
+    public List<Comment> Items { get; set; } = new();
 }

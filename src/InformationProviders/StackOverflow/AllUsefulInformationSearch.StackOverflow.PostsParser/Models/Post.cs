@@ -1,49 +1,40 @@
 ﻿namespace AllUsefulInformationSearch.StackOverflow.PostsParser.Models;
 
-//TODO Improve handling optional attributes
+/// <summary>
+/// Docs can be found by link: https://meta.stackexchange.com/questions/2677/database-schema-documentation-for-the-public-data-dump-and-sede/2678#2678
+/// </summary>
 [Serializable]
-[XmlType(AnonymousType = true)]
 public class Post
 {
     [XmlAttribute] public int Id { get; set; }
 
-    [XmlAttribute] public int PostTypeId { get; set; }
+    [XmlAttribute(nameof(PostTypeId))] public int PostTypeIdEnum { get; set; }
+
+    [XmlIgnore] public PostType PostTypeId => (PostType)PostTypeIdEnum; // TODO Add checks for present values
 
     [XmlAttribute] public DateTimeOffset CreationDate { get; set; }
 
-    // [XmlAttribute] public int Score { get; set; }
+    /// <summary>
+    /// Rendered HTML
+    /// </summary>
+    [XmlAttribute]
+    public required string Body { get; set; }
 
-    // [XmlAttribute] public int ViewCount { get; set; }
-
-    [XmlAttribute] public string? Body { get; set; }
-
-    [XmlAttribute] public int OwnerUserId { get; set; }
-
-    [XmlAttribute] public int LastEditorUserId { get; set; }
-
-    [XmlAttribute] public DateTimeOffset LastEditDate { get; set; }
+    [XmlAttribute(nameof(LastEditDate))] public DateTimeOffset LastEditDateNullable { get; set; }
+    
+    [XmlIgnore] public DateTimeOffset? LastEditDate => LastEditDateNullable == DateTimeOffset.MinValue ? null : LastEditDateNullable;
 
     [XmlAttribute] public DateTimeOffset LastActivityDate { get; set; }
 
-    [XmlAttribute] public string? Title { get; set; }
+    [XmlAttribute] public required string Title { get; set; }
 
     [XmlAttribute] public string? Tags { get; set; }
 
-    // [XmlAttribute] public int AnswerCount { get; set; }
+    [XmlAttribute(nameof(AcceptedAnswerId))] public int AcceptedAnswerIdNullable { get; set; }
 
-    // [XmlAttribute] public int CommentCount { get; set; }
-
-    //[XmlAttribute] public string ContentLicense { get; set; }
-
-    [XmlAttribute] public int AcceptedAnswerId { get; set; }
-
-    [XmlAttribute] public string? OwnerDisplayName { get; set; }
-
-    [XmlAttribute] public DateTimeOffset CommunityOwnedDate { get; set; }
-
-    [XmlAttribute] public int ParentId { get; set; }
-
-    [XmlAttribute] public DateTimeOffset ClosedDate { get; set; }
-
-    // [XmlAttribute] public int FavoriteCount { get; set; }
+    /// <summary>
+    /// Only present if PostTypeId = 1
+    /// </summary>
+    [XmlIgnore]
+    public int? AcceptedAnswerId => AcceptedAnswerIdNullable == 0 ? null : AcceptedAnswerIdNullable;
 }
