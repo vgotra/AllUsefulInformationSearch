@@ -39,7 +39,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllUsefulInformationSearch.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllUsefulInformationSearch.DatabaseMigrations", "AllUsefulInformationSearch.DatabaseMigrations\AllUsefulInformationSearch.DatabaseMigrations.csproj", "{81C97ACF-1364-4766-A00E-F202C03477D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllUsefulInformationSearch.StackOverflow.PostsParser", "InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.PostsParser\AllUsefulInformationSearch.StackOverflow.PostsParser.csproj", "{5F0A4669-2E1B-412F-9EC0-ACFCCD478246}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllUsefulInformationSearch.StackOverflow.ArchiveFileServices", "InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.ArchiveFileServices\AllUsefulInformationSearch.StackOverflow.ArchiveFileServices.csproj", "{5F0A4669-2E1B-412F-9EC0-ACFCCD478246}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,6 @@
-﻿namespace AllUsefulInformationSearch.StackOverflow.Tests;
+﻿using AllUsefulInformationSearch.StackOverflow.PostsParser.FileUtilityServices;
+
+namespace AllUsefulInformationSearch.StackOverflow.Tests;
 
 [TestClass]
 public class WebDataFilesServiceTests : BaseTests
@@ -21,7 +23,8 @@ public class WebDataFilesServiceTests : BaseTests
         var webDataFile = await dbContext.WebDataFiles.FirstOrDefaultAsync(x => x.Name .StartsWith("3dprinting.meta.stackexchange.com"));
         Assert.IsNotNull(webDataFile);
 
+        var fileUtilityService = new WindowsFileUtilityService(); //TODO Check for OS 
         var file = $"{stackOverflowArchiveUrl}/{webDataFile.Link}";
-        await new WebArchiveFileService().UnzipWebFileAsync(file);
+        await new WebArchiveFileService(fileUtilityService).UnzipWebFileAsync(file);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace AllUsefulInformationSearch.StackOverflow.PostsParser.Models;
+﻿namespace AllUsefulInformationSearch.StackOverflow.PostsParser.XmlModels;
 
 [Serializable]
 [XmlRoot(Namespace = "", IsNullable = false)]
