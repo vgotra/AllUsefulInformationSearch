@@ -20,13 +20,9 @@ public class WebArchiveFileService
         using var extractor = new SevenZipExtractor(archiveStream);
         extractor.ExtractArchive(outputDirectory);
 
-        var postsFile = Path.Combine(outputDirectory, "Posts.xml");
-        var postHistoryFile = Path.Combine(outputDirectory, "PostHistory.xml");
-        var commentsFile = Path.Combine(outputDirectory, "Comments.xml");
-
-        var posts = PostsXmlFileDeserializer.DeserializeXmlFileToList(postsFile)?.Items.Where(x => x.AcceptedAnswerId != null).ToList();
-        var postHistoryItems = PostHistoryXmlFileDeserializer.DeserializeXmlFileToList(postHistoryFile)?.Items.ToList();
-        var commentItems = CommentsXmlFileDeserializer.DeserializeXmlFileToList(commentsFile)?.Items.ToList();
+        var posts = Path.Combine(outputDirectory, "Posts.xml").DeserializeXmlFileToList<Posts>("posts")?.Items.Where(x => x.AcceptedAnswerId != null).ToList();
+        var postHistoryItems = Path.Combine(outputDirectory, "PostHistory.xml").DeserializeXmlFileToList<Posts>("posthistory")?.Items.ToList();
+        var commentItems = Path.Combine(outputDirectory, "Comments.xml").DeserializeXmlFileToList<Comments>("comments")?.Items.ToList();
 
         if (posts == null || postHistoryItems == null || commentItems == null || posts.Count == 0 || postHistoryItems.Count == 0 || commentItems.Count == 0)
             throw new InvalidDataException();
