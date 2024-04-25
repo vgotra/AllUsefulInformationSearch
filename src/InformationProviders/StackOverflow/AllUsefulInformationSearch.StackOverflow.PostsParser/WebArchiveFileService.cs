@@ -23,7 +23,7 @@ public class WebArchiveFileService
         var postsFile = Path.Combine(outputDirectory, "Posts.xml");
         var postHistoryFile = Path.Combine(outputDirectory, "PostHistory.xml");
 
-        var posts = PostsXmlFileDeserializer.DeserializeXmlFileToList(postsFile)?.Items?.Where(x => x.AcceptedAnswerId != null).ToList();
+        var posts = PostsXmlFileDeserializer.DeserializeXmlFileToList(postsFile)?.Items.Where(x => x.AcceptedAnswerId != null).ToList();
         var postHistoryItems = PostHistoryXmlFileDeserializer.DeserializeXmlFileToList(postHistoryFile);
 
         if (posts == null || postHistoryItems == null)
