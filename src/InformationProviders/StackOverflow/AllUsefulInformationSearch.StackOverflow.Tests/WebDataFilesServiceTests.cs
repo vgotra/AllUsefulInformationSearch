@@ -1,6 +1,4 @@
-﻿using AllUsefulInformationSearch.StackOverflow.PostsParser;
-
-namespace AllUsefulInformationSearch.StackOverflow.Tests;
+﻿namespace AllUsefulInformationSearch.StackOverflow.Tests;
 
 [TestClass]
 public class WebDataFilesServiceTests : BaseTests

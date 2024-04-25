@@ -2,11 +2,11 @@
 
 public class PostHistoryXmlFileDeserializer
 {
-    public static List<PostHistoryXmlRow>? DeserializeXmlFileToList(string filePath)
+    public static PostHistory? DeserializeXmlFileToList(string filePath)
     {
-        var serializer = new XmlSerializer(typeof(List<PostHistoryXmlRow>), new XmlRootAttribute("posthistory"));
+        var serializer = new XmlSerializer(typeof(PostHistory), new XmlRootAttribute("posthistory"));
         using var fileStream = new FileStream(filePath, FileMode.Open);
         var result = serializer.Deserialize(fileStream);
-        return result as List<PostHistoryXmlRow>;
+        return result as PostHistory;
     }
 }

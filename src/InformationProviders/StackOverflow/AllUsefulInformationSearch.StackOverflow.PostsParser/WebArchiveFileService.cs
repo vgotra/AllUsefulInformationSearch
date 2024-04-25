@@ -1,6 +1,4 @@
-﻿using SevenZip;
-
-namespace AllUsefulInformationSearch.StackOverflow.PostsParser;
+﻿namespace AllUsefulInformationSearch.StackOverflow.PostsParser;
 
 public class WebArchiveFileService
 {
@@ -27,5 +25,8 @@ public class WebArchiveFileService
 
         var posts = PostsXmlFileDeserializer.DeserializeXmlFileToList(postsFile)?.Items?.Where(x => x.AcceptedAnswerId != null).ToList();
         var postHistoryItems = PostHistoryXmlFileDeserializer.DeserializeXmlFileToList(postHistoryFile);
+
+        if (posts == null || postHistoryItems == null)
+            throw new InvalidDataException();
     }
 }
