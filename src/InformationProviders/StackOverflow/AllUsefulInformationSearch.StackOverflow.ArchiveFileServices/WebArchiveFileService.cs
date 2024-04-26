@@ -2,20 +2,30 @@
 
 public class WebArchiveFileService(IFileUtilityService fileUtilityService)
 {
-    public async Task UnzipWebFileAsync(string uri, CancellationToken cancellationToken = default)
-    {
-        //TODO Make some paths provider and different options
-        var temporaryDownloadPath = Path.GetTempFileName();
-        var outputDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());;
-        
-        await fileUtilityService.DownloadFileAsync(uri, temporaryDownloadPath, cancellationToken);
-        await fileUtilityService.UnarchiveFileAsync(temporaryDownloadPath, outputDirectory, cancellationToken);
-        
-        var posts = Path.Combine(outputDirectory, "Posts.xml").DeserializeXmlFileToList<Posts>("posts")?.Items.Where(x => x.AcceptedAnswerId != null).ToList();
-        var postHistoryItems = Path.Combine(outputDirectory, "PostHistory.xml").DeserializeXmlFileToList<Posts>("posthistory")?.Items.ToList();
-        var commentItems = Path.Combine(outputDirectory, "Comments.xml").DeserializeXmlFileToList<Comments>("comments")?.Items.ToList();
+    private static PostType[] UsefulPostTypes { get; } = [PostType.Question, PostType.Answer, PostType.TagWiki];
 
-        if (posts == null || postHistoryItems == null || commentItems == null || posts.Count == 0 || postHistoryItems.Count == 0 || commentItems.Count == 0)
+    public async Task<List<Post>> GetPostsWithCommentsAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default)
+    {
+        await fileUtilityService.DownloadFileAsync(webFilePaths, cancellationToken);
+        await fileUtilityService.ExtractArchiveFileAsync(webFilePaths, cancellationToken);
+
+        var posts = Path.Combine(webFilePaths.ArchiveOutputDirectory, "Posts.xml").DeserializeXmlFileToList<Posts>("posts").Items;
+        var commentItems = Path.Combine(webFilePaths.ArchiveOutputDirectory, "Comments.xml").DeserializeXmlFileToList<Comments>("comments").Items;
+
+        posts.ForEach(p =>
+        {
+            p.Comments.AddRange(commentItems.Where(c => c.PostId == p.Id));
+            p.AcceptedAnswer = posts.FirstOrDefault(x => x.Id == p.AcceptedAnswerId && x.PostTypeId == PostType.Answer);
+        });
+
+        // get only useful answered posts
+        posts = posts.Where(x => UsefulPostTypes.Contains(x.PostTypeId) && x.AcceptedAnswerId != null).ToList();
+
+        if (posts == null || posts.Count == 0)
             throw new InvalidDataException();
+        
+        fileUtilityService.DeleteProcessedFiles(webFilePaths); // TODO Maybe better to use this method in different component 
+
+        return posts;
     }
 }

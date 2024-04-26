@@ -12,4 +12,8 @@
       <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.WebParser\AllUsefulInformationSearch.StackOverflow.WebParser.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Riok.Mapperly" Version="3.5.1" />
+    </ItemGroup>
+
 </Project>

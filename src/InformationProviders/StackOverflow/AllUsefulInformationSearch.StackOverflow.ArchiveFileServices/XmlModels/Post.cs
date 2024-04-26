@@ -17,8 +17,7 @@ public class Post
     /// <summary>
     /// Rendered HTML
     /// </summary>
-    [XmlAttribute]
-    public required string Body { get; set; }
+    [XmlAttribute] public required string Body { get; set; }
 
     [XmlAttribute(nameof(LastEditDate))] public DateTimeOffset LastEditDateNullable { get; set; }
     
@@ -35,6 +34,9 @@ public class Post
     /// <summary>
     /// Only present if PostTypeId = 1
     /// </summary>
-    [XmlIgnore]
-    public int? AcceptedAnswerId => AcceptedAnswerIdNullable == 0 ? null : AcceptedAnswerIdNullable;
+    [XmlIgnore] public int? AcceptedAnswerId => AcceptedAnswerIdNullable == 0 ? null : AcceptedAnswerIdNullable;
+
+    [XmlIgnore] public List<Comment> Comments { get; set; } = new();
+    
+    [XmlIgnore] public Post? AcceptedAnswer { get; set; }
 }

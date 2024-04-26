@@ -2,9 +2,9 @@
 
 public class LinuxFileUtilityService : FileUtilityServiceBase, IFileUtilityService
 {
-    public Task DownloadFileAsync(string fileUri, string temporaryDownloadPath, CancellationToken cancellationToken = default) =>
+    public Task DownloadFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default) =>
         throw new NotImplementedException();
 
-    public Task UnarchiveFileAsync(string temporaryDownloadPath, string outputDirectory, CancellationToken cancellationToken = default) => 
+    public Task ExtractArchiveFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default) =>
         throw new NotImplementedException();
 }
