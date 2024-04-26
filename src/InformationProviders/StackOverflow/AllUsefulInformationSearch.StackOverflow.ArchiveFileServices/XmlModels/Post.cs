@@ -19,10 +19,6 @@ public class Post
     /// </summary>
     [XmlAttribute] public required string Body { get; set; }
 
-    [XmlAttribute(nameof(LastEditDate))] public DateTimeOffset LastEditDateNullable { get; set; }
-    
-    [XmlIgnore] public DateTimeOffset? LastEditDate => LastEditDateNullable == DateTimeOffset.MinValue ? null : LastEditDateNullable;
-
     [XmlAttribute] public DateTimeOffset LastActivityDate { get; set; }
 
     [XmlAttribute] public required string Title { get; set; }

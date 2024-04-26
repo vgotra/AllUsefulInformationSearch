@@ -12,7 +12,7 @@ public static class ConversionExtensions
             Name = file.Name,
             Link = file.Link,
             Size = file.Size,
-            LastModified = file.LastModified,
+            ExternalLastModified = file.LastModified,
             ProcessingStatus = ProcessingStatus.New,
             LastUpdated = DateTime.UtcNow
         };

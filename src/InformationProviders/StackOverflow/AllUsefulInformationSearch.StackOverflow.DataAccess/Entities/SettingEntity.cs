@@ -4,5 +4,4 @@ public class SettingEntity : Entity<int>
 {
     public string Name { get; set; } = null!;
     public string Value { get; set; } = null!;
-    public DateTimeOffset LastUpdated { get; set; }
 }

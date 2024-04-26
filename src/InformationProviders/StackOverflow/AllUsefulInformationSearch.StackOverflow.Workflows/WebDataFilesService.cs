@@ -19,7 +19,7 @@ public class WebDataFilesService : IWebDataFilesService
         var dataFileDict = dataFiles.ToDictionary(x => x.Name, x => x);
 
         var newFiles = archiveFileDict.Values.Where(x => !dataFileDict.ContainsKey(x.Name)).ToList();
-        var updatedFiles = dataFileDict.Values.Where(x => archiveFileDict.ContainsKey(x.Name) && x.LastModified != archiveFileDict[x.Name].LastModified).ToList();
+        var updatedFiles = dataFileDict.Values.Where(x => archiveFileDict.ContainsKey(x.Name) && x.ExternalLastModified != archiveFileDict[x.Name].LastModified).ToList();
         // No need to delete some data files, because they can be useful
 
         if (newFiles.Count > 0)
