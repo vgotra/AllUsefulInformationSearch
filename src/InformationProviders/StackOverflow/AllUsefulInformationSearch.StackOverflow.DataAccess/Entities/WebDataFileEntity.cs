@@ -7,4 +7,7 @@ public class WebDataFileEntity : UpdatableEntity<Guid>
     public long Size { get; set; }
     public DateTimeOffset ExternalLastModified { get; set; }
     public ProcessingStatus ProcessingStatus { get; set; }
+    
+    public ICollection<PostEntity>? Posts { get; set; }
+    public ICollection<AcceptedAnswerEntity>? AcceptedAnswers { get; set; }
 }
