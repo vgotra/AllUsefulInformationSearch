@@ -2,7 +2,7 @@
 
 public class AcceptedAnswerEntity : UpdatableEntity<int> //TODO Think what can be better for primary key? ExternalId (because its unique in StackOverflow)?
 {
-    public string Title { get; set; } = null!;
+    public string? Title { get; set; }
     public string Text { get; set; } = null!;
     public string? Tags { get; set; }
     public DateTimeOffset ExternalCreationDate { get; set; }

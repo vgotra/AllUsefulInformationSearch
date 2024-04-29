@@ -1,4 +1,6 @@
-﻿namespace AllUsefulInformationSearch.StackOverflow.Tests;
+﻿using AllUsefulInformationSearch.StackOverflow.Workflows.Extensions;
+
+namespace AllUsefulInformationSearch.StackOverflow.Tests;
 
 [TestClass]
 public class WebDataFilesServiceTests : BaseTests
@@ -20,12 +22,17 @@ public class WebDataFilesServiceTests : BaseTests
         var webDataFile = await dbContext.WebDataFiles.FirstOrDefaultAsync(x => x.Name.StartsWith("3dprinting.meta.stackexchange.com"));
         Assert.IsNotNull(webDataFile);
 
-        var fileUtilityService = new WindowsFileUtilityService(); //TODO Check for OS 
+        IFileUtilityService fileUtilityService = Environment.OSVersion.Platform == PlatformID.Win32Windows ? new WindowsFileUtilityService() : new LinuxFileUtilityService(); // add MacOS later
         var fileUri = $"{stackOverflowArchiveUrl}/{webDataFile.Link}";
         var paths = new WebFilePaths { WebFileUri = fileUri, TemporaryDownloadPath = Path.GetTempFileName(), ArchiveOutputDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()) };
         var posts = await new WebArchiveFileService(fileUtilityService).GetPostsWithCommentsAsync(paths);
         Assert.IsTrue(posts.Count > 0);
         
-        //TODO Add postprocessing and saving data to the database 
+        var entities = posts.Select(x => x.ToEntity()).ToList();
+        await dbContext.Posts.AddRangeAsync(entities);
+        await dbContext.SaveChangesAsync();
+        
+        var postCount = await dbContext.Posts.CountAsync();
+        Assert.IsTrue(posts.Count == postCount);
     }
 }

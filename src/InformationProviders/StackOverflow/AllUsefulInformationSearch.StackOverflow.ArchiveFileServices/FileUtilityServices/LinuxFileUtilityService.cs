@@ -2,9 +2,15 @@
 
 public class LinuxFileUtilityService : FileUtilityServiceBase, IFileUtilityService
 {
-    public Task DownloadFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+    public async Task DownloadFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default)
+    {
+        var command = $"wget -O {webFilePaths.TemporaryDownloadPath} {webFilePaths.WebFileUri}";
+        await ExecuteProcessAsync("/bin/bash", $"-c \"{command}\"", cancellationToken);
+    }
 
-    public Task ExtractArchiveFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+    public async Task ExtractArchiveFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default)
+    {
+        var command = $"7za x {webFilePaths.TemporaryDownloadPath} -o{webFilePaths.ArchiveOutputDirectory}";
+        await ExecuteProcessAsync("/bin/bash", $"-c \"{command}\"", cancellationToken);
+    }
 }
