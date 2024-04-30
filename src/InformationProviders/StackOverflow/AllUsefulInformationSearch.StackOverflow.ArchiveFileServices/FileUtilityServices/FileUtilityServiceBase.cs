@@ -1,7 +1,14 @@
 ﻿namespace AllUsefulInformationSearch.StackOverflow.PostsParser.FileUtilityServices;
 
-public abstract class FileUtilityServiceBase
+public abstract class FileUtilityServiceBase(HttpClient httpClient)
 {
+    protected async Task DownloadFileAsync(string url, string filePath, CancellationToken cancellationToken = default)
+    {
+        await using var stream = await httpClient.GetStreamAsync(url, cancellationToken);
+        await using var fileStream = File.Create(filePath);
+        await stream.CopyToAsync(fileStream, cancellationToken);
+    }
+
     protected async Task ExecuteProcessAsync(string fileName, string arguments, CancellationToken cancellationToken = default)
     {
         var process = new Process
@@ -16,7 +23,7 @@ public abstract class FileUtilityServiceBase
                 CreateNoWindow = true
             }
         };
-        
+
         process.Start();
         var errors = await process.StandardError.ReadToEndAsync(cancellationToken);
         await process.WaitForExitAsync(cancellationToken);

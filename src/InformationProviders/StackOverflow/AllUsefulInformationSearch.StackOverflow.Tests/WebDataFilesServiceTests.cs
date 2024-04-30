@@ -22,16 +22,17 @@ public class WebDataFilesServiceTests : BaseTests
         var webDataFile = await dbContext.WebDataFiles.FirstOrDefaultAsync(x => x.Name.StartsWith("3dprinting.meta.stackexchange.com"));
         Assert.IsNotNull(webDataFile);
 
-        IFileUtilityService fileUtilityService = Environment.OSVersion.Platform == PlatformID.Win32Windows ? new WindowsFileUtilityService() : new LinuxFileUtilityService(); // add MacOS later
+        var httpClient = new HttpClient();
+        IFileUtilityService fileUtilityService = Environment.OSVersion.Platform == PlatformID.Win32NT ? new WindowsFileUtilityService(httpClient) : new LinuxFileUtilityService(httpClient); // add MacOS later
         var fileUri = $"{stackOverflowArchiveUrl}/{webDataFile.Link}";
         var paths = new WebFilePaths { WebFileUri = fileUri, TemporaryDownloadPath = Path.GetTempFileName(), ArchiveOutputDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()) };
         var posts = await new WebArchiveFileService(fileUtilityService).GetPostsWithCommentsAsync(paths);
         Assert.IsTrue(posts.Count > 0);
-        
+
         var entities = posts.Select(x => x.ToEntity()).ToList();
         await dbContext.Posts.AddRangeAsync(entities);
         await dbContext.SaveChangesAsync();
-        
+
         var postCount = await dbContext.Posts.CountAsync();
         Assert.IsTrue(posts.Count == postCount);
     }

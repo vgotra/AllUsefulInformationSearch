@@ -1,12 +1,9 @@
 ﻿namespace AllUsefulInformationSearch.StackOverflow.PostsParser.FileUtilityServices;
 
-public class LinuxFileUtilityService : FileUtilityServiceBase, IFileUtilityService
+public class LinuxFileUtilityService(HttpClient httpClient) : FileUtilityServiceBase(httpClient), IFileUtilityService
 {
-    public async Task DownloadFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default)
-    {
-        var command = $"wget -O {webFilePaths.TemporaryDownloadPath} {webFilePaths.WebFileUri}";
-        await ExecuteProcessAsync("/bin/bash", $"-c \"{command}\"", cancellationToken);
-    }
+    public async Task DownloadFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default) => 
+        await DownloadFileAsync(webFilePaths.WebFileUri, webFilePaths.TemporaryDownloadPath, cancellationToken);
 
     public async Task ExtractArchiveFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default)
     {
