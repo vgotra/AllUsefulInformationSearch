@@ -11,8 +11,9 @@ public static class PostConversionExtensions
             Id = post.Id,
             Title = post.Title,
             Text = post.Body,
-            ExternalCreationDate = post.CreationDate,
             Tags = post.Tags,
+            ExternalCreationDate = post.CreationDate,
+            ExternalLastActivityDate = post.LastActivityDate,
             LastUpdated = DateTimeOffset.UtcNow,
             AcceptedAnswer = post.AcceptedAnswer?.ToEntity(post.Id, webDataFileId),
             WebDataFileId = webDataFileId
@@ -22,12 +23,11 @@ public static class PostConversionExtensions
         new()
         {
             Id = post.Id,
-            Title = post.Title,
             Text = post.Body,
             ExternalCreationDate = post.CreationDate,
-            Tags = post.Tags,
+            ExternalLastActivityDate = post.LastActivityDate,
             LastUpdated = DateTimeOffset.UtcNow,
             PostId = postId,
-            WebDataFileId = webDataFileId
+            PostWebDataFileId = webDataFileId
         };
 }

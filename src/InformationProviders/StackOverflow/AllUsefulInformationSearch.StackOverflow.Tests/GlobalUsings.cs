@@ -1,8 +1,11 @@
-﻿global using AllUsefulInformationSearch.StackOverflow.DataAccess;
+﻿global using AllUsefulInformationSearch.Common;
+global using AllUsefulInformationSearch.StackOverflow.DataAccess;
+global using AllUsefulInformationSearch.StackOverflow.DataAccess.Entities;
 global using AllUsefulInformationSearch.StackOverflow.PostsParser;
 global using AllUsefulInformationSearch.StackOverflow.PostsParser.FileUtilityServices;
 global using AllUsefulInformationSearch.StackOverflow.WebParser;
 global using AllUsefulInformationSearch.StackOverflow.Workflows;
+global using AllUsefulInformationSearch.StackOverflow.Workflows.Extensions;
 global using AllUsefulInformationSearch.Tests.Common;
 
 global using Microsoft.EntityFrameworkCore;

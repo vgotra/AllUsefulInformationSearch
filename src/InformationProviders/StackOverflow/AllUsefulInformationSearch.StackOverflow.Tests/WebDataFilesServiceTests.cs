@@ -1,6 +1,4 @@
-﻿using AllUsefulInformationSearch.StackOverflow.Workflows.Extensions;
-
-namespace AllUsefulInformationSearch.StackOverflow.Tests;
+﻿namespace AllUsefulInformationSearch.StackOverflow.Tests;
 
 [TestClass]
 public class WebDataFilesServiceTests : BaseTests
@@ -22,11 +20,12 @@ public class WebDataFilesServiceTests : BaseTests
 
         var httpClient = new HttpClient { BaseAddress = new Uri("https://archive.org/download/stackexchange/") };
         IFileUtilityService fileUtilityService = Environment.OSVersion.Platform == PlatformID.Win32NT ? new WindowsFileUtilityService(httpClient) : new LinuxFileUtilityService(httpClient); // add MacOS later
+        
         var paths = new WebFilePaths { WebFileUri = webDataFile.Link, TemporaryDownloadPath = Path.GetTempFileName(), ArchiveOutputDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()) };
         var posts = await new WebArchiveFileService(fileUtilityService).GetPostsWithCommentsAsync(paths, cancellationTokenSource.Token);
         Assert.IsTrue(posts.Count > 0);
 
-        var entities = posts.Select(x => x.ToEntity(webDataFile.Id)).ToList();
+        var entities = posts.Select(x => x.ToEntity(webDataFile.Id));
         await dbContext.Posts.AddRangeAsync(entities, cancellationTokenSource.Token);
         await dbContext.SaveChangesAsync(cancellationTokenSource.Token);
 

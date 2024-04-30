@@ -24,10 +24,13 @@ public partial class StackOverflowDbContext
             entity.Property(e => e.ExternalLastModified).HasComment("Datetime of last modified of the web data file at StackOverflow archive.");
             entity.Property(e => e.ProcessingStatus).HasComment("Processing status of file based on enumeration in source code.");
         });
-
+        
         modelBuilder.Entity<PostEntity>(entity =>
         {
             entity.ToTable("Posts").HasKey(e => new { e.WebDataFileId, e.Id });
+            entity.Property(e => e.Title).IsRequired().HasMaxLength(250);
+            entity.Property(e => e.Text).IsRequired().HasMaxLength(-1);
+            entity.Property(e => e.Tags).IsRequired().HasMaxLength(4000);
         });
 
         modelBuilder.Entity<PostCommentEntity>(entity =>
@@ -37,7 +40,8 @@ public partial class StackOverflowDbContext
 
         modelBuilder.Entity<AcceptedAnswerEntity>(entity =>
         {
-            entity.ToTable("AcceptedAnswers").HasKey(e => new { e.WebDataFileId, e.Id });
+            entity.ToTable("AcceptedAnswers").HasKey(e => new { e.PostWebDataFileId, e.Id });
+            entity.Property(e => e.Text).IsRequired().HasMaxLength(-1);
         });
 
         modelBuilder.Entity<AcceptedAnswerCommentEntity>(entity =>
@@ -50,6 +54,13 @@ public partial class StackOverflowDbContext
             {
                 e.SetSchema(DbSchemaName);
                 e.GetForeignKeys().ToList().ForEach(x => x.DeleteBehavior = DeleteBehavior.NoAction);
+
+                var lastUpdatedProperty = e.FindProperty(nameof(IUpdatableEntity.LastUpdated));
+                if (lastUpdatedProperty != null && lastUpdatedProperty.ClrType == typeof(DateTimeOffset))
+                {
+                    lastUpdatedProperty.ValueGenerated = ValueGenerated.OnAddOrUpdate;
+                    lastUpdatedProperty.SetDefaultValueSql("GETUTCDATE()");
+                }
             });
     }
 }

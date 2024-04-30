@@ -4,7 +4,9 @@ namespace AllUsefulInformationSearch.StackOverflow.Tests;
 public class UnitTests : BaseTests
 {
     [TestMethod]
-    [Ignore("Only for integration")]
+#if !DEBUG
+    [Ignore("This test is for manual execution only")]
+#endif
     public async Task CanDownloadAndParseLinksToFiles()
     {
         var logger = new TestContextLogger<WebArchiveParser>(TestContext);

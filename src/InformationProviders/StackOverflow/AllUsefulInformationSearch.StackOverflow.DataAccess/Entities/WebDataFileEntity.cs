@@ -9,5 +9,4 @@ public class WebDataFileEntity : UpdatableEntity<Guid>
     public ProcessingStatus ProcessingStatus { get; set; }
     
     public ICollection<PostEntity>? Posts { get; set; }
-    public ICollection<AcceptedAnswerEntity>? AcceptedAnswers { get; set; }
 }
