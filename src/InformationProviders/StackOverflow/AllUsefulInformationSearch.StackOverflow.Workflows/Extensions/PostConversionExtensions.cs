@@ -5,7 +5,7 @@ namespace AllUsefulInformationSearch.StackOverflow.Workflows.Extensions;
 
 public static class PostConversionExtensions
 {
-    public static PostEntity ToEntity(this Post post) =>
+    public static PostEntity ToEntity(this Post post, Guid webDataFileId) =>
         new()
         {
             Id = post.Id,
@@ -14,10 +14,11 @@ public static class PostConversionExtensions
             ExternalCreationDate = post.CreationDate,
             Tags = post.Tags,
             LastUpdated = DateTimeOffset.UtcNow,
-            AcceptedAnswer = post.AcceptedAnswer?.ToEntity(post.Id)
+            AcceptedAnswer = post.AcceptedAnswer?.ToEntity(post.Id, webDataFileId),
+            WebDataFileId = webDataFileId
         };
     
-    public static AcceptedAnswerEntity ToEntity(this Post post, int postId) =>
+    public static AcceptedAnswerEntity ToEntity(this Post post, int postId, Guid webDataFileId) =>
         new()
         {
             Id = post.Id,
@@ -26,6 +27,7 @@ public static class PostConversionExtensions
             ExternalCreationDate = post.CreationDate,
             Tags = post.Tags,
             LastUpdated = DateTimeOffset.UtcNow,
-            PostId = postId
+            PostId = postId,
+            WebDataFileId = webDataFileId
         };
 }

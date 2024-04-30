@@ -1,21 +1,14 @@
-﻿namespace AllUsefulInformationSearch.StackOverflow.Workflows;
+﻿using Microsoft.EntityFrameworkCore;
 
-public class WebDataFilesService : IWebDataFilesService
+namespace AllUsefulInformationSearch.StackOverflow.Workflows;
+
+public class WebDataFilesService(StackOverflowDbContext dbContext, IWebArchiveParser parser) : IWebDataFilesService
 {
-    private readonly IWebDataFilesRepository _webDataFilesRepository;
-    private readonly IWebArchiveParser _parser;
-
-    public WebDataFilesService(IWebDataFilesRepository webDataFilesRepository, IWebArchiveParser parser)
-    {
-        _webDataFilesRepository = webDataFilesRepository;
-        _parser = parser;
-    }
-
     public async Task SynchronizeWebDataFilesAsync(CancellationToken cancellationToken = default)
     {
-        var archiveFiles = await _parser.GetFileInfoListAsync(cancellationToken);
+        var archiveFiles = await parser.GetFileInfoListAsync(cancellationToken);
         var archiveFileDict = archiveFiles.ToDictionary(x => x.Name, x => x);
-        var dataFiles = await _webDataFilesRepository.GetWebDataFileListAsync(cancellationToken);
+        var dataFiles = await dbContext.WebDataFiles.AsNoTracking().ToListAsync(cancellationToken);
         var dataFileDict = dataFiles.ToDictionary(x => x.Name, x => x);
 
         var newFiles = archiveFileDict.Values.Where(x => !dataFileDict.ContainsKey(x.Name)).ToList();
@@ -23,14 +16,11 @@ public class WebDataFilesService : IWebDataFilesService
         // No need to delete some data files, because they can be useful
 
         if (newFiles.Count > 0)
-        {
-            var newWebFiles = newFiles.Select(x => x.ToEntity()).ToList();
-            await _webDataFilesRepository.AddWebDataFileListAsync(newWebFiles, cancellationToken);
-        }
+            dbContext.WebDataFiles.AddRange(newFiles.Select(x => x.ToEntity()));
 
         if (updatedFiles.Count > 0)
-        {
-            await _webDataFilesRepository.UpdateWebDataFileListAsync(updatedFiles, cancellationToken);
-        }
+            dbContext.WebDataFiles.AttachRange(updatedFiles);
+        
+        await dbContext.SaveChangesAsync(cancellationToken);
     }
 }

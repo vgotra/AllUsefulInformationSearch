@@ -7,4 +7,6 @@ public class PostCommentEntity : UpdatableEntity<int>
     public int PostId { get; set; }
     
     public PostEntity Post { get; set; } = null!;
+    
+    public Guid WebDataFileId { get; set; } // part of composite key
 }

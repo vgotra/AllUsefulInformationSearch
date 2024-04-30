@@ -27,26 +27,22 @@ public partial class StackOverflowDbContext
 
         modelBuilder.Entity<PostEntity>(entity =>
         {
-            entity.ToTable("Posts").HasKey(e => e.Id);
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.ToTable("Posts").HasKey(e => new { e.WebDataFileId, e.Id });
         });
 
         modelBuilder.Entity<PostCommentEntity>(entity =>
         {
-            entity.ToTable("PostComments").HasKey(e => e.Id);
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.ToTable("PostComments").HasKey(e => new { e.WebDataFileId, e.Id });
         });
 
         modelBuilder.Entity<AcceptedAnswerEntity>(entity =>
         {
-            entity.ToTable("AcceptedAnswers").HasKey(e => e.Id);
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.ToTable("AcceptedAnswers").HasKey(e => new { e.WebDataFileId, e.Id });
         });
 
         modelBuilder.Entity<AcceptedAnswerCommentEntity>(entity =>
         {
-            entity.ToTable("AcceptedAnswerComments").HasKey(e => e.Id);
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.ToTable("AcceptedAnswerComments").HasKey(e => new { e.WebDataFileId, e.Id });
         });
 
         modelBuilder.Model.GetEntityTypes().ToList()

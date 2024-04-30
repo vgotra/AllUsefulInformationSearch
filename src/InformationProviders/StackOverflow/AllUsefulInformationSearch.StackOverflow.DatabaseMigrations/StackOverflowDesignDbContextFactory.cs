@@ -1,9 +1,4 @@
-﻿using AllUsefulInformationSearch.StackOverflow.DataAccess;
-
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-
-namespace AllUsefulInformationSearch.StackOverflow.DatabaseMigrations;
+﻿namespace AllUsefulInformationSearch.StackOverflow.DatabaseMigrations;
 
 public class StackOverflowDesignDbContextFactory : IDesignTimeDbContextFactory<StackOverflowDbContext>
 {
