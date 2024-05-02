@@ -16,16 +16,15 @@ public class WebDataFilesServiceFullWorkflowTests : BaseTests
         var dbContextOptions = new DbContextOptionsBuilder<StackOverflowDbContext>()
             .UseSqlServer("Server=.;Database=AllUsefulInformationSearch_StackOverflow;Trusted_Connection=true;MultipleActiveResultSets=true;TrustServerCertificate=true;").Options;
         var dbContext = new StackOverflowDbContext(dbContextOptions);
-        var logger = new TestContextLogger<WebArchiveParser>(TestContext);
-        var parser = new WebArchiveParser(logger);
-        var service = new WebDataFilesService(dbContext, parser);
+        var parser = new WebArchiveParser(new TestContextLogger<WebArchiveParser>(TestContext));
+        var service = new WebDataFilesService(dbContext, parser, new TestContextLogger<WebDataFilesService>(TestContext));
         await service.SynchronizeWebDataFilesAsync(cancellationTokenSource.Token);
         var itemsCount = await dbContext.WebDataFiles.CountAsync(cancellationTokenSource.Token);
         Assert.IsTrue(itemsCount > 0);
 
         var httpClient = new HttpClient { BaseAddress = new Uri("https://archive.org/download/stackexchange/") };
         IFileUtilityService fileUtilityService = Environment.OSVersion.Platform == PlatformID.Win32NT ? new WindowsFileUtilityService(httpClient) : new LinuxFileUtilityService(httpClient); // add MacOS later
-        var webArchiveFileService = new WebArchiveFileService(fileUtilityService);
+        var webArchiveFileService = new WebArchiveFileService(fileUtilityService, new TestContextLogger<WebArchiveFileService>(TestContext));
         var files = await dbContext.WebDataFiles.AsNoTracking().Where(x => x.Size < 10 * FileSize.Mb).Take(countOfFilesToProcess).ToListAsync(cancellationTokenSource.Token);
         Assert.IsTrue(files.Count == countOfFilesToProcess);
 

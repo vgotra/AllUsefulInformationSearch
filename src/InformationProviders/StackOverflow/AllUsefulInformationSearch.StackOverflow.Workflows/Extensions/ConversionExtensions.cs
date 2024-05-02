@@ -1,5 +1,4 @@
 ﻿using AllUsefulInformationSearch.StackOverflow.Common;
-using AllUsefulInformationSearch.StackOverflow.DataAccess.Entities;
 
 namespace AllUsefulInformationSearch.StackOverflow.Workflows.Extensions;
 

@@ -1,6 +1,3 @@
-using AllUsefulInformationSearch.StackOverflow.DataAccess.Entities;
-using AllUsefulInformationSearch.StackOverflow.PostsParser.XmlModels;
-
 namespace AllUsefulInformationSearch.StackOverflow.Workflows.Extensions;
 
 public static class PostConversionExtensions
@@ -12,7 +9,7 @@ public static class PostConversionExtensions
             Title = post.Title,
             Text = post.Body,
             Tags = post.Tags,
-            ExternalCreationDate = post.CreationDate,
+            //ExternalCreationDate = post.CreationDate,
             ExternalLastActivityDate = post.LastActivityDate,
             LastUpdated = DateTimeOffset.UtcNow,
             AcceptedAnswer = post.AcceptedAnswer?.ToEntity(post.Id, webDataFileId),
@@ -24,7 +21,7 @@ public static class PostConversionExtensions
         {
             Id = post.Id,
             Text = post.Body,
-            ExternalCreationDate = post.CreationDate,
+            //ExternalCreationDate = post.CreationDate,
             ExternalLastActivityDate = post.LastActivityDate,
             LastUpdated = DateTimeOffset.UtcNow,
             PostId = postId,

@@ -8,7 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.DataAccess\AllUsefulInformationSearch.StackOverflow.DataAccess.csproj" />
-      <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.ArchiveFileServices\AllUsefulInformationSearch.StackOverflow.ArchiveFileServices.csproj" />
+      <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.TextProcessingServices\AllUsefulInformationSearch.StackOverflow.TextProcessingServices.csproj" />
       <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.WebParser\AllUsefulInformationSearch.StackOverflow.WebParser.csproj" />
     </ItemGroup>
 

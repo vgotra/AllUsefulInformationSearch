@@ -6,6 +6,7 @@
 [Serializable]
 public class Comment
 {
+    //TODO Move to common models lib
     [XmlAttribute] public int Id { get; set; }
 
     [XmlAttribute] public int PostId { get; set; }

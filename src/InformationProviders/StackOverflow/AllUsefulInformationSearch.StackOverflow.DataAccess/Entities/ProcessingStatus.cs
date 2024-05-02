@@ -4,6 +4,8 @@ public enum ProcessingStatus
 {
     Unknown = 0,
     New,
+    Updated,
     InProgress,
-    Processed
+    Processed,
+    Failed
 }

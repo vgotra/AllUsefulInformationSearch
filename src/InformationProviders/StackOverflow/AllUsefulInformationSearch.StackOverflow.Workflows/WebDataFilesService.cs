@@ -1,14 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿namespace AllUsefulInformationSearch.StackOverflow.Workflows;
 
-namespace AllUsefulInformationSearch.StackOverflow.Workflows;
-
-public class WebDataFilesService(StackOverflowDbContext dbContext, IWebArchiveParser parser) : IWebDataFilesService
+public class WebDataFilesService(StackOverflowDbContext dbContext, IWebArchiveParser parser, ILogger<WebDataFilesService> logger) : IWebDataFilesService
 {
     public async Task SynchronizeWebDataFilesAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogInformation("Started syncing web data files to database");
+        
         var archiveFiles = await parser.GetFileInfoListAsync(cancellationToken);
         var archiveFileDict = archiveFiles.ToDictionary(x => x.Name, x => x);
-        var dataFiles = await dbContext.WebDataFiles.AsNoTracking().ToListAsync(cancellationToken);
+        var dataFiles = await dbContext.WebDataFiles.ToListAsync(cancellationToken);
         var dataFileDict = dataFiles.ToDictionary(x => x.Name, x => x);
 
         var newFiles = archiveFileDict.Values.Where(x => !dataFileDict.ContainsKey(x.Name)).ToList();
@@ -19,8 +19,13 @@ public class WebDataFilesService(StackOverflowDbContext dbContext, IWebArchivePa
             dbContext.WebDataFiles.AddRange(newFiles.Select(x => x.ToEntity()));
 
         if (updatedFiles.Count > 0)
-            dbContext.WebDataFiles.AttachRange(updatedFiles);
-        
+        {
+            updatedFiles.ForEach(x => x.ProcessingStatus = ProcessingStatus.Updated);
+            dbContext.WebDataFiles.UpdateRange(updatedFiles);
+        }
+
         await dbContext.SaveChangesAsync(cancellationToken);
+        
+        logger.LogInformation("Synchronized web data files to database");
     }
 }

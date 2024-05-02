@@ -1,6 +1,6 @@
 ﻿namespace AllUsefulInformationSearch.StackOverflow.PostsParser;
 
-public class WebFilePaths
+public record WebFilePaths
 {
     public string WebFileUri { get; set; } = string.Empty;
     public string TemporaryDownloadPath { get; set; } = string.Empty;
