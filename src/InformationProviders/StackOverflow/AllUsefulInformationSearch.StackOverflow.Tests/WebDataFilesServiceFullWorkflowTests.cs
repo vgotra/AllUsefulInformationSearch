@@ -1,4 +1,6 @@
-﻿namespace AllUsefulInformationSearch.StackOverflow.Tests;
+﻿using AllUsefulInformationSearch.StackOverflow.Models.Common;
+
+namespace AllUsefulInformationSearch.StackOverflow.Tests;
 
 [TestClass]
 public class WebDataFilesServiceFullWorkflowTests : BaseTests
@@ -11,18 +13,18 @@ public class WebDataFilesServiceFullWorkflowTests : BaseTests
     public async Task CanProcessFirstFiles()
     {
         const int countOfFilesToProcess = 5;
+        var httpClient = new HttpClient { BaseAddress = new Uri("https://archive.org/download/stackexchange/") };
         
         var cancellationTokenSource = new CancellationTokenSource();
         var dbContextOptions = new DbContextOptionsBuilder<StackOverflowDbContext>()
             .UseSqlServer("Server=.;Database=AllUsefulInformationSearch_StackOverflow;Trusted_Connection=true;MultipleActiveResultSets=true;TrustServerCertificate=true;").Options;
         var dbContext = new StackOverflowDbContext(dbContextOptions);
-        var parser = new WebArchiveParser(new TestContextLogger<WebArchiveParser>(TestContext));
+        var parser = new WebArchiveParserService(httpClient, new TestContextLogger<WebArchiveParserService>(TestContext));
         var service = new WebDataFilesService(dbContext, parser, new TestContextLogger<WebDataFilesService>(TestContext));
         await service.SynchronizeWebDataFilesAsync(cancellationTokenSource.Token);
         var itemsCount = await dbContext.WebDataFiles.CountAsync(cancellationTokenSource.Token);
         Assert.IsTrue(itemsCount > 0);
-
-        var httpClient = new HttpClient { BaseAddress = new Uri("https://archive.org/download/stackexchange/") };
+        
         IFileUtilityService fileUtilityService = Environment.OSVersion.Platform == PlatformID.Win32NT ? new WindowsFileUtilityService(httpClient) : new LinuxFileUtilityService(httpClient); // add MacOS later
         var webArchiveFileService = new WebArchiveFileService(fileUtilityService, new TestContextLogger<WebArchiveFileService>(TestContext));
         var files = await dbContext.WebDataFiles.AsNoTracking().Where(x => x.Size < 10 * FileSize.Mb).Take(countOfFilesToProcess).ToListAsync(cancellationTokenSource.Token);

@@ -1,4 +1,6 @@
-﻿namespace AllUsefulInformationSearch.StackOverflow.Tests;
+﻿using AllUsefulInformationSearch.StackOverflow.Models.Common;
+
+namespace AllUsefulInformationSearch.StackOverflow.Tests;
 
 [TestClass]
 public class WebDataFilesServiceTests : BaseTests
@@ -6,9 +8,10 @@ public class WebDataFilesServiceTests : BaseTests
     [TestMethod]
     public async Task CanDownloadAndParseAndSaveFilesToDb()
     {
+        var httpClient = new HttpClient { BaseAddress = new Uri("https://archive.org/download/stackexchange/") };
         var cancellationTokenSource = new CancellationTokenSource();
         var dbContext = new StackOverflowDbContextTestFactory().CreateDbContext(null!);
-        var parser = new WebArchiveParser(new TestContextLogger<WebArchiveParser>(TestContext));
+        var parser = new WebArchiveParserService(httpClient, new TestContextLogger<WebArchiveParserService>(TestContext));
         var service = new WebDataFilesService(dbContext, parser, new TestContextLogger<WebDataFilesService>(TestContext));
         await service.SynchronizeWebDataFilesAsync(cancellationTokenSource.Token);
         var itemsCount = await dbContext.WebDataFiles.CountAsync(cancellationTokenSource.Token);
@@ -17,7 +20,6 @@ public class WebDataFilesServiceTests : BaseTests
         var webDataFile = await dbContext.WebDataFiles.FirstOrDefaultAsync(x => x.Name.StartsWith("3dprinting.meta.stackexchange.com"), cancellationTokenSource.Token);
         Assert.IsNotNull(webDataFile);
 
-        var httpClient = new HttpClient { BaseAddress = new Uri("https://archive.org/download/stackexchange/") };
         IFileUtilityService fileUtilityService = Environment.OSVersion.Platform == PlatformID.Win32NT ? new WindowsFileUtilityService(httpClient) : new LinuxFileUtilityService(httpClient); // add MacOS later
         
         var paths = new WebFilePaths { WebFileUri = webDataFile.Link, TemporaryDownloadPath = Path.GetTempFileName(), ArchiveOutputDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()) };

@@ -1,6 +1,5 @@
 ﻿// Global using directives
 
-global using AllUsefulInformationSearch.DataAccess.Common;
 global using AllUsefulInformationSearch.DatabaseMigrations;
 global using AllUsefulInformationSearch.StackOverflow.DataAccess;
 

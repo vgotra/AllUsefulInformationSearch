@@ -1,4 +1,6 @@
-﻿namespace AllUsefulInformationSearch.StackOverflow.Workflows;
+﻿using AllUsefulInformationSearch.StackOverflow.Models.Common;
+
+namespace AllUsefulInformationSearch.StackOverflow.Workflows;
 
 public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, ILogger<StackOverflowProcessingWorkflow> logger) : IWorkflow
 {

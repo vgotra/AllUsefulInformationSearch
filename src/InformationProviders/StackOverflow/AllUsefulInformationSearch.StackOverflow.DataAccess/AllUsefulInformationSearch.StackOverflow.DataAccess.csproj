@@ -7,7 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\AllUsefulInformationSearch.DataAccess.Common\AllUsefulInformationSearch.DataAccess.Common.csproj" />
+        <ProjectReference Include="..\..\..\AllUsefulInformationSearch.DataAccess\AllUsefulInformationSearch.DataAccess.csproj" />
+        <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.Models\AllUsefulInformationSearch.StackOverflow.Models.csproj" />
     </ItemGroup>
-    
+
 </Project>

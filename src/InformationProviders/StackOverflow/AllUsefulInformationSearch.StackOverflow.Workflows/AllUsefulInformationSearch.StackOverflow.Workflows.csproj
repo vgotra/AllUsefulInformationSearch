@@ -7,13 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.DataAccess\AllUsefulInformationSearch.StackOverflow.DataAccess.csproj" />
-      <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.TextProcessingServices\AllUsefulInformationSearch.StackOverflow.TextProcessingServices.csproj" />
-      <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.WebParser\AllUsefulInformationSearch.StackOverflow.WebParser.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Riok.Mapperly" Version="3.5.1" />
+      <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.Services\AllUsefulInformationSearch.StackOverflow.Services.csproj" />
     </ItemGroup>
 
 </Project>
