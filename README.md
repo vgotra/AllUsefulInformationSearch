@@ -4,4 +4,4 @@ Pet project for keeping all useful information from the useful information provi
 
 Also for improving Architecture, Technical full stack, Devops, Cloud skills.
 
-Can be reused to improve SDLC upderstanding (development, TDD, refactorings, prototyping, etc).
+Can be reused to improve SDLC understanding (development, TDD, refactorings, prototyping, etc).
