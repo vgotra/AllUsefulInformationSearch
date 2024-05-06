@@ -11,7 +11,14 @@ public static class Startup
         services.AddHttpClient("", (provider, client) => client.BaseAddress = stackOverflowBaseUri);
 
         //TODO Find a way to register DbContextPool as Transient, also batches
-        services.AddDbContext<StackOverflowDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("AllUsefulInformationSearch_StackOverflow")), ServiceLifetime.Transient);
+        services.AddDbContext<StackOverflowDbContext>(
+            options =>
+            {
+                options.UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance);
+                options.UseSqlServer(configuration.GetConnectionString("AllUsefulInformationSearch_StackOverflow"));
+            },
+            ServiceLifetime.Transient,
+            ServiceLifetime.Singleton);
 
         services.AddTransient<IWebDataFilesRepository, WebDataFilesRepository>();
 
