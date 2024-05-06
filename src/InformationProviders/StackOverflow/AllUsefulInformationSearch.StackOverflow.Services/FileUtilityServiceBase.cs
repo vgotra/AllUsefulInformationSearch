@@ -2,9 +2,15 @@
 
 namespace AllUsefulInformationSearch.StackOverflow.Services;
 
-public abstract class FileUtilityServiceBase
+public abstract class FileUtilityServiceBase(HttpClient httpClient)
 {
-    protected const string StackOverflowBaseUri = "https://archive.org/download/stackexchange/";//TODO Move to options later 
+    protected async Task DownloadFileAsync(string url, string filePath, CancellationToken cancellationToken = default)
+    {
+        await using var stream = await httpClient.GetStreamAsync(url, cancellationToken);
+        await using var fileStream = File.Create(filePath);
+        await stream.CopyToAsync(fileStream, cancellationToken);
+    }
+    
     protected async Task ExecuteProcessAsync(string fileName, string arguments, CancellationToken cancellationToken = default)
     {
         var process = new Process

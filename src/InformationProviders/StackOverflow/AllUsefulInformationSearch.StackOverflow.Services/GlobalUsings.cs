@@ -7,6 +7,8 @@ global using AllUsefulInformationSearch.StackOverflow.Models.Entities;
 global using AllUsefulInformationSearch.StackOverflow.Models.Extensions;
 global using AllUsefulInformationSearch.StackOverflow.Models.XmlModels;
 
+global using EFCore.BulkExtensions;
+
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Logging;
 

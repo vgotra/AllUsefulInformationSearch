@@ -6,13 +6,10 @@ public class PostsSynchronizationService(StackOverflowDbContext dbContext, ILogg
     {
         logger.LogInformation("Started synchronizing posts to database for {WebFileUri}", webFilePaths.WebFileUri);
 
-        //TODO Just add at current moment
+        //TODO Add syncing later 
         var entities = modifiedPosts.Select(x => x.ToEntity()).ToList();
         if (entities.Count > 0)
-        {
-            await dbContext.Posts.AddRangeAsync(entities, cancellationToken);
-            await dbContext.SaveChangesAsync(cancellationToken);    
-        }
+            await dbContext.BulkInsertAsync(entities, cancellationToken: cancellationToken);
         
         logger.LogInformation("Completed synchronizing posts to database for {WebFileUri}", webFilePaths.WebFileUri);
     }

@@ -11,20 +11,14 @@ public class WebDataFilesService(StackOverflowDbContext dbContext, IWebArchivePa
         var dataFiles = await dbContext.WebDataFiles.ToListAsync(cancellationToken);
         var dataFileDict = dataFiles.ToDictionary(x => x.Name, x => x);
 
-        var newFiles = archiveFileDict.Values.Where(x => !dataFileDict.ContainsKey(x.Name)).ToList();
+        var newFiles = archiveFileDict.Values.Where(x => !dataFileDict.ContainsKey(x.Name));
         var updatedFiles = dataFileDict.Values.Where(x => archiveFileDict.ContainsKey(x.Name) && x.ExternalLastModified != archiveFileDict[x.Name].LastModified).ToList();
         // No need to delete some data files, because they can be useful
 
-        if (newFiles.Count > 0)
-            dbContext.WebDataFiles.AddRange(newFiles.Select(x => x.ToEntity()));
+        updatedFiles.ForEach(x => x.ProcessingStatus = ProcessingStatus.Updated);
+        var webFiles = newFiles.Select(x => x.ToEntity()).Concat(updatedFiles);
 
-        if (updatedFiles.Count > 0)
-        {
-            updatedFiles.ForEach(x => x.ProcessingStatus = ProcessingStatus.Updated);
-            dbContext.WebDataFiles.UpdateRange(updatedFiles);
-        }
-
-        await dbContext.SaveChangesAsync(cancellationToken);
+        await dbContext.BulkInsertOrUpdateAsync(webFiles, cancellationToken: cancellationToken);
         
         logger.LogInformation("Synchronized web data files to database");
     }

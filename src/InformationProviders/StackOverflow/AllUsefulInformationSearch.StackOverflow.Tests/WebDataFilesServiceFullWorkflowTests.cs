@@ -23,7 +23,7 @@ public class WebDataFilesServiceFullWorkflowTests : BaseTests
         var itemsCount = await dbContext.WebDataFiles.CountAsync(cancellationTokenSource.Token);
         Assert.IsTrue(itemsCount > 0);
         
-        IFileUtilityService fileUtilityService = Environment.OSVersion.Platform == PlatformID.Win32NT ? new WindowsFileUtilityService() : new LinuxFileUtilityService(); // add MacOS later
+        IFileUtilityService fileUtilityService = Environment.OSVersion.Platform == PlatformID.Win32NT ? new WindowsFileUtilityService(httpClient) : new LinuxFileUtilityService(httpClient); // add MacOS later
         var webArchiveFileService = new WebArchiveFileService(fileUtilityService, new TestContextLogger<WebArchiveFileService>(TestContext));
         var files = await dbContext.WebDataFiles.AsNoTracking().Where(x => x.Size < 10 * FileSize.Mb).Take(countOfFilesToProcess).ToListAsync(cancellationTokenSource.Token);
         Assert.IsTrue(files.Count == countOfFilesToProcess);

@@ -22,10 +22,10 @@ public static class Startup
 
         services.AddTransient<IWebDataFilesRepository, WebDataFilesRepository>();
 
-        services.AddTransient<IFileUtilityService>(_ => Environment.OSVersion switch
+        services.AddTransient<IFileUtilityService>(sp => Environment.OSVersion switch
         {
-            { Platform: PlatformID.Win32NT } => new WindowsFileUtilityService(),
-            { Platform: PlatformID.Unix } => new LinuxFileUtilityService(),
+            { Platform: PlatformID.Win32NT } => new WindowsFileUtilityService(sp.GetRequiredService<HttpClient>()),
+            { Platform: PlatformID.Unix } => new LinuxFileUtilityService(sp.GetRequiredService<HttpClient>()),
             _ => throw new InvalidOperationException("Unsupported OS.")
         });
         services.AddTransient<IWebDataFilesService, WebDataFilesService>();
