@@ -4,7 +4,7 @@ namespace AllUsefulInformationSearch.StackOverflow.Services;
 
 public static class XmlFileDeserializer
 {
-    public static async Task<List<T>> DeserializeXmlFileToList<T>(this string filePath, long fileSize, Func<XmlReader, T?> parseXmlRow) where T : class
+    public static async Task<List<T>> DeserializeXmlFileToList<T>(this string filePath, long fileSize, Func<XmlReader, T> parseXmlRow) where T : class
     {
         var list = new List<T>(fileSize.GetApproximateItemsCount());
 
@@ -14,8 +14,7 @@ public static class XmlFileDeserializer
             if (reader.NodeType != XmlNodeType.Element || reader.Name != "row") continue;
 
             var row = parseXmlRow(reader);
-            if (row != null)
-                list.Add(row);
+            list.Add(row);
         }
 
         return list;
@@ -23,30 +22,25 @@ public static class XmlFileDeserializer
     
     private static int GetApproximateItemsCount(this long fileSize) => (int)(fileSize / FileSize.Mb * 100);
 
-    public static readonly Func<XmlReader, PostModel?> ParsePostXmlRow = xmlReader =>
+    public static readonly Func<XmlReader, PostModel> ParsePostXmlRow = xmlReader =>
     {
-        var idVal = xmlReader.GetAttribute("Id");
-        if (idVal == null) return null;
+        var id = int.Parse(xmlReader.GetAttribute(nameof(PostModel.Id))!);
+        var postTypeId = (PostType)int.Parse(xmlReader.GetAttribute(nameof(PostModel.PostTypeId))!);
+        var body = xmlReader.GetAttribute(nameof(PostModel.Body)) ?? string.Empty;
+        var lastActivityDate = DateTimeOffset.Parse(xmlReader.GetAttribute(nameof(PostModel.LastActivityDate))!);
+        var title = xmlReader.GetAttribute(nameof(PostModel.Title)) ?? string.Empty;
         
-        var id = int.Parse(idVal);
-        var postTypeId = (PostType)int.Parse(xmlReader.GetAttribute("PostTypeId")!);
-        var creationDate = DateTimeOffset.Parse(xmlReader.GetAttribute("CreationDate")!);
-        var body = xmlReader.GetAttribute("Body") ?? string.Empty;
-        var lastActivityDate = DateTimeOffset.Parse(xmlReader.GetAttribute("LastActivityDate")!);
-        var title = xmlReader.GetAttribute("Title") ?? string.Empty;
-        var acceptedAnswerId = xmlReader.GetAttribute("AcceptedAnswerId") != null ? int.Parse(xmlReader.GetAttribute("AcceptedAnswerId")!) : (int?)null;
+        var acceptedAnswerIdVal = xmlReader.GetAttribute(nameof(PostModel.AcceptedAnswerId));
+        var acceptedAnswerId = acceptedAnswerIdVal == null ? (int?)null : int.Parse(acceptedAnswerIdVal);
 
-        var post = new PostModel
+        return new PostModel
         {
             Id = id,
-            PostTypeId = postTypeId,
-            CreationDate = creationDate,
-            Body = body,
-            LastActivityDate = lastActivityDate,
             Title = title,
+            Body = body,
+            PostTypeId = postTypeId,
+            LastActivityDate = lastActivityDate,
             AcceptedAnswerId = acceptedAnswerId
         };
-
-        return post;
     };
 }

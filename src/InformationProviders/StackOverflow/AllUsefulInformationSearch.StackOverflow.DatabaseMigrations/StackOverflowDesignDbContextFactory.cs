@@ -11,6 +11,7 @@ public class StackOverflowDesignDbContextFactory : IDesignTimeDbContextFactory<S
                 x.MigrationsAssembly("AllUsefulInformationSearch.StackOverflow.DatabaseMigrations");
                 x.MigrationsHistoryTable("__MigrationsHistory", StackOverflowDbContext.DbSchemaName);
             });
+        optionsBuilder.UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance);
         return new StackOverflowDbContext(optionsBuilder.Options);
     }
 }

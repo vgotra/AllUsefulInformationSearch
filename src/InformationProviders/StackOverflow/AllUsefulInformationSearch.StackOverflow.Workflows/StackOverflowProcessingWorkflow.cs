@@ -16,9 +16,10 @@ public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, I
 
             await Parallel.ForEachAsync(webFiles, cancellationToken, async (webFile, token) =>
             {
+                //TODO Check this with chunks (for better GC)
                 var subWorkflow = serviceProvider.GetRequiredService<IStackOverflowProcessingSubWorkflow>();
                 await subWorkflow.ExecuteAsync(webFile, token);
-            });
+            });    
             
             //TODO Maybe some summary to db or similar, etc.
 

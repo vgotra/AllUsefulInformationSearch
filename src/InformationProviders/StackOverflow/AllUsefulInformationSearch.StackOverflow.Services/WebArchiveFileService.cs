@@ -7,30 +7,36 @@ public class WebArchiveFileService(IFileUtilityService fileUtilityService, ILogg
     public async Task<List<PostModel>> GetPostsWithCommentsAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default)
     {
         logger.LogInformation("Started processing of {WebFileUri}", webFilePaths.WebFileUri);
-        
-        await fileUtilityService.DownloadFileAsync(webFilePaths, cancellationToken);
-        await fileUtilityService.ExtractArchiveFileAsync(webFilePaths, cancellationToken);
 
-        //TODO To Deserialization service
-        var posts = await Path.Combine(webFilePaths.ArchiveOutputDirectory, "Posts.xml").DeserializeXmlFileToList(webFilePaths.WebDataFileSize, XmlFileDeserializer.ParsePostXmlRow);
-        // var commentItems = Path.Combine(webFilePaths.ArchiveOutputDirectory, "Comments.xml").DeserializeXmlFileToList<Comments>("comments").Items;
-
-        posts.ForEach(p =>
+        try
         {
-            p.WebDataFileId = webFilePaths.WebDataFileId;
-            // p.Comments.AddRange(commentItems.Where(c => c.PostId == p.Id));
-            p.AcceptedAnswer = posts.FirstOrDefault(x => x.Id == p.AcceptedAnswerId && x.PostTypeId == PostType.Answer); // improve this 
-        });
+            await fileUtilityService.DownloadFileAsync(webFilePaths, cancellationToken);
+            await fileUtilityService.ExtractArchiveFileAsync(webFilePaths, cancellationToken);
 
-        // get only useful answered posts
-        posts = posts.Where(x => UsefulPostTypes.Contains(x.PostTypeId) && x.AcceptedAnswer != null).ToList();
+            //TODO To Deserialization service
+            var posts = await Path.Combine(webFilePaths.ArchiveOutputDirectory, "Posts.xml").DeserializeXmlFileToList(webFilePaths.WebDataFileSize, XmlFileDeserializer.ParsePostXmlRow);
+            posts.ForEach(p =>
+            {
+                p.WebDataFileId = webFilePaths.WebDataFileId;
+                p.AcceptedAnswer = posts.FirstOrDefault(x => x.Id == p.AcceptedAnswerId && x.PostTypeId == PostType.Answer); // improve this 
+            });
 
-        if (posts == null || posts.Count == 0)
-            throw new InvalidDataException();
-        
-        fileUtilityService.DeleteProcessedFiles(webFilePaths); 
+            // get only useful answered posts
+            posts = posts.Where(x => UsefulPostTypes.Contains(x.PostTypeId) && x.AcceptedAnswer != null).ToList();
+            if (posts == null || posts.Count == 0)
+                throw new InvalidDataException();
 
-        logger.LogInformation("Completed processing of {WebFileUri}", webFilePaths.WebFileUri);
-        return posts;
+            logger.LogInformation("Completed processing of {WebFileUri}", webFilePaths.WebFileUri);
+            return posts;
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Error during processing of {WebFileUri}", webFilePaths.WebFileUri);
+            throw;
+        }
+        finally
+        {
+            fileUtilityService.DeleteProcessedFiles(webFilePaths);
+        }
     }
 }
