@@ -1,6 +1,3 @@
-using AllUsefulInformationSearch.StackOverflow.Models.Common;
-using AllUsefulInformationSearch.StackOverflow.Models.Extensions;
-
 using System.Text.RegularExpressions;
 
 namespace AllUsefulInformationSearch.StackOverflow.Services;

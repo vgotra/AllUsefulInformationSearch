@@ -1,11 +1,9 @@
-﻿using AllUsefulInformationSearch.StackOverflow.Models.Common;
+﻿namespace AllUsefulInformationSearch.StackOverflow.Services;
 
-namespace AllUsefulInformationSearch.StackOverflow.Services;
-
-public class WindowsFileUtilityService(HttpClient httpClient) : FileUtilityServiceBase(httpClient), IFileUtilityService
+public class WindowsFileUtilityService : FileUtilityServiceBase, IFileUtilityService
 {
     public async Task DownloadFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default) => 
-        await DownloadFileAsync(webFilePaths.WebFileUri, webFilePaths.TemporaryDownloadPath, cancellationToken);
+        await ExecuteProcessAsync("powershell.exe", $"-Command \"Invoke-WebRequest -Uri {StackOverflowBaseUri}{webFilePaths.WebFileUri} -OutFile {webFilePaths.TemporaryDownloadPath}\"", cancellationToken);
 
     public async Task ExtractArchiveFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default) => 
         await ExecuteProcessAsync("7z.exe", $"x \"{webFilePaths.TemporaryDownloadPath}\" -o\"{webFilePaths.ArchiveOutputDirectory}\"", cancellationToken);

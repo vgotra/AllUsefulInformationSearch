@@ -1,6 +1,6 @@
 ﻿namespace AllUsefulInformationSearch.StackOverflow.Models.Entities;
 
-public class AcceptedAnswerCommentEntity : UpdatableEntity<int>
+public class AcceptedAnswerCommentEntity : Entity<int>
 {
     public string Text { get; set; } = null!;
     public DateTimeOffset ExternalCreationDate { get; set; }

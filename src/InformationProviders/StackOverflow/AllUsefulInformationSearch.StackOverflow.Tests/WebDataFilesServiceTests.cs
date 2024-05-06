@@ -18,7 +18,7 @@ public class WebDataFilesServiceTests : BaseTests
         var webDataFile = await dbContext.WebDataFiles.FirstOrDefaultAsync(x => x.Name.StartsWith("3dprinting.meta.stackexchange.com"), cancellationTokenSource.Token);
         Assert.IsNotNull(webDataFile);
 
-        IFileUtilityService fileUtilityService = Environment.OSVersion.Platform == PlatformID.Win32NT ? new WindowsFileUtilityService(httpClient) : new LinuxFileUtilityService(httpClient); // add MacOS later
+        IFileUtilityService fileUtilityService = Environment.OSVersion.Platform == PlatformID.Win32NT ? new WindowsFileUtilityService() : new LinuxFileUtilityService(); // add MacOS later
         
         var paths = new WebFilePaths { WebFileUri = webDataFile.Link, TemporaryDownloadPath = Path.GetTempFileName(), ArchiveOutputDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()) };
         var posts = await new WebArchiveFileService(fileUtilityService, new TestContextLogger<WebArchiveFileService>(TestContext)).GetPostsWithCommentsAsync(paths, cancellationTokenSource.Token);

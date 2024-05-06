@@ -14,7 +14,7 @@ static class Program
         Startup.ConfigureServices(serviceCollection, configuration);
         
         var sp = serviceCollection.BuildServiceProvider();
-        var workflow = sp.GetRequiredService<IWorkflow>();
+        var workflow = sp.GetRequiredService<IStackOverflowProcessingWorkflow>();
         var cancellationTokenSource = new CancellationTokenSource();
         await workflow.ExecuteAsync(cancellationTokenSource.Token);
     }

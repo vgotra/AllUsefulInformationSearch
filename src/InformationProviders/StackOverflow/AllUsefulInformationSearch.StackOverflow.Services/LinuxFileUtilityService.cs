@@ -1,11 +1,12 @@
-﻿using AllUsefulInformationSearch.StackOverflow.Models.Common;
+﻿namespace AllUsefulInformationSearch.StackOverflow.Services;
 
-namespace AllUsefulInformationSearch.StackOverflow.Services;
-
-public class LinuxFileUtilityService(HttpClient httpClient) : FileUtilityServiceBase(httpClient), IFileUtilityService
+public class LinuxFileUtilityService : FileUtilityServiceBase, IFileUtilityService
 {
-    public async Task DownloadFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default) => 
-        await DownloadFileAsync(webFilePaths.WebFileUri, webFilePaths.TemporaryDownloadPath, cancellationToken);
+    public async Task DownloadFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default)
+    {
+        var command = $"wget -O {webFilePaths.TemporaryDownloadPath} {StackOverflowBaseUri}{webFilePaths.WebFileUri}";
+        await ExecuteProcessAsync("/bin/bash", $"-c \"{command}\"", cancellationToken);
+    }
 
     public async Task ExtractArchiveFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default)
     {

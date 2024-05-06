@@ -1,6 +1,6 @@
 ﻿namespace AllUsefulInformationSearch.StackOverflow.Models.Entities;
 
-public class PostEntity : UpdatableEntity<int> //TODO Think what can be better for primary key? ExternalId (because its unique in StackOverflow)?
+public class PostEntity : Entity<int> //TODO Think what can be better for primary key? ExternalId (because its unique in StackOverflow)?
 {
     public string Title { get; set; } = null!;
     public string Text { get; set; } = null!;

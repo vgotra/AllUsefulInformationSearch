@@ -4,5 +4,5 @@ public interface IWebDataFilesRepository
 {
     Task<List<WebDataFileEntity>> GetWebDataFilesAsync(CancellationToken cancellationToken = default);
     
-    Task SetProcessingStatusAsync(List<WebDataFileEntity> webDataFiles, ProcessingStatus status, CancellationToken cancellationToken = default);
+    Task SetProcessingStatusAsync(WebDataFileEntity webDataFileEntity, ProcessingStatus status, CancellationToken cancellationToken = default);
 }

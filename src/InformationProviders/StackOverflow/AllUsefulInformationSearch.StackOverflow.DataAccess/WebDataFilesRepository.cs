@@ -4,13 +4,10 @@ public class WebDataFilesRepository(StackOverflowDbContext dbContext) : IWebData
 {
     public Task<List<WebDataFileEntity>> GetWebDataFilesAsync(CancellationToken cancellationToken = default) =>
         dbContext.WebDataFiles
-            .Where(x => x.ProcessingStatus == ProcessingStatus.Updated || x.ProcessingStatus == ProcessingStatus.New)
+            .Where(x => x.IsEnabled && (x.ProcessingStatus == ProcessingStatus.Updated || x.ProcessingStatus == ProcessingStatus.New))
             .ToListAsync(cancellationToken);
 
-    public Task SetProcessingStatusAsync(List<WebDataFileEntity> webDataFiles, ProcessingStatus status, CancellationToken cancellationToken = default)
-    {
-        webDataFiles.ForEach(x => x.ProcessingStatus = status);
-        dbContext.UpdateRange(webDataFiles);
-        return dbContext.SaveChangesAsync(cancellationToken);
-    }
+    public async Task SetProcessingStatusAsync(WebDataFileEntity webDataFileEntity, ProcessingStatus status, CancellationToken cancellationToken = default) =>
+        await dbContext.WebDataFiles.Where(x => x.Id == webDataFileEntity.Id)
+            .ExecuteUpdateAsync(s => s.SetProperty(e => e.ProcessingStatus, status), cancellationToken);
 }

@@ -10,7 +10,6 @@ public static class PostConversionExtensions
             Text = post.Body,
             Tags = post.Tags,
             ExternalLastActivityDate = post.LastActivityDate,
-            LastUpdated = DateTimeOffset.UtcNow,
             AcceptedAnswer = post.AcceptedAnswer?.ToEntity(post.Id),
             WebDataFileId = post.WebDataFileId
         };
@@ -21,7 +20,6 @@ public static class PostConversionExtensions
             Id = post.Id,
             Text = post.Body,
             ExternalLastActivityDate = post.LastActivityDate,
-            LastUpdated = DateTimeOffset.UtcNow,
             PostId = postId,
             PostWebDataFileId = post.WebDataFileId
         };

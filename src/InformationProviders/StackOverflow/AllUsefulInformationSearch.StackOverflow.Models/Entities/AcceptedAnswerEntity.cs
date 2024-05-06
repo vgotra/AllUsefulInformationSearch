@@ -1,6 +1,6 @@
 ﻿namespace AllUsefulInformationSearch.StackOverflow.Models.Entities;
 
-public class AcceptedAnswerEntity : UpdatableEntity<int> //TODO Think what can be better for primary key? ExternalId (because its unique in StackOverflow)?
+public class AcceptedAnswerEntity : Entity<int> //TODO Think what can be better for primary key? ExternalId (because its unique in StackOverflow)?
 {
     public string Text { get; set; } = null!;
 

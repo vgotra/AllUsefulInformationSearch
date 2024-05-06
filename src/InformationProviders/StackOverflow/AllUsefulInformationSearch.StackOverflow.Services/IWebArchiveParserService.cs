@@ -1,6 +1,4 @@
-﻿using AllUsefulInformationSearch.StackOverflow.Models.Common;
-
-namespace AllUsefulInformationSearch.StackOverflow.Services;
+﻿namespace AllUsefulInformationSearch.StackOverflow.Services;
 
 public interface IWebArchiveParserService
 {

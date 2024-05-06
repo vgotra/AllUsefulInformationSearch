@@ -1,6 +1,6 @@
 ﻿namespace AllUsefulInformationSearch.StackOverflow.Models.Entities;
 
-public class PostCommentEntity : UpdatableEntity<int>
+public class PostCommentEntity : Entity<int>
 {
     public string Text { get; set; } = null!;
     public DateTimeOffset ExternalCreationDate { get; set; }
