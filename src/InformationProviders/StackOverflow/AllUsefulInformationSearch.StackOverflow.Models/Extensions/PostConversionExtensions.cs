@@ -8,7 +8,6 @@ public static class PostConversionExtensions
             Id = post.Id,
             Title = post.Title,
             Text = post.Body,
-            Tags = post.Tags,
             ExternalLastActivityDate = post.LastActivityDate,
             AcceptedAnswer = post.AcceptedAnswer?.ToEntity(post.Id),
             WebDataFileId = post.WebDataFileId

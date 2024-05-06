@@ -4,7 +4,7 @@ public class WebDataFilesRepository(StackOverflowDbContext dbContext) : IWebData
 {
     public Task<List<WebDataFileEntity>> GetWebDataFilesAsync(CancellationToken cancellationToken = default) =>
         dbContext.WebDataFiles
-            .Where(x => x.IsEnabled && (x.ProcessingStatus == ProcessingStatus.Updated || x.ProcessingStatus == ProcessingStatus.New))
+            .Where(x => x.IsSynchronizationEnabled && (x.ProcessingStatus == ProcessingStatus.Updated || x.ProcessingStatus == ProcessingStatus.New))
             .ToListAsync(cancellationToken);
 
     public async Task SetProcessingStatusAsync(WebDataFileEntity webDataFileEntity, ProcessingStatus status, CancellationToken cancellationToken = default) =>

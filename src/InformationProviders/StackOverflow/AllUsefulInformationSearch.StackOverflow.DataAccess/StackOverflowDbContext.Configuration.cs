@@ -22,7 +22,6 @@ public partial class StackOverflowDbContext
             entity.ToTable("Posts").HasKey(e => new { e.WebDataFileId, e.Id });
             entity.Property(e => e.Title).IsRequired().HasMaxLength(250);
             entity.Property(e => e.Text).IsRequired().HasMaxLength(-1);
-            entity.Property(e => e.Tags).IsRequired().HasMaxLength(4000);
         });
 
         modelBuilder.Entity<PostCommentEntity>(entity =>
