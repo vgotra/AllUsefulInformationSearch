@@ -24,7 +24,7 @@ public class WebDataFilesServiceTests : BaseTests
         var posts = await new WebArchiveFileService(fileUtilityService, new TestContextLogger<WebArchiveFileService>(TestContext)).GetPostsWithCommentsAsync(paths, cancellationTokenSource.Token);
         Assert.IsTrue(posts.Count > 0);
 
-        var entities = posts.Select(x => x.ToEntity(webDataFile.Id));
+        var entities = posts.Select(x => x.ToEntity());
         await dbContext.Posts.AddRangeAsync(entities, cancellationTokenSource.Token);
         await dbContext.SaveChangesAsync(cancellationTokenSource.Token);
 

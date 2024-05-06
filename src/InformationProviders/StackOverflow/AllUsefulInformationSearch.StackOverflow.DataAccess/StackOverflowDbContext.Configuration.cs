@@ -7,14 +7,6 @@ public partial class StackOverflowDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         //TODO Move those configurations to Entities for easy tracking of changes
-        modelBuilder.Entity<SettingEntity>(entity =>
-        {
-            entity.ToTable("Settings").HasKey(e => e.Id);
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.Name).IsRequired().HasMaxLength(255).HasComment("Name of the setting.");
-            entity.Property(e => e.Value).IsRequired().HasMaxLength(255).HasComment("Value of the setting.");
-        });
-
         modelBuilder.Entity<WebDataFileEntity>(entity =>
         {
             entity.ToTable("WebDataFiles").HasKey(e => e.Id);

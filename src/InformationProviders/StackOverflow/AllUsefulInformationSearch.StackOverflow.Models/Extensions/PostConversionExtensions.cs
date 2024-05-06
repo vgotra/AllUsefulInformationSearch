@@ -2,7 +2,7 @@ namespace AllUsefulInformationSearch.StackOverflow.Models.Extensions;
 
 public static class PostConversionExtensions
 {
-    public static PostEntity ToEntity(this Post post, int webDataFileId) =>
+    public static PostEntity ToEntity(this Post post) =>
         new()
         {
             Id = post.Id,
@@ -11,11 +11,11 @@ public static class PostConversionExtensions
             Tags = post.Tags,
             ExternalLastActivityDate = post.LastActivityDate,
             LastUpdated = DateTimeOffset.UtcNow,
-            AcceptedAnswer = post.AcceptedAnswer?.ToEntity(post.Id, webDataFileId),
-            WebDataFileId = webDataFileId
+            AcceptedAnswer = post.AcceptedAnswer?.ToEntity(post.Id),
+            WebDataFileId = post.WebDataFileId
         };
     
-    public static AcceptedAnswerEntity ToEntity(this Post post, int postId, int webDataFileId) =>
+    private static AcceptedAnswerEntity ToEntity(this Post post, int postId) =>
         new()
         {
             Id = post.Id,
@@ -23,6 +23,6 @@ public static class PostConversionExtensions
             ExternalLastActivityDate = post.LastActivityDate,
             LastUpdated = DateTimeOffset.UtcNow,
             PostId = postId,
-            PostWebDataFileId = webDataFileId
+            PostWebDataFileId = post.WebDataFileId
         };
 }

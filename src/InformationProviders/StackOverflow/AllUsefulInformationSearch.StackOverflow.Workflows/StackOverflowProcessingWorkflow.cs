@@ -1,5 +1,4 @@
-﻿using AllUsefulInformationSearch.StackOverflow.Models.Common;
-using AllUsefulInformationSearch.StackOverflow.Models.Extensions;
+﻿using AllUsefulInformationSearch.StackOverflow.Models.Extensions;
 
 namespace AllUsefulInformationSearch.StackOverflow.Workflows;
 
@@ -12,6 +11,8 @@ public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, I
         {
             logger.LogInformation("Starting StackOverflow processing workflow");
 
+            //TODO Add subworkflows, to minimize SDRAM usage, etc.
+            
             // Step 1: Sync web data files to db
             await serviceProvider.GetRequiredService<IWebDataFilesService>().SynchronizeWebDataFilesAsync(cancellationToken);
 
