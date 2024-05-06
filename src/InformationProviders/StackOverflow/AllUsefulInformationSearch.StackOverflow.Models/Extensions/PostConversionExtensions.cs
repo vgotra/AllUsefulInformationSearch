@@ -2,7 +2,7 @@ namespace AllUsefulInformationSearch.StackOverflow.Models.Extensions;
 
 public static class PostConversionExtensions
 {
-    public static PostEntity ToEntity(this Post post) =>
+    public static PostEntity ToEntity(this PostModel post) =>
         new()
         {
             Id = post.Id,
@@ -13,7 +13,7 @@ public static class PostConversionExtensions
             WebDataFileId = post.WebDataFileId
         };
     
-    private static AcceptedAnswerEntity ToEntity(this Post post, int postId) =>
+    private static AcceptedAnswerEntity ToEntity(this PostModel post, int postId) =>
         new()
         {
             Id = post.Id,

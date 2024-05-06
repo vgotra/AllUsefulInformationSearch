@@ -2,7 +2,7 @@
 
 public class PostsSynchronizationService(StackOverflowDbContext dbContext, ILogger<PostsSynchronizationService> logger) : IPostsSynchronizationService
 {
-    public async Task SynchronizePostsAsync(WebFilePaths webFilePaths, List<Post> modifiedPosts, CancellationToken cancellationToken = default)
+    public async Task SynchronizePostsAsync(WebFilePaths webFilePaths, List<PostModel> modifiedPosts, CancellationToken cancellationToken = default)
     {
         logger.LogInformation("Started synchronizing posts to database for {WebFileUri}", webFilePaths.WebFileUri);
 

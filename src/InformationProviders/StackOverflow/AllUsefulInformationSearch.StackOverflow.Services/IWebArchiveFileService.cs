@@ -2,5 +2,5 @@
 
 public interface IWebArchiveFileService
 {
-    Task<List<Post>> GetPostsWithCommentsAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default);
+    Task<List<PostModel>> GetPostsWithCommentsAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default);
 }

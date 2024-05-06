@@ -2,5 +2,5 @@
 
 public interface IPostsSynchronizationService
 {
-    Task SynchronizePostsAsync(WebFilePaths webFilePaths, List<Post> modifiedPosts, CancellationToken cancellationToken = default);
+    Task SynchronizePostsAsync(WebFilePaths webFilePaths, List<PostModel> modifiedPosts, CancellationToken cancellationToken = default);
 }

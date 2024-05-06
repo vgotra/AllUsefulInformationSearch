@@ -20,7 +20,7 @@ public class WebDataFilesServiceTests : BaseTests
 
         IFileUtilityService fileUtilityService = Environment.OSVersion.Platform == PlatformID.Win32NT ? new WindowsFileUtilityService() : new LinuxFileUtilityService(); // add MacOS later
         
-        var paths = new WebFilePaths { WebFileUri = webDataFile.Link, TemporaryDownloadPath = Path.GetTempFileName(), ArchiveOutputDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()) };
+        var paths = webDataFile.ToWebFilePaths();
         var posts = await new WebArchiveFileService(fileUtilityService, new TestContextLogger<WebArchiveFileService>(TestContext)).GetPostsWithCommentsAsync(paths, cancellationTokenSource.Token);
         Assert.IsTrue(posts.Count > 0);
 

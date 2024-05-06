@@ -2,5 +2,5 @@
 
 public interface IPostModificationService
 {
-    Task<List<Post>> PostProcessArchivePostsAsync(List<Post> posts, CancellationToken cancellationToken = default);
+    Task<List<PostModel>> PostProcessArchivePostsAsync(List<PostModel> posts, CancellationToken cancellationToken = default);
 }

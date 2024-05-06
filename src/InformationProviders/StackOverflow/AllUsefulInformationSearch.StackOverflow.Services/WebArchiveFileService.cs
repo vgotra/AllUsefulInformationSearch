@@ -4,7 +4,7 @@ public class WebArchiveFileService(IFileUtilityService fileUtilityService, ILogg
 {
     private static PostType[] UsefulPostTypes { get; } = [PostType.Question, PostType.Answer, PostType.TagWiki];
 
-    public async Task<List<Post>> GetPostsWithCommentsAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default)
+    public async Task<List<PostModel>> GetPostsWithCommentsAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default)
     {
         logger.LogInformation("Started processing of {WebFileUri}", webFilePaths.WebFileUri);
         
@@ -12,7 +12,7 @@ public class WebArchiveFileService(IFileUtilityService fileUtilityService, ILogg
         await fileUtilityService.ExtractArchiveFileAsync(webFilePaths, cancellationToken);
 
         //TODO To Deserialization service
-        var posts = Path.Combine(webFilePaths.ArchiveOutputDirectory, "Posts.xml").DeserializeXmlFileToList<Posts>("posts").Items;
+        var posts = await Path.Combine(webFilePaths.ArchiveOutputDirectory, "Posts.xml").DeserializeXmlFileToList(XmlFileDeserializer.ParsePostXmlRow);
         // var commentItems = Path.Combine(webFilePaths.ArchiveOutputDirectory, "Comments.xml").DeserializeXmlFileToList<Comments>("comments").Items;
 
         posts.ForEach(p =>
