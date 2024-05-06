@@ -154,7 +154,8 @@ namespace AllUsefulInformationSearch.StackOverflow.DataAccess.Compiledmodels
                 principalEntityType,
                 deleteBehavior: DeleteBehavior.NoAction,
                 unique: true,
-                required: true);
+                required: true,
+                requiredDependent: true);
 
             var post = declaringEntityType.AddNavigation("Post",
                 runtimeForeignKey,

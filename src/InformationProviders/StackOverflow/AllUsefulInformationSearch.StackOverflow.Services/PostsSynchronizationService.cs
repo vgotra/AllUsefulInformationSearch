@@ -10,7 +10,7 @@ public class PostsSynchronizationService(StackOverflowDbContext dbContext, ILogg
         var posts = modifiedPosts.Select(x => x.ToEntity()).ToList();
         await dbContext.BulkInsertAsync(posts, cancellationToken: cancellationToken);
         var answers = posts.Select(x => x.AcceptedAnswer).ToList();
-        await dbContext.BulkInsertAsync(answers, cancellationToken: cancellationToken); // fix this later
+        await dbContext.BulkInsertAsync(answers, cancellationToken: cancellationToken);
         
         logger.LogInformation("Completed synchronizing posts to database for {WebFileUri}", webFilePaths.WebFileUri);
     }

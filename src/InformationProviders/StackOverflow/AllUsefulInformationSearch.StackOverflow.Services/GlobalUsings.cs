@@ -1,5 +1,6 @@
 ﻿// Global using directives
 
+global using AllUsefulInformationSearch.Common;
 global using AllUsefulInformationSearch.StackOverflow.DataAccess;
 global using AllUsefulInformationSearch.StackOverflow.Models;
 global using AllUsefulInformationSearch.StackOverflow.Models.Common;

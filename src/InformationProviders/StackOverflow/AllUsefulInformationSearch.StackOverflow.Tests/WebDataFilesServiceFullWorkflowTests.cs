@@ -38,7 +38,7 @@ public class WebDataFilesServiceFullWorkflowTests : BaseTests
             fileFromDb.ProcessingStatus = ProcessingStatus.InProgress;
             await dbContextInstance.SaveChangesAsync(token);
             
-            var paths = new WebFilePaths { WebFileUri = webDataFile.Link, TemporaryDownloadPath = Path.GetTempFileName(), ArchiveOutputDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()) };
+            var paths = webDataFile.ToWebFilePaths();
             var posts = await webArchiveFileService.GetPostsWithCommentsAsync(paths, token);
 
             var entities = posts.Select(x => x.ToEntity());

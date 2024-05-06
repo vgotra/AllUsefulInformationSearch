@@ -12,7 +12,7 @@ public class WebArchiveFileService(IFileUtilityService fileUtilityService, ILogg
         await fileUtilityService.ExtractArchiveFileAsync(webFilePaths, cancellationToken);
 
         //TODO To Deserialization service
-        var posts = await Path.Combine(webFilePaths.ArchiveOutputDirectory, "Posts.xml").DeserializeXmlFileToList(XmlFileDeserializer.ParsePostXmlRow);
+        var posts = await Path.Combine(webFilePaths.ArchiveOutputDirectory, "Posts.xml").DeserializeXmlFileToList(webFilePaths.WebDataFileSize, XmlFileDeserializer.ParsePostXmlRow);
         // var commentItems = Path.Combine(webFilePaths.ArchiveOutputDirectory, "Comments.xml").DeserializeXmlFileToList<Comments>("comments").Items;
 
         posts.ForEach(p =>

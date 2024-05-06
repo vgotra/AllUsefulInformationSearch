@@ -4,9 +4,9 @@ namespace AllUsefulInformationSearch.StackOverflow.Services;
 
 public static class XmlFileDeserializer
 {
-    public static async Task<List<T>> DeserializeXmlFileToList<T>(this string filePath, Func<XmlReader, T?> parseXmlRow) where T : class
+    public static async Task<List<T>> DeserializeXmlFileToList<T>(this string filePath, long fileSize, Func<XmlReader, T?> parseXmlRow) where T : class
     {
-        var list = new List<T>();
+        var list = new List<T>(fileSize.GetApproximateItemsCount());
 
         using var reader = XmlReader.Create(filePath, new XmlReaderSettings { Async = true, IgnoreComments = true, CloseInput = true, IgnoreWhitespace = true });
         while (await reader.ReadAsync())
@@ -20,6 +20,8 @@ public static class XmlFileDeserializer
 
         return list;
     }
+    
+    private static int GetApproximateItemsCount(this long fileSize) => (int)(fileSize / FileSize.Mb * 100);
 
     public static readonly Func<XmlReader, PostModel?> ParsePostXmlRow = xmlReader =>
     {
