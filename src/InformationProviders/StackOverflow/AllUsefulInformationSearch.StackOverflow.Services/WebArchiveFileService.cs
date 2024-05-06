@@ -19,11 +19,11 @@ public class WebArchiveFileService(IFileUtilityService fileUtilityService, ILogg
         {
             p.WebDataFileId = webFilePaths.WebDataFileId;
             // p.Comments.AddRange(commentItems.Where(c => c.PostId == p.Id));
-            p.AcceptedAnswer = posts.FirstOrDefault(x => x.Id == p.AcceptedAnswerId && x.PostTypeId == PostType.Answer);
+            p.AcceptedAnswer = posts.FirstOrDefault(x => x.Id == p.AcceptedAnswerId && x.PostTypeId == PostType.Answer); // improve this 
         });
 
         // get only useful answered posts
-        posts = posts.Where(x => UsefulPostTypes.Contains(x.PostTypeId) && x.AcceptedAnswerId != null).ToList();
+        posts = posts.Where(x => UsefulPostTypes.Contains(x.PostTypeId) && x.AcceptedAnswer != null).ToList();
 
         if (posts == null || posts.Count == 0)
             throw new InvalidDataException();
