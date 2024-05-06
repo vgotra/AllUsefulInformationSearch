@@ -37,6 +37,7 @@ public class WebArchiveFileService(IFileUtilityService fileUtilityService, ILogg
         {
             p.Comments.AddRange(commentItems.Where(c => c.PostId == p.Id));
             p.AcceptedAnswer = posts.FirstOrDefault(x => x.Id == p.AcceptedAnswerId && x.PostTypeId == PostType.Answer);
+            p.WebDataFileId = webFilePaths.WebDataFileId;
         });
 
         // get only useful answered posts

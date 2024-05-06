@@ -1,4 +1,6 @@
-﻿namespace AllUsefulInformationSearch.StackOverflow.Services;
+﻿using AllUsefulInformationSearch.StackOverflow.Models.Extensions;
+
+namespace AllUsefulInformationSearch.StackOverflow.Services;
 
 public class WebDataFilesService(StackOverflowDbContext dbContext, IWebArchiveParserService parserService, ILogger<WebDataFilesService> logger) : IWebDataFilesService
 {

@@ -37,4 +37,6 @@ public class Post
     [XmlIgnore] public List<Comment> Comments { get; set; } = new();
     
     [XmlIgnore] public Post? AcceptedAnswer { get; set; }
+    
+    [XmlIgnore] public int WebDataFileId { get; set; }
 }

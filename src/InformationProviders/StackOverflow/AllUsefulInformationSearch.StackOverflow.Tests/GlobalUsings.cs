@@ -1,8 +1,9 @@
 ﻿global using AllUsefulInformationSearch.Common;
 global using AllUsefulInformationSearch.StackOverflow.DataAccess;
+global using AllUsefulInformationSearch.StackOverflow.Models.Common;
 global using AllUsefulInformationSearch.StackOverflow.Models.Entities;
+global using AllUsefulInformationSearch.StackOverflow.Models.Extensions;
 global using AllUsefulInformationSearch.StackOverflow.Services;
-global using AllUsefulInformationSearch.StackOverflow.Services.Extensions;
 global using AllUsefulInformationSearch.Tests.Common;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Design;

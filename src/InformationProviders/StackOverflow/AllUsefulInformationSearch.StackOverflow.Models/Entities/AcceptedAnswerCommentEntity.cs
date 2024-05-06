@@ -8,5 +8,5 @@ public class AcceptedAnswerCommentEntity : UpdatableEntity<int>
     
     public AcceptedAnswerEntity AcceptedAnswer { get; set; } = null!;
     
-    public Guid WebDataFileId { get; set; } // part of composite key
+    public int WebDataFileId { get; set; } // part of composite key
 }

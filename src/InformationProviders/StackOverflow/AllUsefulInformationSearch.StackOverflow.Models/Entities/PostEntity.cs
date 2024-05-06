@@ -10,7 +10,7 @@ public class PostEntity : UpdatableEntity<int> //TODO Think what can be better f
     //public DateTimeOffset ExternalCreationDate { get; set; } //NOTE Not sure that I need it
     public DateTimeOffset ExternalLastActivityDate { get; set; }
 
-    public Guid WebDataFileId { get; set; }
+    public int WebDataFileId { get; set; }
 
     public AcceptedAnswerEntity? AcceptedAnswer { get; set; }
     public WebDataFileEntity WebDataFile { get; set; } = null!;

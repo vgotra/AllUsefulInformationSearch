@@ -1,6 +1,4 @@
-﻿using AllUsefulInformationSearch.StackOverflow.Models.Common;
-
-namespace AllUsefulInformationSearch.StackOverflow.Tests;
+﻿namespace AllUsefulInformationSearch.StackOverflow.Tests;
 
 [TestClass]
 public class WebDataFilesServiceFullWorkflowTests : BaseTests

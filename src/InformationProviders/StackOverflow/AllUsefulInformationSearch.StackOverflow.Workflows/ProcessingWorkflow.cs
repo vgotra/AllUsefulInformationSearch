@@ -1,4 +1,5 @@
 ﻿using AllUsefulInformationSearch.StackOverflow.Models.Common;
+using AllUsefulInformationSearch.StackOverflow.Models.Extensions;
 
 namespace AllUsefulInformationSearch.StackOverflow.Workflows;
 
@@ -17,9 +18,7 @@ public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, I
             // Step 2: Get updated/new files list from db
             var webFilesRepository = serviceProvider.GetRequiredService<IWebDataFilesRepository>();
             var webFiles = await webFilesRepository.GetWebDataFilesAsync(cancellationToken);
-            var webFilePaths = webFiles
-                .Select(x => new WebFilePaths { WebFileUri = x.Link, TemporaryDownloadPath = Path.GetTempFileName(), ArchiveOutputDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()) })
-                .ToList();
+            var webFilePaths = webFiles.Select(x => x.ToWebFilePaths()).ToList();
 
             // Step 3: Download/extract/deserialize/cleanup files (to minimize disk space usage)
             var posts = await serviceProvider.GetRequiredService<IWebArchiveFileService>().GetPostsWithCommentsAsync(webFilePaths, cancellationToken);

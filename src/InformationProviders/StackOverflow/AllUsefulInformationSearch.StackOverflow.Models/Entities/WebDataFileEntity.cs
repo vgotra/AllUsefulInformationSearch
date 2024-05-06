@@ -1,6 +1,6 @@
 ﻿namespace AllUsefulInformationSearch.StackOverflow.Models.Entities;
 
-public class WebDataFileEntity : UpdatableEntity<Guid>
+public class WebDataFileEntity : UpdatableEntity<int>
 {
     public string Name { get; set; } = null!;
     public string Link { get; set; } = null!;

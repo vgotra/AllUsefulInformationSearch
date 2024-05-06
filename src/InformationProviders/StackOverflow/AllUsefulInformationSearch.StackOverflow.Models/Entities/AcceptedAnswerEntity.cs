@@ -8,7 +8,7 @@ public class AcceptedAnswerEntity : UpdatableEntity<int> //TODO Think what can b
     public DateTimeOffset ExternalLastActivityDate { get; set; }
 
     public int PostId { get; set; } //TODO Think how to optimize FK with CK
-    public Guid PostWebDataFileId { get; set; }
+    public int PostWebDataFileId { get; set; }
 
     public PostEntity Post { get; set; } = null!;
 
