@@ -8,13 +8,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Update="appsettings.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+        <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.Workflows\AllUsefulInformationSearch.StackOverflow.Workflows.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AllUsefulInformationSearch.StackOverflow.ProcessingApp\AllUsefulInformationSearch.StackOverflow.ProcessingApp.csproj" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="8.4.0" />
     </ItemGroup>
 
 </Project>

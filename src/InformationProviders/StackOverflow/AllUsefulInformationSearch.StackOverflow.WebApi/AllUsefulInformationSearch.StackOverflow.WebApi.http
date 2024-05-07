@@ -1,0 +1,11 @@
+@AllUsefulInformationSearch.StackOverflow.WebApi_HostAddress = http://localhost:5145
+
+GET {{AllUsefulInformationSearch.StackOverflow.WebApi_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{AllUsefulInformationSearch.StackOverflow.WebApi_HostAddress}}/todos/1
+Accept: application/json
+
+###
