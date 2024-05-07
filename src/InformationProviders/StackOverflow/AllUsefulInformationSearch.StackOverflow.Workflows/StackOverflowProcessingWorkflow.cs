@@ -16,9 +16,16 @@ public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, I
 
             await Parallel.ForEachAsync(webFiles, cancellationToken, async (webFile, token) =>
             {
-                //TODO Check this with chunks (for better GC)
-                var subWorkflow = serviceProvider.GetRequiredService<IStackOverflowProcessingSubWorkflow>();
-                await subWorkflow.ExecuteAsync(webFile, token);
+                try
+                {
+                    //TODO Check this with chunks (for better GC)
+                    var subWorkflow = serviceProvider.GetRequiredService<IStackOverflowProcessingSubWorkflow>();
+                    await subWorkflow.ExecuteAsync(webFile, token);
+                }
+                catch (Exception e)
+                {
+                    logger.LogError(e, "Error during StackOverflow processing sub workflow for {WebFileName}", webFile.Name);
+                }
             });    
             
             //TODO Maybe some summary to db or similar, etc.

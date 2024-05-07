@@ -1,11 +1,6 @@
-@AllUsefulInformationSearch.StackOverflow.WebApi_HostAddress = http://localhost:5145
+@AllUsefulInformationSearch.StackOverflow.WebApi_HostAddress = http://localhost:5249
 
-GET {{AllUsefulInformationSearch.StackOverflow.WebApi_HostAddress}}/todos/
-Accept: application/json
-
-###
-
-GET {{AllUsefulInformationSearch.StackOverflow.WebApi_HostAddress}}/todos/1
+GET {{AllUsefulInformationSearch.StackOverflow.WebApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

@@ -2,6 +2,8 @@
 
 public class WebDataFilesService(StackOverflowDbContext dbContext, IWebArchiveParserService parserService, ILogger<WebDataFilesService> logger) : IWebDataFilesService
 {
+    private readonly string[] _fileNamesToSkip = ["stackoverflow.com-Badges.7z"]; //TODO Move this later to configuration/settings
+    
     public async Task SynchronizeWebDataFilesAsync(CancellationToken cancellationToken = default)
     {
         logger.LogInformation("Started syncing web data files to database");
@@ -16,7 +18,7 @@ public class WebDataFilesService(StackOverflowDbContext dbContext, IWebArchivePa
         // No need to delete some data files, because they can be useful
 
         updatedFiles.ForEach(x => x.ProcessingStatus = ProcessingStatus.Updated);
-        var webFiles = newFiles.Select(x => x.ToEntity()).Concat(updatedFiles);
+        var webFiles = newFiles.Select(x => x.ToEntity()).Concat(updatedFiles).Where(x => !_fileNamesToSkip.Contains(x.Name));
 
         await dbContext.BulkInsertOrUpdateAsync(webFiles, cancellationToken: cancellationToken);
         
