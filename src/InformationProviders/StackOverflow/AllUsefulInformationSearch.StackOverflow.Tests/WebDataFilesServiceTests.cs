@@ -15,7 +15,7 @@ public class WebDataFilesServiceTests : BaseTests
         var itemsCount = await dbContext.WebDataFiles.CountAsync(cancellationTokenSource.Token);
         Assert.IsTrue(itemsCount > 0);
 
-        var webDataFile = await dbContext.WebDataFiles.FirstOrDefaultAsync(x => x.Name.StartsWith("3dprinting.meta.stackexchange.com"), cancellationTokenSource.Token);
+        var webDataFile = await dbContext.WebDataFiles.OrderBy(x => x.Size).FirstOrDefaultAsync(cancellationToken: cancellationTokenSource.Token);
         Assert.IsNotNull(webDataFile);
 
         IFileUtilityService fileUtilityService = Environment.OSVersion.Platform == PlatformID.Win32NT ? new WindowsFileUtilityService(httpClient) : new LinuxFileUtilityService(httpClient); // add MacOS later

@@ -20,7 +20,9 @@ public class WebDataFilesService(StackOverflowDbContext dbContext, IWebArchivePa
         updatedFiles.ForEach(x => x.ProcessingStatus = ProcessingStatus.Updated);
         var webFiles = newFiles.Select(x => x.ToEntity()).Concat(updatedFiles).Where(x => !_fileNamesToSkip.Contains(x.Name));
 
-        await dbContext.BulkInsertOrUpdateAsync(webFiles, cancellationToken: cancellationToken);
+        await dbContext.AddRangeAsync(webFiles, cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        // await dbContext.BulkInsertOrUpdateAsync(webFiles, cancellationToken: cancellationToken);
         
         logger.LogInformation("Synchronized web data files to database");
     }
