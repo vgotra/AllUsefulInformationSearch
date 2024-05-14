@@ -19,8 +19,8 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: Show files in folder
-      run: pwd && ls
+    - name: CD to ./src folder
+      run: cd ./src && pwd && ls
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
