@@ -7,6 +7,12 @@
         <Nullable>enable</Nullable>
         <PublishAot>true</PublishAot>
         <InvariantGlobalization>true</InvariantGlobalization>
+        <OptimizationPreference>Speed</OptimizationPreference>
+        <PublishTrimmed>true</PublishTrimmed>
     </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Downloader" Version="3.0.6" />
+    </ItemGroup>
 
 </Project>

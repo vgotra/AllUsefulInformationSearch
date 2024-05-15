@@ -1,4 +1,7 @@
-﻿namespace AllUsefulInformationSearch.FileUtility;
+﻿using Downloader;
+using System.Diagnostics;
+
+namespace AllUsefulInformationSearch.FileUtility;
 
 static class Program
 {
@@ -9,7 +12,14 @@ static class Program
             Console.WriteLine("Please provide a URL to download the file from and path for saving file.");
             return;
         }
-        
-        await new FileDownloader().DownloadFileInChunksAsync(args[0], args[1]);
+
+        var sw = Stopwatch.StartNew();
+        Console.WriteLine($"Started downloading file '{args[0]}' to '{args[1]}'...");
+        await DownloadBuilder.New().WithConfiguration(new DownloadConfiguration
+        {
+            ChunkCount = Environment.ProcessorCount > 1 ? Environment.ProcessorCount / 2 : 1,
+            ParallelDownload = true
+        }).WithUrl(args[0]).WithFileLocation(args[1]).Build().StartAsync();
+        Console.WriteLine($"Completed downloading file '{args[0]}'. Time taken: {sw.Elapsed}.");
     }
 }
