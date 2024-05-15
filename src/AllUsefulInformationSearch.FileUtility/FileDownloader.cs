@@ -1,23 +1,27 @@
 ﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Net.Http.Headers;
 
 namespace AllUsefulInformationSearch.FileUtility;
 
-public class FileDownloader
+public class FileDownloader(bool isChunksDownloadingEnabled = true)
 {
     public async Task DownloadFileInChunksAsync(string fileUrl, string filePath, CancellationToken cancellationToken = default)
     {
         var rangeCheck = await SupportsRangeHeader(fileUrl);
-        if (!rangeCheck.IsRangeSupported)
+        if (!isChunksDownloadingEnabled || !rangeCheck.IsRangeSupported)
         {
+            var sw = Stopwatch.StartNew();
             await using var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.Write, 4096, true);
             var webStream = await new HttpClient().GetStreamAsync(fileUrl, cancellationToken);
             await webStream.CopyToAsync(fileStream, cancellationToken);
+            Console.WriteLine($"File downloaded for {sw.Elapsed}");
             return;
         }
 
-        var chunks = SplitFileIntoChunks(rangeCheck.FileSize, 1024 * 1024);
+        var chunks = SplitFileIntoChunks(rangeCheck.FileSize, 1024 * 1024 * 10);
         var streams = new ConcurrentBag<(int Index, Stream Stream)>();
+        var swp = Stopwatch.StartNew();
         await Parallel.ForEachAsync(chunks, cancellationToken, async (range, token) =>
         {
             using var chunkHttpClient = new HttpClient();
@@ -26,13 +30,14 @@ public class FileDownloader
             streams.Add((range.Index, chunkStream));
         });
         
-        //TODO Check preallocation later
-        await using var chunksFileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.Write, 4096, true);
+        //TODO Check preallocation later also buffer size, chunkSizes, etc
+        await using var chunksFileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.Write, 81920, true);
         streams.OrderBy(x => x.Index).ToList().ForEach(x =>
         {
             x.Stream.CopyTo(chunksFileStream);
             x.Stream.Dispose();
         });
+        Console.WriteLine($"File chunks downloaded for {swp.Elapsed}");
     }
     
     private List<(int Index, int From, int To)> SplitFileIntoChunks(long fileSize, int chunkSize)
