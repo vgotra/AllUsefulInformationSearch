@@ -1,0 +1,26 @@
+<Solution>
+  <Folder Name="/InformationProviders/" />
+  <Folder Name="/InformationProviders/StackOverflow/">
+    <File Path="InformationProviders\StackOverflow\README.md" />
+    <Project Path="InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.App\AllUsefulInformationSearch.StackOverflow.App.csproj" />
+    <Project Path="InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.DataAccess\AllUsefulInformationSearch.StackOverflow.DataAccess.csproj" />
+    <Project Path="InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.DatabaseMigrations\AllUsefulInformationSearch.StackOverflow.DatabaseMigrations.csproj" />
+    <Project Path="InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.Models\AllUsefulInformationSearch.StackOverflow.Models.csproj" />
+    <Project Path="InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.ProcessingApp\AllUsefulInformationSearch.StackOverflow.ProcessingApp.csproj" />
+    <Project Path="InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.Services\AllUsefulInformationSearch.StackOverflow.Services.csproj" />
+    <Project Path="InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.Tests\AllUsefulInformationSearch.StackOverflow.Tests.csproj" />
+    <Project Path="InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.WebApi\AllUsefulInformationSearch.StackOverflow.WebApi.csproj" />
+    <Project Path="InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.Workflows\AllUsefulInformationSearch.StackOverflow.Workflows.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/" />
+  <Project Path="AllUsefulInformationSearch.ApiService\AllUsefulInformationSearch.ApiService.csproj" />
+  <Project Path="AllUsefulInformationSearch.AppHost\AllUsefulInformationSearch.AppHost.csproj" />
+  <Project Path="AllUsefulInformationSearch.Common\AllUsefulInformationSearch.Common.csproj" />
+  <Project Path="AllUsefulInformationSearch.DataAccess\AllUsefulInformationSearch.DataAccess.csproj" />
+  <Project Path="AllUsefulInformationSearch.DatabaseMigrations\AllUsefulInformationSearch.DatabaseMigrations.csproj" />
+  <Project Path="AllUsefulInformationSearch.FileUtility\AllUsefulInformationSearch.FileUtility.csproj" />
+  <Project Path="AllUsefulInformationSearch.Models\AllUsefulInformationSearch.Models.csproj" />
+  <Project Path="AllUsefulInformationSearch.ServiceDefaults\AllUsefulInformationSearch.ServiceDefaults.csproj" />
+  <Project Path="AllUsefulInformationSearch.Tests.Common\AllUsefulInformationSearch.Tests.Common.csproj" />
+  <Project Path="AllUsefulInformationSearch.Web\AllUsefulInformationSearch.Web.csproj" />
+</Solution>
