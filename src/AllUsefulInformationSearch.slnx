@@ -10,7 +10,6 @@
     <Project Path="InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.Services\AllUsefulInformationSearch.StackOverflow.Services.csproj" />
     <Project Path="InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.Tests\AllUsefulInformationSearch.StackOverflow.Tests.csproj" />
     <Project Path="InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.WebApi\AllUsefulInformationSearch.StackOverflow.WebApi.csproj" />
-    <Project Path="InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.WebApp\AllUsefulInformationSearch.StackOverflow.WebApp.csproj" />
     <Project Path="InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.Workflows\AllUsefulInformationSearch.StackOverflow.Workflows.csproj" />
   </Folder>
   <Folder Name="/Solution Items/" />
