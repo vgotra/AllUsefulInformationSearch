@@ -1,0 +1,11 @@
+﻿global using Auis.Common;
+global using Auis.StackOverflow.DataAccess;
+global using Auis.StackOverflow.Models.Common;
+global using Auis.StackOverflow.Models.Entities;
+global using Auis.StackOverflow.Models.Extensions;
+global using Auis.StackOverflow.Services;
+global using Auis.Tests.Common;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Design;
+global using Microsoft.VisualStudio.TestTools.UnitTesting;
+global using System.Threading.Tasks;

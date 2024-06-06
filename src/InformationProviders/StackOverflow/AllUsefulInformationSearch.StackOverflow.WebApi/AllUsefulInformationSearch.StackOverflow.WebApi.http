@@ -1,6 +1,0 @@
-@AllUsefulInformationSearch.StackOverflow.WebApi_HostAddress = http://localhost:5249
-
-GET {{AllUsefulInformationSearch.StackOverflow.WebApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

@@ -11,43 +11,43 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StackOverflow", "StackOverf
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{089100B1-113F-4E66-888A-E83F3999EAFD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.ApiService", "AllUsefulInformationSearch.ApiService\AllUsefulInformationSearch.ApiService.csproj", "{5F86079C-A74A-6FCD-2876-CCE2B563EACA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.ApiService", "Auis.ApiService\Auis.ApiService.csproj", "{5F86079C-A74A-6FCD-2876-CCE2B563EACA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.AppHost", "AllUsefulInformationSearch.AppHost\AllUsefulInformationSearch.AppHost.csproj", "{0E745A80-4FD6-D0BA-2106-82D46D283DE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.AppHost", "Auis.AppHost\Auis.AppHost.csproj", "{0E745A80-4FD6-D0BA-2106-82D46D283DE7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.Common", "AllUsefulInformationSearch.Common\AllUsefulInformationSearch.Common.csproj", "{9B3EB7C1-67D7-3BC7-7D3F-2DB9862341D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.Common", "Auis.Common\Auis.Common.csproj", "{9B3EB7C1-67D7-3BC7-7D3F-2DB9862341D1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.DataAccess", "AllUsefulInformationSearch.DataAccess\AllUsefulInformationSearch.DataAccess.csproj", "{863ECCC6-C0B7-A961-1830-AA565582421C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.DataAccess", "Auis.DataAccess\Auis.DataAccess.csproj", "{863ECCC6-C0B7-A961-1830-AA565582421C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.DatabaseMigrations", "AllUsefulInformationSearch.DatabaseMigrations\AllUsefulInformationSearch.DatabaseMigrations.csproj", "{552638CF-A9A8-46CF-EA69-7F15BEB4BC0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.DatabaseMigrations", "Auis.DatabaseMigrations\Auis.DatabaseMigrations.csproj", "{552638CF-A9A8-46CF-EA69-7F15BEB4BC0C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.FileUtility", "AllUsefulInformationSearch.FileUtility\AllUsefulInformationSearch.FileUtility.csproj", "{D1664189-D8D0-B3B0-3F1D-23F8E500C16B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.FileUtility", "Auis.FileUtility\Auis.FileUtility.csproj", "{D1664189-D8D0-B3B0-3F1D-23F8E500C16B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.Models", "AllUsefulInformationSearch.Models\AllUsefulInformationSearch.Models.csproj", "{3B78CC56-5EAA-8D56-85E7-7B17A7769F73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.Models", "Auis.Models\Auis.Models.csproj", "{3B78CC56-5EAA-8D56-85E7-7B17A7769F73}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.ServiceDefaults", "AllUsefulInformationSearch.ServiceDefaults\AllUsefulInformationSearch.ServiceDefaults.csproj", "{4EFA6373-7A6B-9C0F-9609-078F9392D5B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.ServiceDefaults", "Auis.ServiceDefaults\Auis.ServiceDefaults.csproj", "{4EFA6373-7A6B-9C0F-9609-078F9392D5B7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.Tests.Common", "AllUsefulInformationSearch.Tests.Common\AllUsefulInformationSearch.Tests.Common.csproj", "{EE38CB89-81D0-428A-06A5-8AC2A7366DE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.Tests.Common", "Auis.Tests.Common\Auis.Tests.Common.csproj", "{EE38CB89-81D0-428A-06A5-8AC2A7366DE3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.Web", "AllUsefulInformationSearch.Web\AllUsefulInformationSearch.Web.csproj", "{8704A122-4265-518B-337D-99DF8FEFE87C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.Web", "Auis.Web\Auis.Web.csproj", "{8704A122-4265-518B-337D-99DF8FEFE87C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.StackOverflow.App", "InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.App\AllUsefulInformationSearch.StackOverflow.App.csproj", "{8F22DC77-9B77-A7F3-EC8D-688345712DCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.App", "InformationProviders\StackOverflow\Auis.StackOverflow.App\Auis.StackOverflow.App.csproj", "{8F22DC77-9B77-A7F3-EC8D-688345712DCC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.StackOverflow.DataAccess", "InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.DataAccess\AllUsefulInformationSearch.StackOverflow.DataAccess.csproj", "{A20F77FF-2219-DCF6-45B2-D0A11087D010}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.DataAccess", "InformationProviders\StackOverflow\Auis.StackOverflow.DataAccess\Auis.StackOverflow.DataAccess.csproj", "{A20F77FF-2219-DCF6-45B2-D0A11087D010}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.StackOverflow.DatabaseMigrations", "InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.DatabaseMigrations\AllUsefulInformationSearch.StackOverflow.DatabaseMigrations.csproj", "{FC9D4824-AEAA-432F-DB45-E391D5CFBC54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.DatabaseMigrations", "InformationProviders\StackOverflow\Auis.StackOverflow.DatabaseMigrations\Auis.StackOverflow.DatabaseMigrations.csproj", "{FC9D4824-AEAA-432F-DB45-E391D5CFBC54}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.StackOverflow.Models", "InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.Models\AllUsefulInformationSearch.StackOverflow.Models.csproj", "{C7CD2AD8-1A1C-65CD-7247-C21535DBE895}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.Models", "InformationProviders\StackOverflow\Auis.StackOverflow.Models\Auis.StackOverflow.Models.csproj", "{C7CD2AD8-1A1C-65CD-7247-C21535DBE895}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.StackOverflow.ProcessingApp", "InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.ProcessingApp\AllUsefulInformationSearch.StackOverflow.ProcessingApp.csproj", "{8EF75B4F-1AF9-1D2D-A359-AE2A0F0FEC10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.ProcessingApp", "InformationProviders\StackOverflow\Auis.StackOverflow.ProcessingApp\Auis.StackOverflow.ProcessingApp.csproj", "{8EF75B4F-1AF9-1D2D-A359-AE2A0F0FEC10}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.StackOverflow.Services", "InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.Services\AllUsefulInformationSearch.StackOverflow.Services.csproj", "{FB032162-9668-B09E-EC40-0EDA3CDD51D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.Services", "InformationProviders\StackOverflow\Auis.StackOverflow.Services\Auis.StackOverflow.Services.csproj", "{FB032162-9668-B09E-EC40-0EDA3CDD51D9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.StackOverflow.Tests", "InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.Tests\AllUsefulInformationSearch.StackOverflow.Tests.csproj", "{98A0F143-6A14-89EE-44A7-C2A3BC9F669A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.Tests", "InformationProviders\StackOverflow\Auis.StackOverflow.Tests\Auis.StackOverflow.Tests.csproj", "{98A0F143-6A14-89EE-44A7-C2A3BC9F669A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.StackOverflow.WebApi", "InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.WebApi\AllUsefulInformationSearch.StackOverflow.WebApi.csproj", "{7FCAB826-54FA-370F-01C2-53141D6DE463}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.WebApi", "InformationProviders\StackOverflow\Auis.StackOverflow.WebApi\Auis.StackOverflow.WebApi.csproj", "{7FCAB826-54FA-370F-01C2-53141D6DE463}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllUsefulInformationSearch.StackOverflow.Workflows", "InformationProviders\StackOverflow\AllUsefulInformationSearch.StackOverflow.Workflows\AllUsefulInformationSearch.StackOverflow.Workflows.csproj", "{66D8E0CD-0B57-0F8A-5298-518B1A46496C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.Workflows", "InformationProviders\StackOverflow\Auis.StackOverflow.Workflows\Auis.StackOverflow.Workflows.csproj", "{66D8E0CD-0B57-0F8A-5298-518B1A46496C}"
 EndProject
 Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
