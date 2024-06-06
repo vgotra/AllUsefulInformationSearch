@@ -7,7 +7,6 @@ public static class Startup
         services.AddLogging(configure => configure.AddConfiguration(configuration.GetSection("Logging")).AddConsole());
 
         var stackOverflowBaseUri = new Uri(configuration["StackOverflow:BaseUrl"] ?? throw new InvalidOperationException("StackOverflow base URL is not specified."));
-
         services.AddHttpClient("", (provider, client) => client.BaseAddress = stackOverflowBaseUri);
 
         //TODO Find a way to register DbContextPool as Transient, also batches

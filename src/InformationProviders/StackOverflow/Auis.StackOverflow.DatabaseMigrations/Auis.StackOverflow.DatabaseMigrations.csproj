@@ -1,32 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-    <ItemGroup>
-        <None Update="appsettings.json">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-		<None Update="appsettings.Development.json">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-    </ItemGroup>
+		<None Update="appsettings.Development.json" DependentUpon="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\..\..\Auis.DatabaseMigrations\Auis.DatabaseMigrations.csproj" />
-        <ProjectReference Include="..\Auis.StackOverflow.DataAccess\Auis.StackOverflow.DataAccess.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Auis.DatabaseMigrations\Auis.DatabaseMigrations.csproj" />
+		<ProjectReference Include="..\Auis.StackOverflow.DataAccess\Auis.StackOverflow.DataAccess.csproj" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
 </Project>

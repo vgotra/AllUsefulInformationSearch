@@ -6,3 +6,5 @@
 ``` shell
 dotnet ef dbcontext optimize --output-dir ..\Auis.StackOverflow.DataAccess\CompiledModels --namespace Auis.StackOverflow.DataAccess.Compiledmodels
 ```
+
+- Don't forget to set correct DOTNET_ENVIRONMENT variable
