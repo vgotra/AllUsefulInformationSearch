@@ -1,6 +1,6 @@
 @Auis.StackOverflow.WebApi_HostAddress = http://localhost:5249
 
-GET {{Auis.StackOverflow.WebApi_HostAddress}}/weatherforecast/
+GET {{Auis.StackOverflow.WebApi_HostAddress}}/webdatafiles/
 Accept: application/json
 
 ###

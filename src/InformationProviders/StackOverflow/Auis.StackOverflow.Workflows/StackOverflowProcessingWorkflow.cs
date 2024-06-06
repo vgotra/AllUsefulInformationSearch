@@ -8,7 +8,7 @@ public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, I
         try
         {
             logger.LogInformation("Starting StackOverflow processing workflow");
-           
+
             await serviceProvider.GetRequiredService<IWebDataFilesService>().SynchronizeWebDataFilesAsync(cancellationToken);
 
             var webFilesRepository = serviceProvider.GetRequiredService<IWebDataFilesRepository>();
@@ -26,8 +26,8 @@ public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, I
                 {
                     logger.LogError(e, "Error during StackOverflow processing sub workflow for {WebFileName}", webFile.Name);
                 }
-            });    
-            
+            });
+
             //TODO Maybe some summary to db or similar, etc.
 
             logger.LogInformation("Completed StackOverflow processing workflow");
