@@ -8,8 +8,6 @@ global using Auis.StackOverflow.Models.Entities;
 global using Auis.StackOverflow.Models.Extensions;
 global using Auis.StackOverflow.Models.XmlModels;
 
-global using EFCore.BulkExtensions;
-
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Logging;
 

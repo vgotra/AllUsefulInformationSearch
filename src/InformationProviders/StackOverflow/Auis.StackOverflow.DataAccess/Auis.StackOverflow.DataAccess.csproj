@@ -11,4 +11,8 @@
         <ProjectReference Include="..\Auis.StackOverflow.Models\Auis.StackOverflow.Models.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="CompiledModels\" />
+    </ItemGroup>
+
 </Project>

@@ -1,6 +1,8 @@
-﻿namespace Auis.StackOverflow.App;
+﻿using Auis.StackOverflow.Workflows;
 
-public static class Startup
+namespace Auis.StackOverflow.App;
+
+public static class TestHostServicesConfiguration
 {
     public static void ConfigureServices(this IServiceCollection services, HostBuilderContext context)
     {

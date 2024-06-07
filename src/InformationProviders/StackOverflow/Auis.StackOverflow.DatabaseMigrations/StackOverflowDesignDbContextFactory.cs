@@ -20,7 +20,7 @@ public class StackOverflowDesignDbContextFactory : IDesignTimeDbContextFactory<S
                 x.MigrationsAssembly("Auis.StackOverflow.DatabaseMigrations");
                 x.MigrationsHistoryTable("__MigrationsHistory", StackOverflowDbContext.DbSchemaName);
             });
-        optionsBuilder.UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance);
+        // optionsBuilder.UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance);
         return new StackOverflowDbContext(optionsBuilder.Options);
     }
 }

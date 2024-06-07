@@ -24,10 +24,10 @@ public partial class StackOverflowDbContext
             entity.Property(e => e.Text).IsRequired().HasMaxLength(-1);
         });
 
-        modelBuilder.Entity<PostCommentEntity>(entity =>
-        {
-            entity.ToTable("PostComments").HasKey(e => new { e.WebDataFileId, e.Id });
-        });
+        //modelBuilder.Entity<PostCommentEntity>(entity =>
+        //{
+        //    entity.ToTable("PostComments").HasKey(e => new { e.WebDataFileId, e.Id });
+        //});
 
         modelBuilder.Entity<AcceptedAnswerEntity>(entity =>
         {
@@ -35,10 +35,10 @@ public partial class StackOverflowDbContext
             entity.Property(e => e.Text).IsRequired().HasMaxLength(-1);
         });
 
-        modelBuilder.Entity<AcceptedAnswerCommentEntity>(entity =>
-        {
-            entity.ToTable("AcceptedAnswerComments").HasKey(e => new { e.WebDataFileId, e.Id });
-        });
+        //modelBuilder.Entity<AcceptedAnswerCommentEntity>(entity =>
+        //{
+        //    entity.ToTable("AcceptedAnswerComments").HasKey(e => new { e.WebDataFileId, e.Id });
+        //});
 
         modelBuilder.Model.GetEntityTypes().ToList()
             .ForEach(e =>
