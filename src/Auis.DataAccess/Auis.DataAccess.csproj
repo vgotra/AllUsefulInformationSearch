@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\InformationProviders\StackOverflow\Auis.StackOverflow.Models\Auis.StackOverflow.Models.csproj" />
+      <ProjectReference Include="..\Auis.Models\Auis.Models.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -8,8 +8,6 @@ static class Program
             .ConfigureServices((context, services) => services.ConfigureServices(context))
             .Build();
 
-        var workflow = host.Services.GetRequiredService<IStackOverflowProcessingWorkflow>();
-        var cancellationTokenSource = new CancellationTokenSource();
-        await workflow.ExecuteAsync(cancellationTokenSource.Token);
+        await host.Services.GetRequiredService<IStackOverflowProcessingWorkflow>().ExecuteAsync();
     }
 }

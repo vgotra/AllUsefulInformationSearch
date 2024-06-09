@@ -1,5 +1,6 @@
 ﻿// Global using directives
 
+global using Auis.Common;
 global using Auis.StackOverflow.DataAccess;
 global using Auis.StackOverflow.Models.Common;
 global using Auis.StackOverflow.Models.Entities;
