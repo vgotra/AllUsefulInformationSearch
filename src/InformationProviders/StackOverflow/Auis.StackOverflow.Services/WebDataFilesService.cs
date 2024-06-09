@@ -3,10 +3,28 @@
 public class WebDataFilesService(StackOverflowDbContext dbContext, IWebArchiveParserService parserService, ILogger<WebDataFilesService> logger) : IWebDataFilesService
 {
     // Block all russian information because useless
-    private readonly string[] _additionalFileNamesToSkip = ["ru.meta.stackoverflow.com.7z", "ru.stackoverflow.com.7z", "rus.meta.stackexchange.com.7z", "rus.stackexchange.com.7z", "russian.meta.stackexchange.com.7z", "russian.stackexchange.com.7z"];
+    private readonly string[] _additionalFileNamesToSkip =
+    [
+        "ru.meta.stackoverflow.com.7z",
+        "ru.stackoverflow.com.7z",
+        "rus.meta.stackexchange.com.7z",
+        "rus.stackexchange.com.7z",
+        "russian.meta.stackexchange.com.7z",
+        "russian.stackexchange.com.7z"
+    ];
 
     //TODO Move later to settings
-    private readonly string[] _fileNamesToSkip = ["stackoverflow.com-Badges.7z", "stackoverflow.com-PostLinks.7z", "stackoverflow.com-Tags.7z", "stackoverflow.com-Users.7z", "stackoverflow.com-Comments.7z", "stackoverflow.com-Votes.7z", "stackoverflow.com-PostHistory.7z"];
+    private readonly string[] _fileNamesToSkip =
+    [
+        "stackoverflow.com-Badges.7z",
+        "stackoverflow.com-PostLinks.7z",
+        "stackoverflow.com-Tags.7z",
+        "stackoverflow.com-Users.7z",
+        "stackoverflow.com-Comments.7z",
+        "stackoverflow.com-Votes.7z",
+        "stackoverflow.com-PostHistory.7z",
+        "stackoverflow.com-Posts.7z"
+    ];
 
     public async Task SynchronizeWebDataFilesAsync(CancellationToken cancellationToken = default)
     {
