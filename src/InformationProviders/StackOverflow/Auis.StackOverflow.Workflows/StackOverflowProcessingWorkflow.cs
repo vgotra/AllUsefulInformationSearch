@@ -14,7 +14,8 @@ public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, I
             var webFilesRepository = serviceProvider.GetRequiredService<IWebDataFilesRepository>();
             var webFiles = await webFilesRepository.GetWebDataFilesAsync(cancellationToken);
 
-            await Parallel.ForEachAsync(webFiles, cancellationToken, async (webFile, token) =>
+            var parallelOptions = new ParallelOptions { CancellationToken = cancellationToken, MaxDegreeOfParallelism = Environment.ProcessorCount == 1 ? 1 : Environment.ProcessorCount / 2};
+            await Parallel.ForEachAsync(webFiles, parallelOptions, async (webFile, token) =>
             {
                 try
                 {

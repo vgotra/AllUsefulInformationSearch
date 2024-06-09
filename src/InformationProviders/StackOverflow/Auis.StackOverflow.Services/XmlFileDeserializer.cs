@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using System.Xml.Schema;
 
 namespace Auis.StackOverflow.Services;
 
@@ -8,7 +9,17 @@ public static class XmlFileDeserializer
     {
         var list = new List<T>(fileSize.GetApproximateItemsCount());
 
-        using var reader = XmlReader.Create(filePath, new XmlReaderSettings { Async = true, IgnoreComments = true, CloseInput = true, IgnoreWhitespace = true });
+        var xmlReaderSettings = new XmlReaderSettings
+        {
+            Async = true,
+            IgnoreComments = true,
+            CloseInput = true,
+            IgnoreWhitespace = true,
+            IgnoreProcessingInstructions = true,
+            ValidationFlags = XmlSchemaValidationFlags.None
+        };
+
+        using var reader = XmlReader.Create(filePath, xmlReaderSettings);
         while (await reader.ReadAsync())
         {
             if (reader.NodeType != XmlNodeType.Element || reader.Name != "row") continue;
@@ -19,7 +30,7 @@ public static class XmlFileDeserializer
 
         return list;
     }
-    
+
     private static int GetApproximateItemsCount(this long fileSize) => (int)(fileSize / FileSize.Mb * 100);
 
     public static readonly Func<XmlReader, PostModel> ParsePostXmlRow = xmlReader =>
@@ -29,7 +40,7 @@ public static class XmlFileDeserializer
         var body = xmlReader.GetAttribute(nameof(PostModel.Body)) ?? string.Empty;
         var lastActivityDate = DateTimeOffset.Parse(xmlReader.GetAttribute(nameof(PostModel.LastActivityDate))!);
         var title = xmlReader.GetAttribute(nameof(PostModel.Title)) ?? string.Empty;
-        
+
         var acceptedAnswerIdVal = xmlReader.GetAttribute(nameof(PostModel.AcceptedAnswerId));
         var acceptedAnswerId = acceptedAnswerIdVal == null ? (int?)null : int.Parse(acceptedAnswerIdVal);
 

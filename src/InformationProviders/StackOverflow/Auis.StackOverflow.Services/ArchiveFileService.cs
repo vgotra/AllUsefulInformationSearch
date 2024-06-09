@@ -11,6 +11,7 @@ public class ArchiveFileService(IFileUtilityService fileUtilityService, ILogger<
         try
         {
             await fileUtilityService.ExtractArchiveFileAsync(webFileInformation, cancellationToken);
+            fileUtilityService.DeleteTemporaryFiles(webFileInformation);
 
             //TODO To Deserialization service
             var posts = await Path.Combine(webFileInformation.ArchiveOutputDirectory, "Posts.xml").DeserializeXmlFileToList(webFileInformation.WebDataFileSize, XmlFileDeserializer.ParsePostXmlRow);
@@ -35,7 +36,7 @@ public class ArchiveFileService(IFileUtilityService fileUtilityService, ILogger<
         }
         finally
         {
-            fileUtilityService.DeleteProcessedFiles(webFileInformation);
+            fileUtilityService.DeleteExtractedFiles(webFileInformation);
         }
     }
 }
