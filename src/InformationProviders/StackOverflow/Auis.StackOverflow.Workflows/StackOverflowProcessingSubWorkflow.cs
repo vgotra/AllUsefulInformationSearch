@@ -7,15 +7,16 @@ public class StackOverflowProcessingSubWorkflow(IServiceProvider serviceProvider
     public async Task ExecuteAsync(WebDataFileEntity webDataFileEntity, CancellationToken cancellationToken = default) =>
         await TracingSource.ExecuteWithTracingAsync("ExecuteAsync", async (_, token) =>
         {
-            var webFilePaths = webDataFileEntity.ToWebFilePaths();
+            var options = serviceProvider.GetRequiredService<IOptions<StackOverflowOptions>>();
+            var webFilePaths = webDataFileEntity.ToWebFilePaths(options.Value);
 
-            logger.LogInformation("Starting StackOverflow processing sub workflow for {WebFileUri}", webFilePaths.WebFileUri);
+            logger.LogInformation("Starting StackOverflow processing sub workflow for {WebFileUri}", webFilePaths.FileUri);
 
-            var posts = await serviceProvider.GetRequiredService<IWebArchiveFileService>().GetPostsWithCommentsAsync(webFilePaths, token);
+            var posts = await serviceProvider.GetRequiredService<IArchiveFileService>().GetPostsWithCommentsAsync(webFilePaths, token);
             var modifiedPosts = await serviceProvider.GetRequiredService<IPostModificationService>().PostProcessArchivePostsAsync(posts, token);
             await serviceProvider.GetRequiredService<IPostsSynchronizationService>().SynchronizePostsAsync(webFilePaths, modifiedPosts, token);
             await serviceProvider.GetRequiredService<IWebDataFilesRepository>().SetProcessingStatusAsync(webDataFileEntity, ProcessingStatus.Processed, token);
 
-            logger.LogInformation("Completed StackOverflow processing sub workflow for {WebFileUri}", webFilePaths.WebFileUri);
+            logger.LogInformation("Completed StackOverflow processing sub workflow for {WebFileUri}", webFilePaths.FileUri);
         }, cancellationToken);
 }

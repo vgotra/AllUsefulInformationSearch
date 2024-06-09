@@ -2,15 +2,13 @@
 
 public interface IFileUtilityService
 {
-    Task DownloadFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default);
-    
-    Task ExtractArchiveFileAsync(WebFilePaths webFilePaths, CancellationToken cancellationToken = default);
+    Task ExtractArchiveFileAsync(WebFileInformation webFileInformation, CancellationToken cancellationToken = default);
 
-    void DeleteProcessedFiles(WebFilePaths webFilePaths)
+    void DeleteProcessedFiles(WebFileInformation webFileInformation)
     {
-        if (File.Exists(webFilePaths.TemporaryDownloadPath))
-            File.Delete(webFilePaths.TemporaryDownloadPath);
-        if (Directory.Exists(webFilePaths.ArchiveOutputDirectory))
-            Directory.Delete(webFilePaths.ArchiveOutputDirectory, true);
+        if (File.Exists(webFileInformation.TemporaryDownloadPath))
+            File.Delete(webFileInformation.TemporaryDownloadPath);
+        if (Directory.Exists(webFileInformation.ArchiveOutputDirectory))
+            Directory.Delete(webFileInformation.ArchiveOutputDirectory, true);
     }
 }

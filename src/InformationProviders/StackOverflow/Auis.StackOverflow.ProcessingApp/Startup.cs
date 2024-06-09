@@ -24,12 +24,12 @@ public static class Startup
 
         services.AddTransient<IFileUtilityService>(sp => Environment.OSVersion switch
         {
-            { Platform: PlatformID.Win32NT } => new WindowsFileUtilityService(sp.GetRequiredService<HttpClient>()),
-            { Platform: PlatformID.Unix } => new LinuxFileUtilityService(sp.GetRequiredService<HttpClient>()),
+            { Platform: PlatformID.Win32NT } => new WindowsFileUtilityService(),
+            { Platform: PlatformID.Unix } => new LinuxFileUtilityService(),
             _ => throw new InvalidOperationException("Unsupported OS.")
         });
         services.AddTransient<IWebDataFilesService, WebDataFilesService>();
-        services.AddTransient<IWebArchiveFileService, WebArchiveFileService>();
+        services.AddTransient<IArchiveFileService, ArchiveFileService>();
         services.AddTransient<IPostModificationService, PostModificationService>();
         services.AddTransient<IPostsSynchronizationService, PostsSynchronizationService>();
         services.AddTransient<IWebArchiveParserService, WebArchiveParserService>();

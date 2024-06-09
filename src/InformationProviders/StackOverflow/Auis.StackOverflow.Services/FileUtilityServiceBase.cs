@@ -1,16 +1,26 @@
-﻿using System.Diagnostics;
+﻿using Downloader;
 
 namespace Auis.StackOverflow.Services;
 
-public abstract class FileUtilityServiceBase(HttpClient httpClient)
+public abstract class FileUtilityServiceBase
 {
-    protected async Task DownloadFileAsync(string url, string filePath, CancellationToken cancellationToken = default)
+    protected async Task DownloadFileAsync(WebFileInformation webFileInformation, CancellationToken cancellationToken = default)
     {
-        await using var stream = await httpClient.GetStreamAsync(url, cancellationToken);
-        await using var fileStream = File.Create(filePath);
-        await stream.CopyToAsync(fileStream, cancellationToken);
+        if (webFileInformation.FileLocation == FileLocation.Web)
+            await DownloadFileAsync(webFileInformation.FileUri, webFileInformation.TemporaryDownloadPath, cancellationToken);
+        else if (webFileInformation.FileLocation == FileLocation.Network)
+            File.Copy(webFileInformation.FileUri, webFileInformation.TemporaryDownloadPath, true);
+        else
+            throw new ArgumentException("The file location is not supported.");
     }
-    
+
+    private async Task DownloadFileAsync(string url, string filePath, CancellationToken cancellationToken = default) =>
+        await DownloadBuilder.New().WithConfiguration(new DownloadConfiguration
+        {
+            ChunkCount = Environment.ProcessorCount > 1 ? Environment.ProcessorCount / 2 : 1,
+            ParallelDownload = true
+        }).WithUrl(url).WithFileLocation(filePath).Build().StartAsync(cancellationToken);
+
     protected async Task ExecuteProcessAsync(string fileName, string arguments, CancellationToken cancellationToken = default)
     {
         var process = new Process

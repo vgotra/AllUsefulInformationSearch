@@ -1,14 +1,12 @@
-﻿using Auis.StackOverflow.Workflows;
-
-namespace Auis.StackOverflow.App;
+﻿namespace Auis.StackOverflow.Tests;
 
 public static class TestHostServicesConfiguration
 {
     public static void ConfigureServices(this IServiceCollection services, HostBuilderContext context)
     {
         var configuration = context.Configuration;
-        var stackOverflowBaseUri = new Uri(configuration["StackOverflow:BaseUrl"] ?? throw new InvalidOperationException("StackOverflow base URL is not specified."));
-        services.AddHttpClient("", (provider, client) => client.BaseAddress = stackOverflowBaseUri);
+        services.Configure<StackOverflowOptions>(configuration.GetSection(nameof(StackOverflowOptions)));
+        services.AddHttpClient("", (sp, client) => client.BaseAddress = new Uri(sp.GetRequiredService<IOptions<StackOverflowOptions>>().Value.BaseUrl));
 
         //TODO Find a way to register DbContextPool as Transient, also batches
         services.AddDbContext<StackOverflowDbContext>(
@@ -22,14 +20,14 @@ public static class TestHostServicesConfiguration
 
         services.AddTransient<IWebDataFilesRepository, WebDataFilesRepository>();
 
-        services.AddTransient<IFileUtilityService>(sp => Environment.OSVersion switch
+        services.AddTransient<IFileUtilityService>(_ => Environment.OSVersion switch
         {
-            { Platform: PlatformID.Win32NT } => new WindowsFileUtilityService(sp.GetRequiredService<HttpClient>()),
-            { Platform: PlatformID.Unix } => new LinuxFileUtilityService(sp.GetRequiredService<HttpClient>()),
+            { Platform: PlatformID.Win32NT } => new WindowsFileUtilityService(),
+            { Platform: PlatformID.Unix } => new LinuxFileUtilityService(),
             _ => throw new InvalidOperationException("Unsupported OS.")
         });
         services.AddTransient<IWebDataFilesService, WebDataFilesService>();
-        services.AddTransient<IWebArchiveFileService, WebArchiveFileService>();
+        services.AddTransient<IArchiveFileService, ArchiveFileService>();
         services.AddTransient<IPostModificationService, PostModificationService>();
         services.AddTransient<IPostsSynchronizationService, PostsSynchronizationService>();
         services.AddTransient<IWebArchiveParserService, WebArchiveParserService>();

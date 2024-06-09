@@ -49,6 +49,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.WebApi",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.Workflows", "InformationProviders\StackOverflow\Auis.StackOverflow.Workflows\Auis.StackOverflow.Workflows.csproj", "{66D8E0CD-0B57-0F8A-5298-518B1A46496C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auis.StackOverflow.Common", "InformationProviders\StackOverflow\Auis.StackOverflow.Common\Auis.StackOverflow.Common.csproj", "{4D80719B-411F-441D-A71C-B889F22E7356}"
+EndProject
 Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {853B83E0-527F-404D-9BF5-33CE06345562}
@@ -134,6 +136,10 @@ Global
 		{66D8E0CD-0B57-0F8A-5298-518B1A46496C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66D8E0CD-0B57-0F8A-5298-518B1A46496C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66D8E0CD-0B57-0F8A-5298-518B1A46496C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D80719B-411F-441D-A71C-B889F22E7356}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D80719B-411F-441D-A71C-B889F22E7356}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D80719B-411F-441D-A71C-B889F22E7356}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D80719B-411F-441D-A71C-B889F22E7356}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,5 +155,6 @@ Global
 		{98A0F143-6A14-89EE-44A7-C2A3BC9F669A} = {FB077DF4-36A4-5066-12A8-42581CA5893E}
 		{7FCAB826-54FA-370F-01C2-53141D6DE463} = {FB077DF4-36A4-5066-12A8-42581CA5893E}
 		{66D8E0CD-0B57-0F8A-5298-518B1A46496C} = {FB077DF4-36A4-5066-12A8-42581CA5893E}
+		{4D80719B-411F-441D-A71C-B889F22E7356} = {FB077DF4-36A4-5066-12A8-42581CA5893E}
 	EndGlobalSection
 EndGlobal

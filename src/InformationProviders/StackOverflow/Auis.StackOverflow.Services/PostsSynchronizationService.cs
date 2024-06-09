@@ -4,20 +4,20 @@ public class PostsSynchronizationService(StackOverflowDbContext dbContext, ILogg
 {
     private static readonly ActivitySource TracingSource = new("PostsSynchronizationService");
 
-    public async Task SynchronizePostsAsync(WebFilePaths webFilePaths, List<PostModel> modifiedPosts, CancellationToken cancellationToken = default)
+    public async Task SynchronizePostsAsync(WebFileInformation webFileInformation, List<PostModel> modifiedPosts, CancellationToken cancellationToken = default)
     {
         var postsToAdd = new List<PostModel>();
         var postsToUpdate = new List<PostModel>();
 
         await TracingSource.ExecuteWithTracingAsync("SynchronizePostsAsync", async (_, token) =>
         {
-            logger.LogInformation("Started synchronizing posts to database for {WebFileUri}", webFilePaths.WebFileUri);
+            logger.LogInformation("Started synchronizing posts to database for {WebFileUri}", webFileInformation.FileUri);
 
             var existingAnswers = await dbContext.AcceptedAnswers.AsNoTracking()
-                .Where(x => x.PostWebDataFileId == webFilePaths.WebDataFileId).Select(x => new { x.Id, x.PostId, x.ExternalLastActivityDate })
+                .Where(x => x.PostWebDataFileId == webFileInformation.WebDataFileId).Select(x => new { x.Id, x.PostId, x.ExternalLastActivityDate })
                 .ToListAsync(token);
             var existingPosts = await dbContext.Posts.AsNoTracking()
-                .Where(x => x.WebDataFileId == webFilePaths.WebDataFileId).Select(x => new { x.Id, x.ExternalLastActivityDate })
+                .Where(x => x.WebDataFileId == webFileInformation.WebDataFileId).Select(x => new { x.Id, x.ExternalLastActivityDate })
                 .ToListAsync(token);
 
             foreach (var post in modifiedPosts)
@@ -29,7 +29,7 @@ public class PostsSynchronizationService(StackOverflowDbContext dbContext, ILogg
                 {
                     postsToUpdate.Add(post);
                     var existingAnswer = existingAnswers.Find(x => x.PostId == post.Id && x.Id == post.AcceptedAnswerId);
-                    if (existingAnswer.ExternalLastActivityDate < post.AcceptedAnswer.LastActivityDate)
+                    if (existingAnswer!.ExternalLastActivityDate < post.AcceptedAnswer!.LastActivityDate)
                         postsToUpdate.Add(post);
                 }
             }
@@ -40,7 +40,7 @@ public class PostsSynchronizationService(StackOverflowDbContext dbContext, ILogg
             if (postsToUpdate.Count > 0)
             {
                 var ids = postsToUpdate.Select(x => x.Id).ToList();
-                var posts = await dbContext.Posts.Include(pe => pe.AcceptedAnswer).Where(x => x.WebDataFileId == webFilePaths.WebDataFileId && ids.Contains(x.Id)).ToListAsync(token);
+                var posts = await dbContext.Posts.Include(pe => pe.AcceptedAnswer).Where(x => x.WebDataFileId == webFileInformation.WebDataFileId && ids.Contains(x.Id)).ToListAsync(token);
 
                 foreach (var post in posts)
                 {
@@ -54,10 +54,10 @@ public class PostsSynchronizationService(StackOverflowDbContext dbContext, ILogg
             }
 
             await dbContext.SaveChangesAsync(token);
-            logger.LogInformation("Completed synchronizing posts to database for {WebFileUri}", webFilePaths.WebFileUri);
+            logger.LogInformation("Completed synchronizing posts to database for {WebFileUri}", webFileInformation.FileUri);
         }, activity =>
         {
-            activity?.SetTag("WebFileUri", webFilePaths.WebFileUri);
+            activity?.SetTag("WebFileUri", webFileInformation.FileUri);
             activity?.SetTag("AddedPosts", postsToAdd.Count);
             activity?.SetTag("UpdatedPosts", postsToUpdate.Count);
         }, cancellationToken);
