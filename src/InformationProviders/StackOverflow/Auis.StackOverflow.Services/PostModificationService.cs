@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Auis.StackOverflow.Services;
+﻿namespace Auis.StackOverflow.Services;
 
 public class PostModificationService(ILogger<PostModificationService> logger) : IPostModificationService
 {

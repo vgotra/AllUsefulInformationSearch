@@ -1,8 +1,4 @@
-﻿using Auis.StackOverflow.Common;
-
-using Microsoft.Extensions.Options;
-
-namespace Auis.StackOverflow.App;
+﻿namespace Auis.StackOverflow.App;
 
 public static class Startup
 {
@@ -11,7 +7,7 @@ public static class Startup
         var configuration = context.Configuration;
         services.Configure<StackOverflowOptions>(configuration.GetSection(nameof(StackOverflowOptions)));
         services.AddHttpClient("", (sp, client) => client.BaseAddress = new Uri(sp.GetRequiredService<IOptions<StackOverflowOptions>>().Value.BaseUrl));
-
+        services.AddMediator();
         //TODO Find a way to register DbContextPool as Transient, also batches
         services.AddDbContext<StackOverflowDbContext>(
             options =>
