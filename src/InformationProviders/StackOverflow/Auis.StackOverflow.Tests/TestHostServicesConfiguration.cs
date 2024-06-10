@@ -7,8 +7,9 @@ public static class TestHostServicesConfiguration
         var configuration = context.Configuration;
         services.Configure<StackOverflowOptions>(configuration.GetSection(nameof(StackOverflowOptions)));
         services.AddHttpClient("", (sp, client) => client.BaseAddress = new Uri(sp.GetRequiredService<IOptions<StackOverflowOptions>>().Value.BaseUrl));
+        services.AddMediator();
 
-        //TODO Find a way to register DbContextPool as Transient, also batches
+        //TODO Reuse in memory db
         services.AddDbContext<StackOverflowDbContext>(
             options =>
             {
@@ -26,11 +27,10 @@ public static class TestHostServicesConfiguration
             { Platform: PlatformID.Unix } => new LinuxFileUtilityService(),
             _ => throw new InvalidOperationException("Unsupported OS.")
         });
-        services.AddTransient<IWebDataFilesService, WebDataFilesService>();
+
         services.AddTransient<IArchiveFileService, ArchiveFileService>();
         services.AddTransient<IPostModificationService, PostModificationService>();
         services.AddTransient<IPostsSynchronizationService, PostsSynchronizationService>();
-        services.AddTransient<IWebArchiveParserService, WebArchiveParserService>();
 
         services.AddTransient<IStackOverflowProcessingSubWorkflow, StackOverflowProcessingSubWorkflow>();
         services.AddTransient<IStackOverflowProcessingWorkflow, StackOverflowProcessingWorkflow>();

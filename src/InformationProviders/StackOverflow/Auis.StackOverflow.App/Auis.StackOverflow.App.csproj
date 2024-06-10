@@ -20,11 +20,4 @@
         <ProjectReference Include="..\Auis.StackOverflow.ProcessingApp\Auis.StackOverflow.ProcessingApp.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Mediator.SourceGenerator" Version="2.1.7">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-        </PackageReference>
-    </ItemGroup>
-
 </Project>

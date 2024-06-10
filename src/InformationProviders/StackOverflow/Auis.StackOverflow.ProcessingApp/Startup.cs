@@ -1,14 +1,17 @@
-﻿namespace Auis.StackOverflow.ProcessingApp;
+﻿using Auis.StackOverflow.Common;
+
+using Microsoft.Extensions.Options;
+
+namespace Auis.StackOverflow.ProcessingApp;
 
 public static class Startup
 {
-    public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+    public static void ConfigureServices(this IServiceCollection services, HostBuilderContext context)
     {
-        services.AddLogging(configure => configure.AddConfiguration(configuration.GetSection("Logging")).AddConsole());
-
-        var stackOverflowBaseUri = new Uri(configuration["StackOverflow:BaseUrl"] ?? throw new InvalidOperationException("StackOverflow base URL is not specified."));
-
-        services.AddHttpClient("", (provider, client) => client.BaseAddress = stackOverflowBaseUri);
+        var configuration = context.Configuration;
+        services.Configure<StackOverflowOptions>(configuration.GetSection(nameof(StackOverflowOptions)));
+        services.AddHttpClient("", (sp, client) => client.BaseAddress = new Uri(sp.GetRequiredService<IOptions<StackOverflowOptions>>().Value.BaseUrl));
+        services.AddMediator();
 
         //TODO Find a way to register DbContextPool as Transient, also batches
         services.AddDbContext<StackOverflowDbContext>(
@@ -28,11 +31,10 @@ public static class Startup
             { Platform: PlatformID.Unix } => new LinuxFileUtilityService(),
             _ => throw new InvalidOperationException("Unsupported OS.")
         });
-        services.AddTransient<IWebDataFilesService, WebDataFilesService>();
+
         services.AddTransient<IArchiveFileService, ArchiveFileService>();
         services.AddTransient<IPostModificationService, PostModificationService>();
         services.AddTransient<IPostsSynchronizationService, PostsSynchronizationService>();
-        services.AddTransient<IWebArchiveParserService, WebArchiveParserService>();
 
         services.AddTransient<IStackOverflowProcessingSubWorkflow, StackOverflowProcessingSubWorkflow>();
         services.AddTransient<IStackOverflowProcessingWorkflow, StackOverflowProcessingWorkflow>();

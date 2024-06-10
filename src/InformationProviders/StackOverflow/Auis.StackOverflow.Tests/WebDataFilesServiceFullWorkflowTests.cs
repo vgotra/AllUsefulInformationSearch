@@ -18,8 +18,9 @@ public class WebDataFilesServiceFullWorkflowTests : BaseTests
 
         var cancellationTokenSource = new CancellationTokenSource();
 
-        var service = host.Services.GetRequiredService<IWebDataFilesService>();
-        await service.SynchronizeWebDataFilesAsync(cancellationTokenSource.Token);
+        var mediator = host.Services.GetRequiredService<IMediator>();
+        await mediator.Send(new RefreshWebArchiveFilesRequest(), cancellationTokenSource.Token);
+
         var itemsCount = await dbContext.WebDataFiles.CountAsync(cancellationTokenSource.Token);
         Assert.IsTrue(itemsCount > 0);
 

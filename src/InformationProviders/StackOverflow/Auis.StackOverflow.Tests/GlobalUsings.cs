@@ -7,6 +7,9 @@ global using Auis.StackOverflow.Models.Extensions;
 global using Auis.StackOverflow.Services;
 global using Auis.StackOverflow.Workflows;
 global using Auis.Tests.Common;
+
+global using Mediator;
+
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Design;
 global using Microsoft.VisualStudio.TestTools.UnitTesting;

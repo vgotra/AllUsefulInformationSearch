@@ -1,15 +1,15 @@
-﻿namespace Auis.StackOverflow.Services.Handlers;
+﻿namespace Auis.StackOverflow.Services;
 
-public sealed class WebArchiveParserHandler(HttpClient httpClient, ILogger<WebArchiveParserHandler> logger) : IQueryHandler<WebArchiveParserRequest, WebArchiveParserResponse>
+public sealed class WebArchiveParserHandler(HttpClient httpClient, ILogger<WebArchiveParserHandler> logger) : IQueryHandler<WebArchiveParserQuery, WebArchiveParserResponse>
 {
     private const string ItemsPattern = """<tr\s*>\s*<td>\s*<a href="(?<Link>[^<]*?7z[^<]*?)">(?<Name>[^<]*?7z[^<]*?)<\/a>.*<\/td>\s*<td>(?<LastModified>.*?)<\/td>\s*<td>(?<Size>[\d,\.]+[KMG]?)<\/td>\s*<\/tr>""";
 
-    public async ValueTask<WebArchiveParserResponse> Handle(WebArchiveParserRequest request, CancellationToken cancellationToken)
+    public async ValueTask<WebArchiveParserResponse> Handle(WebArchiveParserQuery query, CancellationToken cancellationToken)
     {
         var archiveHtmlPage = await httpClient.GetStringAsync(string.Empty, cancellationToken);
         var result = ParseLines(archiveHtmlPage);
 
-        return new WebArchiveParserResponse { DataFiles = result };
+        return new WebArchiveParserResponse(result);
     }
 
     private List<StackOverflowDataFile> ParseLines(string htmlText)

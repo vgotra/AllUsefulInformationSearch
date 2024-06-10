@@ -1,6 +1,6 @@
 ﻿namespace Auis.StackOverflow.Workflows;
 
-public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, ILogger<StackOverflowProcessingWorkflow> logger) : IStackOverflowProcessingWorkflow
+public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, IMediator mediator, ILogger<StackOverflowProcessingWorkflow> logger) : IStackOverflowProcessingWorkflow
 {
     //TODO Refactor later, SOLID, tracking or errors for every web files, etc.
     public async Task ExecuteAsync(CancellationToken cancellationToken = default)
@@ -9,7 +9,7 @@ public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, I
         {
             logger.LogInformation("Starting StackOverflow processing workflow");
 
-            await serviceProvider.GetRequiredService<IWebDataFilesService>().SynchronizeWebDataFilesAsync(cancellationToken);
+            _ = await mediator.Send(new RefreshWebArchiveFilesRequest(), cancellationToken);
 
             var webFilesRepository = serviceProvider.GetRequiredService<IWebDataFilesRepository>();
             var webFiles = await webFilesRepository.GetWebDataFilesAsync(cancellationToken);

@@ -9,19 +9,11 @@ static class Program
             Console.WriteLine("Please provide name of file to process.");
             return;
         }
-        
-        var builder = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-        var configuration = builder.Build();
-        var serviceCollection = new ServiceCollection();
-        
-        Startup.ConfigureServices(serviceCollection, configuration);
-        
-        var sp = serviceCollection.BuildServiceProvider();
-        var workflow = sp.GetRequiredService<IStackOverflowProcessingWorkflow>();
-        var cancellationTokenSource = new CancellationTokenSource();
-        await workflow.ExecuteAsync(cancellationTokenSource.Token);
+        var host = Host.CreateDefaultBuilder(args)
+            .ConfigureServices((context, services) => services.ConfigureServices(context))
+            .Build();
+
+        await host.Services.GetRequiredService<IStackOverflowProcessingWorkflow>().ExecuteAsync();
     }
 }
