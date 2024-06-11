@@ -25,27 +25,29 @@ public static class StackOverflowFileParser
 
     private static int GetApproximateItemsCount(this long fileSize) => (int)(fileSize / FileSize.Mb * 100);
 
-    private static string? GetValue(this string line, string attributeName)
+    private static ReadOnlySpan<char> GetValue(this string line, string attributeName)
     {
         var start = line.IndexOf(attributeName + "=\"", StringComparison.OrdinalIgnoreCase);
         if (start == -1)
             return default;
         start += attributeName.Length + 2;
         var end = line.IndexOf('"', start);
-        return line[start..end];
+        return line.AsSpan().Slice(start, end - start);
     }
 
     //TODO Parse Post and Answer separately
     private static PostModel ParsePostXmlRowLine(this string line)
     {
-        var id = int.Parse(line.GetValue(nameof(PostModel.Id))!);
-        var postTypeId = (PostType)int.Parse(line.GetValue(nameof(PostModel.PostTypeId))!);
-        var body = line.GetValue(nameof(PostModel.Body)) ?? string.Empty;
+        var id = int.Parse(line.GetValue(nameof(PostModel.Id)));
+        var postTypeId = (PostType)int.Parse(line.GetValue(nameof(PostModel.PostTypeId)));
+        var bodySpan = line.GetValue(nameof(PostModel.Body));
+        var body = !bodySpan.IsEmpty ? bodySpan.ToString() : string.Empty;
         var lastActivityDate = DateTimeOffset.Parse(line.GetValue(nameof(PostModel.LastActivityDate))!);
-        var title = line.GetValue(nameof(PostModel.Title)) ?? string.Empty;
+        var titleSpan = line.GetValue(nameof(PostModel.Title));
+        var title = !titleSpan.IsEmpty ? titleSpan.ToString() : string.Empty;
 
-        var acceptedAnswerIdVal = line.GetValue(nameof(PostModel.AcceptedAnswerId));
-        var acceptedAnswerId = acceptedAnswerIdVal == null ? (int?)null : int.Parse(acceptedAnswerIdVal);
+        var acceptedAnswerIdSpan = line.GetValue(nameof(PostModel.AcceptedAnswerId));
+        var acceptedAnswerId = acceptedAnswerIdSpan.IsEmpty ? (int?)null : int.Parse(acceptedAnswerIdSpan);
 
         return new PostModel
         {
