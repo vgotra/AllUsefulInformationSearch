@@ -42,7 +42,7 @@ public static class StackOverflowFileParser
         var postTypeId = (PostType)int.Parse(line.GetValue(nameof(PostModel.PostTypeId))!);
         var body = line.GetValue(nameof(PostModel.Body)) ?? string.Empty;
         var lastActivityDate = DateTimeOffset.Parse(line.GetValue(nameof(PostModel.LastActivityDate))!);
-        var title = line.GetValue(nameof(PostModel.Body)) ?? string.Empty;
+        var title = line.GetValue(nameof(PostModel.Title)) ?? string.Empty;
 
         var acceptedAnswerIdVal = line.GetValue(nameof(PostModel.AcceptedAnswerId));
         var acceptedAnswerId = acceptedAnswerIdVal == null ? (int?)null : int.Parse(acceptedAnswerIdVal);

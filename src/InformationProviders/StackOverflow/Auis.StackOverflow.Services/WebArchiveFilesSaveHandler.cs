@@ -1,9 +1,12 @@
-﻿namespace Auis.StackOverflow.Services;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-public class WebArchiveFilesSaveHandler(StackOverflowDbContext dbContext) : ICommandHandler<WebArchiveFilesSaveCommand>
+namespace Auis.StackOverflow.Services;
+
+public class WebArchiveFilesSaveHandler(IServiceProvider serviceProvider) : ICommandHandler<WebArchiveFilesSaveCommand>
 {
     public async ValueTask<Unit> Handle(WebArchiveFilesSaveCommand command, CancellationToken cancellationToken)
     {
+        var dbContext = serviceProvider.GetRequiredService<StackOverflowDbContext>();
         var archiveFileDict = command.Files.ToDictionary(x => x.Name, x => x);
         var dataFiles = await dbContext.WebDataFiles.ToListAsync(cancellationToken);
         var dataFileDict = dataFiles.ToDictionary(x => x.Name, x => x);
