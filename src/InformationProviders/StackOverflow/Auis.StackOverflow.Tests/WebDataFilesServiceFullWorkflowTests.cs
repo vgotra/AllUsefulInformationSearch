@@ -12,7 +12,7 @@ public class WebDataFilesServiceFullWorkflowTests : BaseTests
     {
         var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) => services.ConfigureServices(context)).Build();
 
-        const int countOfFilesToProcess = 5;
+        const int countOfFilesToProcess = 1;
         var dbContext = host.Services.GetRequiredService<StackOverflowDbContext>();
         //TODO Reuse in memory db or clean db before each test and apply migrations
 

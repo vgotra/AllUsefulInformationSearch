@@ -14,7 +14,7 @@ public class ArchiveFileService(IFileUtilityService fileUtilityService, ILogger<
             fileUtilityService.DeleteTemporaryFiles(webFileInformation);
 
             //TODO To Deserialization service
-            var posts = await Path.Combine(webFileInformation.ArchiveOutputDirectory, "Posts.xml").DeserializeXmlFileToList(webFileInformation.WebDataFileSize, XmlFileDeserializer.ParsePostXmlRow);
+            var posts = await Path.Combine(webFileInformation.ArchiveOutputDirectory, "Posts.xml").DeserializePostsAsync(webFileInformation.WebDataFileSize, cancellationToken);
             posts.ForEach(p =>
             {
                 p.WebDataFileId = webFileInformation.WebDataFileId;

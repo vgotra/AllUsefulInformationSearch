@@ -7,7 +7,7 @@ public static class Startup
         var configuration = context.Configuration;
         services.Configure<StackOverflowOptions>(configuration.GetSection(nameof(StackOverflowOptions)));
         services.AddHttpClient("", (sp, client) => client.BaseAddress = new Uri(sp.GetRequiredService<IOptions<StackOverflowOptions>>().Value.BaseUrl));
-        services.AddMediator();
+        services.AddMediator(); //TODO Add db context fabric because Mediator registered as Singleton
 
         //TODO Find a way to register DbContextPool as Transient, also batches
         services.AddDbContext<StackOverflowDbContext>(
