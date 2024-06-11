@@ -38,25 +38,18 @@ public static class StackOverflowFileParser
     //TODO Parse Post and Answer separately
     private static PostModel ParsePostXmlRowLine(this string line)
     {
-        var id = int.Parse(line.GetValue(nameof(PostModel.Id)));
-        var postTypeId = (PostType)int.Parse(line.GetValue(nameof(PostModel.PostTypeId)));
-        var bodySpan = line.GetValue(nameof(PostModel.Body));
-        var body = !bodySpan.IsEmpty ? bodySpan.ToString() : string.Empty;
-        var lastActivityDate = DateTimeOffset.Parse(line.GetValue(nameof(PostModel.LastActivityDate))!);
         var titleSpan = line.GetValue(nameof(PostModel.Title));
-        var title = !titleSpan.IsEmpty ? titleSpan.ToString() : string.Empty;
-
+        var bodySpan = line.GetValue(nameof(PostModel.Body));
         var acceptedAnswerIdSpan = line.GetValue(nameof(PostModel.AcceptedAnswerId));
-        var acceptedAnswerId = acceptedAnswerIdSpan.IsEmpty ? (int?)null : int.Parse(acceptedAnswerIdSpan);
 
         return new PostModel
         {
-            Id = id,
-            Title = title,
-            Body = body,
-            PostTypeId = postTypeId,
-            LastActivityDate = lastActivityDate,
-            AcceptedAnswerId = acceptedAnswerId
+            Id = int.Parse(line.GetValue(nameof(PostModel.Id))),
+            Title = !titleSpan.IsEmpty ? titleSpan.ToString() : string.Empty,
+            Body = !bodySpan.IsEmpty ? bodySpan.ToString() : string.Empty,
+            PostTypeId = (PostType)int.Parse(line.GetValue(nameof(PostModel.PostTypeId))),
+            LastActivityDate = DateTimeOffset.Parse(line.GetValue(nameof(PostModel.LastActivityDate))),
+            AcceptedAnswerId = acceptedAnswerIdSpan.IsEmpty ? (int?)null : int.Parse(acceptedAnswerIdSpan)
         };
     }
 }
