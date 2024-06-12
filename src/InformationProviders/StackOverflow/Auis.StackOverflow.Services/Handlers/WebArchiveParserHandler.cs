@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.Services;
+﻿namespace Auis.StackOverflow.Services.Handlers;
 
 public sealed class WebArchiveParserHandler(HttpClient httpClient, ILogger<WebArchiveParserHandler> logger) : IQueryHandler<WebArchiveParserQuery, WebArchiveParserResponse>
 {
@@ -12,9 +12,9 @@ public sealed class WebArchiveParserHandler(HttpClient httpClient, ILogger<WebAr
         return new WebArchiveParserResponse(result);
     }
 
-    private List<StackOverflowDataFile> ParseLines(string htmlText)
+    private List<WebDataFile> ParseLines(string htmlText)
     {
-        var result = new List<StackOverflowDataFile>();
+        var result = new List<WebDataFile>();
         var matches = Regex.Matches(htmlText, ItemsPattern, RegexOptions.Multiline);
         foreach (Match match in matches)
         {
@@ -31,12 +31,12 @@ public sealed class WebArchiveParserHandler(HttpClient httpClient, ILogger<WebAr
         return result;
     }
 
-    private static StackOverflowDataFile ParseLine(Match match)
+    private static WebDataFile ParseLine(Match match)
     {
         var link = match.Groups["Link"].Value;
         var name = match.Groups["Name"].Value;
         var lastModified = DateTime.Parse(match.Groups["LastModified"].Value);
         var size = match.Groups["Size"].Value.GetFileSize();
-        return new StackOverflowDataFile { Name = name, Link = link, Size = size, LastModified = lastModified };
+        return new WebDataFile { Name = name, Link = link, Size = size, LastModified = lastModified };
     }
 }

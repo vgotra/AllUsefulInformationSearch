@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.App;
+﻿using Auis.StackOverflow.Services.Utilities;
+
+namespace Auis.StackOverflow.App;
 
 public static class Startup
 {
@@ -28,11 +30,6 @@ public static class Startup
             _ => throw new InvalidOperationException("Unsupported OS.")
         });
 
-        services.AddTransient<IArchiveFileService, ArchiveFileService>();
-        services.AddTransient<IPostModificationService, PostModificationService>();
-        services.AddTransient<IPostsSynchronizationService, PostsSynchronizationService>();
-
-        services.AddTransient<IStackOverflowProcessingSubWorkflow, StackOverflowProcessingSubWorkflow>();
         services.AddTransient<IStackOverflowProcessingWorkflow, StackOverflowProcessingWorkflow>();
     }
 }

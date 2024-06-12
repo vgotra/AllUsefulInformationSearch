@@ -1,6 +1,6 @@
 ﻿namespace Auis.StackOverflow.Models.Common;
 
-public record StackOverflowDataFile
+public record WebDataFile
 {
     public string Name { get; set; } = null!;
     public string Link { get; set; } = null!;

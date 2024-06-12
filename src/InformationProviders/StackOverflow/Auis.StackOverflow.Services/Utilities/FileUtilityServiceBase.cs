@@ -1,6 +1,6 @@
 ﻿using Downloader;
 
-namespace Auis.StackOverflow.Services;
+namespace Auis.StackOverflow.Services.Utilities;
 
 public abstract class FileUtilityServiceBase
 {

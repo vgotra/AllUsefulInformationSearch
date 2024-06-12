@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.Services;
+﻿namespace Auis.StackOverflow.Services.Parsers;
 
 public static class StackOverflowFileParser
 {
@@ -8,13 +8,13 @@ public static class StackOverflowFileParser
         using var streamReader = new StreamReader(filePath);
 
         // skip 2 lines for xml files
-        await streamReader.ReadLineAsync(cancellationToken);
-        await streamReader.ReadLineAsync(cancellationToken);
+        await streamReader.ReadLineAsync(cancellationToken); // <xml>
+        await streamReader.ReadLineAsync(cancellationToken); // </posts>
 
         while (!streamReader.EndOfStream && !cancellationToken.IsCancellationRequested)
         {
             var line = await streamReader.ReadLineAsync(cancellationToken);
-            if (line.IsXmlRow())
+            if (line.IsXmlRow()) //TODO Avoid double check of row
                 list.Add(line!.ParsePostXmlRowLine());
         }
 

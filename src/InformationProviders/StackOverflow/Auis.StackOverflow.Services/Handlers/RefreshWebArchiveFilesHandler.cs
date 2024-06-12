@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.Services;
+﻿namespace Auis.StackOverflow.Services.Handlers;
 
 public class RefreshWebArchiveFilesHandler(IMediator mediator) : IRequestHandler<RefreshWebArchiveFilesRequest>
 {

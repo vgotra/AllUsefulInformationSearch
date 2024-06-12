@@ -2,25 +2,29 @@
 
 public static class TestHostServicesConfiguration
 {
-    public static void ConfigureServices(this IServiceCollection services, HostBuilderContext context)
+    public static void ConfigureServices(this IServiceCollection services, HostBuilderContext context, bool inMemoryDb = true)
     {
         var configuration = context.Configuration;
         services.Configure<StackOverflowOptions>(configuration.GetSection(nameof(StackOverflowOptions)));
         services.AddHttpClient("", (sp, client) => client.BaseAddress = new Uri(sp.GetRequiredService<IOptions<StackOverflowOptions>>().Value.BaseUrl));
         services.AddMediator();
 
-        //TODO Reuse in memory db
-        services.AddDbContext<StackOverflowDbContext>(
-            options =>
-            {
-                options.UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance);
-                options.UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow"));
-            },
-            ServiceLifetime.Transient,
-            ServiceLifetime.Singleton);
+        if (inMemoryDb)
+        {
+            services.AddDbContext<StackOverflowDbContext>(opt => opt.UseInMemoryDatabase("Auis_StackOverflow"),
+                ServiceLifetime.Transient,
+                ServiceLifetime.Singleton);
+        }
+        else
+        {
+            services.AddDbContext<StackOverflowDbContext>(
+                options => options.UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow"))
+                    .UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance),
+                ServiceLifetime.Transient,
+                ServiceLifetime.Singleton);
+        }
 
-        services.AddTransient<IWebDataFilesRepository, WebDataFilesRepository>();
-
+        services.AddTransient<IWebDataFilesRepository, WebDataFilesRepositoryMock>();
         services.AddTransient<IFileUtilityService>(_ => Environment.OSVersion switch
         {
             { Platform: PlatformID.Win32NT } => new WindowsFileUtilityService(),
@@ -28,11 +32,6 @@ public static class TestHostServicesConfiguration
             _ => throw new InvalidOperationException("Unsupported OS.")
         });
 
-        services.AddTransient<IArchiveFileService, ArchiveFileService>();
-        services.AddTransient<IPostModificationService, PostModificationService>();
-        services.AddTransient<IPostsSynchronizationService, PostsSynchronizationService>();
-
-        services.AddTransient<IStackOverflowProcessingSubWorkflow, StackOverflowProcessingSubWorkflow>();
         services.AddTransient<IStackOverflowProcessingWorkflow, StackOverflowProcessingWorkflow>();
     }
 }

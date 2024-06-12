@@ -32,4 +32,6 @@ public static class Defaults
     ];
 
     public static List<string> AllFileNamesToSkip => FileNamesToSkip.Concat(AdditionalFileNamesToSkip).ToList();
+
+    public static List<PostType> UsefulPostTypes => [PostType.Question, PostType.Answer, PostType.TagWiki];
 }

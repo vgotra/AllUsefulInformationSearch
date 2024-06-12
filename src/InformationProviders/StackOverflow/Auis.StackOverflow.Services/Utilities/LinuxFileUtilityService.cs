@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.Services;
+﻿namespace Auis.StackOverflow.Services.Utilities;
 
 public class LinuxFileUtilityService : FileUtilityServiceBase, IFileUtilityService
 {

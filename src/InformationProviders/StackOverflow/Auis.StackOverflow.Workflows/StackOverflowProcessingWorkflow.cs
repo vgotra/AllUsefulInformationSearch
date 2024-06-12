@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.Workflows;
+﻿using Auis.StackOverflow.Services.Handlers;
+
+namespace Auis.StackOverflow.Workflows;
 
 public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, IMediator mediator, ILogger<StackOverflowProcessingWorkflow> logger) : IStackOverflowProcessingWorkflow
 {
@@ -19,9 +21,7 @@ public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, I
             {
                 try
                 {
-                    //TODO Check this with chunks (for better GC)
-                    var subWorkflow = serviceProvider.GetRequiredService<IStackOverflowProcessingSubWorkflow>();
-                    await subWorkflow.ExecuteAsync(webFile, token);
+                    await mediator.Send(new PostsProcessingCommand(webFile), token);
                 }
                 catch (Exception e)
                 {
