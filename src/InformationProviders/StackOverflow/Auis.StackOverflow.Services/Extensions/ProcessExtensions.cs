@@ -18,8 +18,12 @@ public static class ProcessExtensions
         };
 
         process.Start();
+
+        var errorTask = process.StandardError.ReadToEndAsync(cancellationToken);
+
         await process.WaitForExitAsync(cancellationToken);
-        var errors = await process.StandardError.ReadToEndAsync(cancellationToken);
+
+        var errors = await errorTask;
         if (process.ExitCode != 0)
             throw new IOException($"The process exited with code {process.ExitCode}. Errors: {errors}");
     }

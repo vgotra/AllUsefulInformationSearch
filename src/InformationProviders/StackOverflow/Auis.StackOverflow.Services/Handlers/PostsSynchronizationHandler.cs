@@ -6,7 +6,7 @@ public class PostsSynchronizationHandler(IDbContextFactory<StackOverflowDbContex
 {
     public async ValueTask<Unit> Handle(PostsSynchronizationCommand command, CancellationToken cancellationToken)
     {
-        var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+        await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
         var postsToAdd = new HashSet<PostModel>();
         var postsToUpdate = new HashSet<PostModel>();
@@ -30,6 +30,8 @@ public class PostsSynchronizationHandler(IDbContextFactory<StackOverflowDbContex
                 await dbContext.BulkInsertAsync(postsToAdd.Select(x => x.ToEntity()), cancellationToken: cancellationToken);
             else
                 await dbContext.Posts.AddRangeAsync(postsToAdd.Select(x => x.ToEntity()), cancellationToken);
+
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
         if (postsToUpdate.Count > 0)
@@ -47,10 +49,9 @@ public class PostsSynchronizationHandler(IDbContextFactory<StackOverflowDbContex
                 post.QuestionExternalLastActivityDate = modifiedPost.LastActivityDate;
                 post.AnswerExternalLastActivityDate = modifiedPost.AcceptedAnswer.LastActivityDate;
             }
-        }
 
-        if (postsToAdd.Count > 0 || postsToUpdate.Count > 0)
             await dbContext.SaveChangesAsync(cancellationToken);
+        }
 
         return Unit.Value;
     }

@@ -15,7 +15,7 @@ static class Program
             .Build();
 
         var fileName = args[0];
-        var webDataFile = await host.Services.GetRequiredService<StackOverflowDbContext>()
+        var webDataFile = await host.Services.GetRequiredService<IDbContextFactory<StackOverflowDbContext>>().CreateDbContext()
             .WebDataFiles.AsTracking().FirstOrDefaultAsync(x => x.Name == fileName);
         if (webDataFile == null)
         {
