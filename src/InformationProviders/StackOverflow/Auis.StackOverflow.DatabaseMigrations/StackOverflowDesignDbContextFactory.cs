@@ -14,13 +14,9 @@ public class StackOverflowDesignDbContextFactory : IDesignTimeDbContextFactory<S
         logger.LogInformation("Connection String: {ConnectionString}", connectionString);
 
         var optionsBuilder = new DbContextOptionsBuilder<StackOverflowDbContext>();
-        optionsBuilder.UseSqlServer(connectionString,
-            x =>
-            {
-                x.MigrationsAssembly("Auis.StackOverflow.DatabaseMigrations");
-                x.MigrationsHistoryTable("__MigrationsHistory", StackOverflowDbContext.DbSchemaName);
-            });
-        // optionsBuilder.UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance);
+        optionsBuilder.UseSqlServer(connectionString, x => x.MigrationsAssembly("Auis.StackOverflow.DatabaseMigrations")
+            .MigrationsHistoryTable("__MigrationsHistory", StackOverflowDbContext.DbSchemaName));
+
         return new StackOverflowDbContext(optionsBuilder.Options);
     }
 }

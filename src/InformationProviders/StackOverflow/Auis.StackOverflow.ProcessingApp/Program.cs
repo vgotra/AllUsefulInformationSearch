@@ -6,14 +6,25 @@ static class Program
     {
         if (args == null || args.Length == 0)
         {
-            Console.WriteLine("Please provide name of file to process.");
+            await Console.Error.WriteLineAsync("Please provide name of file to process.");
             return;
         }
 
         var host = Host.CreateDefaultBuilder(args)
-            .ConfigureServices((context, services) => services.ConfigureServices(context))
+            .ConfigureServices((context, services) => services.ConfigureSubServices(context))
             .Build();
 
-        await host.Services.GetRequiredService<IStackOverflowProcessingWorkflow>().ExecuteAsync();
+        var fileName = args[0];
+        var webDataFile = await host.Services.GetRequiredService<StackOverflowDbContext>()
+            .WebDataFiles.AsTracking().FirstOrDefaultAsync(x => x.Name == fileName);
+        if (webDataFile == null)
+        {
+            await Console.Error.WriteLineAsync($"File {fileName} not found.");
+            return;
+        }
+
+        Console.WriteLine($"Started processing file {fileName}");
+        await host.Services.GetRequiredService<IMediator>().Send(new PostsProcessingCommand(webDataFile));
+        Console.WriteLine($"Completed processing file {fileName}");
     }
 }

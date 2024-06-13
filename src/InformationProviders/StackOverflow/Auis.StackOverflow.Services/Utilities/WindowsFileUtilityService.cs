@@ -5,6 +5,6 @@ public class WindowsFileUtilityService : FileUtilityServiceBase, IFileUtilitySer
     public async Task ExtractArchiveFileAsync(WebFileInformation webFileInformation, CancellationToken cancellationToken = default)
     {
         await DownloadFileAsync(webFileInformation, cancellationToken);
-        await ExecuteProcessAsync("C:\\Program Files\\7-Zip\\7z.exe", $"x \"{webFileInformation.TemporaryDownloadPath}\" -o\"{webFileInformation.ArchiveOutputDirectory}\"", cancellationToken);
+        await "C:\\Program Files\\7-Zip\\7z.exe".ExecuteProcessAsync($"x \"{webFileInformation.TemporaryDownloadPath}\" -o\"{webFileInformation.ArchiveOutputDirectory}\"", cancellationToken);
     }
 }

@@ -8,6 +8,7 @@ global using Auis.StackOverflow.Models.Common;
 global using Auis.StackOverflow.Models.Entities;
 global using Auis.StackOverflow.Models.Extensions;
 global using Auis.StackOverflow.Models.XmlModels;
+global using Auis.StackOverflow.Services.Extensions;
 global using Auis.StackOverflow.Services.Parsers;
 global using Auis.StackOverflow.Services.Utilities;
 

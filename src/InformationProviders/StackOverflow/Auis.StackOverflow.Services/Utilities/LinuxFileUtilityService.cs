@@ -6,6 +6,6 @@ public class LinuxFileUtilityService : FileUtilityServiceBase, IFileUtilityServi
     {
         await DownloadFileAsync(webFileInformation, cancellationToken);
         var command = $"7za x {webFileInformation.TemporaryDownloadPath} -o{webFileInformation.ArchiveOutputDirectory}";
-        await ExecuteProcessAsync("/bin/bash", $"-c \"{command}\"", cancellationToken);
+        await "/bin/bash".ExecuteProcessAsync($"-c \"{command}\"", cancellationToken);
     }
 }

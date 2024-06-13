@@ -7,6 +7,7 @@ global using Auis.StackOverflow.Models.Common;
 global using Auis.StackOverflow.Models.Entities;
 global using Auis.StackOverflow.Models.Extensions;
 global using Auis.StackOverflow.Services;
+global using Auis.StackOverflow.Services.Handlers;
 
 global using Mediator;
 

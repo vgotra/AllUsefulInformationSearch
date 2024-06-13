@@ -1,6 +1,9 @@
-﻿using Auis.StackOverflow.Services.Handlers;
+﻿namespace Auis.StackOverflow.Workflows;
 
-namespace Auis.StackOverflow.Workflows;
+public interface IStackOverflowProcessingWorkflow
+{
+    Task ExecuteAsync(CancellationToken cancellationToken = default);
+}
 
 public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, IMediator mediator, ILogger<StackOverflowProcessingWorkflow> logger) : IStackOverflowProcessingWorkflow
 {
@@ -21,7 +24,8 @@ public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, I
             {
                 try
                 {
-                    await mediator.Send(new PostsProcessingCommand(webFile), token);
+                    var subWorkflow = serviceProvider.GetRequiredService<IStackOverflowProcessingSubWorkflow>();
+                    await subWorkflow.ExecuteAsync(webFile, token);
                 }
                 catch (Exception e)
                 {

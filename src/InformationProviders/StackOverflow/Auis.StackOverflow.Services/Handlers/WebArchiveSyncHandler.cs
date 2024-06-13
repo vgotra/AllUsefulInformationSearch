@@ -1,6 +1,6 @@
 ﻿namespace Auis.StackOverflow.Services.Handlers;
 
-public class WebArchiveSyncHandler(IServiceProvider serviceProvider, IMediator mediator, ILogger<WebArchiveSyncHandler> logger) : ICommandHandler<WebArchiveFilesSaveCommand>
+public class WebArchiveSyncHandler(IServiceProvider serviceProvider, ILogger<WebArchiveSyncHandler> logger) : ICommandHandler<WebArchiveFilesSaveCommand>
 {
     public async ValueTask<Unit> Handle(WebArchiveFilesSaveCommand command, CancellationToken cancellationToken)
     {

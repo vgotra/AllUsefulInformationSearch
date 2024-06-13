@@ -3,6 +3,7 @@
 global using Auis.StackOverflow.Common;
 global using Auis.StackOverflow.DataAccess;
 global using Auis.StackOverflow.Services;
+global using Auis.StackOverflow.Services.Utilities;
 global using Auis.StackOverflow.Workflows;
 
 global using Microsoft.EntityFrameworkCore;

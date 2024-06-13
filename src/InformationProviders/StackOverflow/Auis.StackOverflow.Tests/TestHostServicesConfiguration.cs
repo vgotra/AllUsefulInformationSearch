@@ -11,15 +11,16 @@ public static class TestHostServicesConfiguration
 
         if (inMemoryDb)
         {
-            services.AddDbContext<StackOverflowDbContext>(opt => opt.UseInMemoryDatabase("Auis_StackOverflow"),
+            services.AddDbContext<StackOverflowDbContext>(opt =>
+                    opt.UseInMemoryDatabase("Auis_StackOverflow"),
                 ServiceLifetime.Transient,
                 ServiceLifetime.Singleton);
         }
         else
         {
-            services.AddDbContext<StackOverflowDbContext>(
-                options => options.UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow"))
-                    .UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance),
+            services.AddDbContext<StackOverflowDbContext>(opt =>
+                    opt.UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow"))
+                        .UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance),
                 ServiceLifetime.Transient,
                 ServiceLifetime.Singleton);
         }
