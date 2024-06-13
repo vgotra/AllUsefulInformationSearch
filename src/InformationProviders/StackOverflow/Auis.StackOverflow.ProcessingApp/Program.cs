@@ -10,7 +10,7 @@ static class Program
             return;
         }
 
-        var host = Host.CreateDefaultBuilder(args)
+        var host = Host.CreateDefaultBuilder(args) // it will use default appsettings.json file from common folder
             .ConfigureServices((context, services) => services.ConfigureSubServices(context))
             .Build();
 

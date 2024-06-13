@@ -1,10 +1,12 @@
-﻿namespace Auis.StackOverflow.Services.Handlers;
+﻿using EFCore.BulkExtensions;
 
-public class PostsSynchronizationHandler(IServiceProvider serviceProvider) : ICommandHandler<PostsSynchronizationCommand>
+namespace Auis.StackOverflow.Services.Handlers;
+
+public class PostsSynchronizationHandler(IDbContextFactory<StackOverflowDbContext> dbContextFactory, IOptions<StackOverflowOptions> options) : ICommandHandler<PostsSynchronizationCommand>
 {
     public async ValueTask<Unit> Handle(PostsSynchronizationCommand command, CancellationToken cancellationToken)
     {
-        var dbContext = serviceProvider.GetRequiredService<StackOverflowDbContext>();
+        var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
         var postsToAdd = new HashSet<PostModel>();
         var postsToUpdate = new HashSet<PostModel>();
@@ -23,7 +25,12 @@ public class PostsSynchronizationHandler(IServiceProvider serviceProvider) : ICo
         });
 
         if (postsToAdd.Count > 0)
-            await dbContext.Posts.AddRangeAsync(postsToAdd.Select(x => x.ToEntity()), cancellationToken);
+        {
+            if (options.Value.UseDatabaseBulkMethods)
+                await dbContext.BulkInsertAsync(postsToAdd.Select(x => x.ToEntity()), cancellationToken: cancellationToken);
+            else
+                await dbContext.Posts.AddRangeAsync(postsToAdd.Select(x => x.ToEntity()), cancellationToken);
+        }
 
         if (postsToUpdate.Count > 0)
         {
@@ -42,7 +49,9 @@ public class PostsSynchronizationHandler(IServiceProvider serviceProvider) : ICo
             }
         }
 
-        await dbContext.SaveChangesAsync(cancellationToken);
+        if (postsToAdd.Count > 0 || postsToUpdate.Count > 0)
+            await dbContext.SaveChangesAsync(cancellationToken);
+
         return Unit.Value;
     }
 }

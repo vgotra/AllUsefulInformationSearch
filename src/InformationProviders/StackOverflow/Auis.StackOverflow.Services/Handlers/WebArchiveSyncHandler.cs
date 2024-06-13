@@ -1,10 +1,10 @@
 ﻿namespace Auis.StackOverflow.Services.Handlers;
 
-public class WebArchiveSyncHandler(IServiceProvider serviceProvider, ILogger<WebArchiveSyncHandler> logger) : ICommandHandler<WebArchiveFilesSaveCommand>
+public class WebArchiveSyncHandler(IDbContextFactory<StackOverflowDbContext> dbContextFactory, ILogger<WebArchiveSyncHandler> logger) : ICommandHandler<WebArchiveFilesSaveCommand>
 {
     public async ValueTask<Unit> Handle(WebArchiveFilesSaveCommand command, CancellationToken cancellationToken)
     {
-        var dbContext = serviceProvider.GetRequiredService<StackOverflowDbContext>();
+        await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
         var dataFiles = await dbContext.WebDataFiles.ToListAsync(cancellationToken);
 
         var webFiles = GetWebDataFilesToSync(command.Files, dataFiles);

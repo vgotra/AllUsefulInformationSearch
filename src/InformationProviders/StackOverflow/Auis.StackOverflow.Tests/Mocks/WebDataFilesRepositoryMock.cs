@@ -1,14 +1,18 @@
 ﻿namespace Auis.StackOverflow.Tests.Mocks;
 
-public class WebDataFilesRepositoryMock(StackOverflowDbContext dbContext) : IWebDataFilesRepository
+public class WebDataFilesRepositoryMock(IDbContextFactory<StackOverflowDbContext> dbContextFactory) : IWebDataFilesRepository
 {
-    public Task<List<WebDataFileEntity>> GetWebDataFilesAsync(CancellationToken cancellationToken = default) =>
-        dbContext.WebDataFiles
+    public async Task<List<WebDataFileEntity>> GetWebDataFilesAsync(CancellationToken cancellationToken = default)
+    {
+        await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+        return await dbContext.WebDataFiles
             .Where(x => x.IsSynchronizationEnabled && (x.ProcessingStatus == ProcessingStatus.Updated || x.ProcessingStatus == ProcessingStatus.New))
             .ToListAsync(cancellationToken);
+    }
 
     public async Task SetProcessingStatusAsync(WebDataFileEntity webDataFileEntity, ProcessingStatus status, CancellationToken cancellationToken = default)
     {
+        await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
         var entity = await dbContext.WebDataFiles.FirstOrDefaultAsync(x => x.Id == webDataFileEntity.Id, cancellationToken);
         if (entity != null)
         {

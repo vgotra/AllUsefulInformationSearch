@@ -8,13 +8,9 @@ public static class Startup
         services.Configure<StackOverflowOptions>(configuration.GetSection(nameof(StackOverflowOptions)));
         services.AddHttpClient("", (sp, client) => client.BaseAddress = new Uri(sp.GetRequiredService<IOptions<StackOverflowOptions>>().Value.BaseUrl));
         services.AddMediator();
-
-        //TODO Find a way to register DbContextPool as Transient, also batches
-        services.AddDbContext<StackOverflowDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow"))
-                    .UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance),
-            ServiceLifetime.Transient,
-            ServiceLifetime.Singleton);
+        services.AddSingleton(new DbContextOptionsBuilder<StackOverflowDbContext>().UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow"))
+            .UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance).Options);
+        services.AddSingleton<IDbContextFactory<StackOverflowDbContext>, StackOverflowDbContextFactory>();
 
         services.AddTransient<IWebDataFilesRepository, WebDataFilesRepository>();
         services.AddTransient<IFileUtilityService>(sp => Environment.OSVersion switch

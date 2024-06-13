@@ -9,20 +9,10 @@ public static class TestHostServicesConfiguration
         services.AddHttpClient("", (sp, client) => client.BaseAddress = new Uri(sp.GetRequiredService<IOptions<StackOverflowOptions>>().Value.BaseUrl));
         services.AddMediator();
 
-        if (inMemoryDb)
-        {
-            services.AddDbContext<StackOverflowDbContext>(opt =>
-                    opt.UseInMemoryDatabase("Auis_StackOverflow"),
-                ServiceLifetime.Transient,
-                ServiceLifetime.Singleton);
-        }
-        else
-        {
-            services.AddDbContext<StackOverflowDbContext>(opt =>
-                    opt.UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow")),
-                ServiceLifetime.Transient,
-                ServiceLifetime.Singleton);
-        }
+        services.AddSingleton(inMemoryDb
+            ? new DbContextOptionsBuilder<StackOverflowDbContext>().UseInMemoryDatabase("Auis_StackOverflow").Options
+            : new DbContextOptionsBuilder<StackOverflowDbContext>().UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow")).Options);
+        services.AddSingleton<IDbContextFactory<StackOverflowDbContext>, StackOverflowDbContextFactory>();
 
         services.AddTransient<IWebDataFilesRepository, WebDataFilesRepositoryMock>();
         services.AddTransient<IFileUtilityService>(_ => Environment.OSVersion switch

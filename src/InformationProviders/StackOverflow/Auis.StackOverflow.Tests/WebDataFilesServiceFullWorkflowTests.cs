@@ -17,7 +17,7 @@ public class WebDataFilesServiceFullWorkflowTests : BaseTests
         var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) => services.ConfigureServices(context)).Build();
 
         const int countOfFilesToProcess = 1;
-        var dbContext = host.Services.GetRequiredService<StackOverflowDbContext>();
+        await using var dbContext = await host.Services.GetRequiredService<IDbContextFactory<StackOverflowDbContext>>().CreateDbContextAsync(cancellationTokenSource.Token);
         var mediator = host.Services.GetRequiredService<IMediator>();
 
         await mediator.Send(new RefreshWebArchiveFilesRequest(), cancellationTokenSource.Token);

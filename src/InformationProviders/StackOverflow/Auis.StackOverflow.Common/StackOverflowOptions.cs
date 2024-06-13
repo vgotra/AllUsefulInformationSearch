@@ -7,4 +7,5 @@ public class StackOverflowOptions
     public string NetworkShareBasePath { get; set; } = string.Empty;
     public bool UseSubProcessForProcessingFile { get; set; } = false;
     public string SubProcessFileName { get; set; } = string.Empty;
+    public bool UseDatabaseBulkMethods { get; set; } = false;
 }
