@@ -11,8 +11,8 @@ public static class Startup
 
         //TODO Find a way to register DbContextPool as Transient, also batches
         services.AddDbContext<StackOverflowDbContext>(options =>
-                options.UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance)
-                    .UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow")),
+                options.UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow"))
+                    .UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance),
             ServiceLifetime.Transient,
             ServiceLifetime.Singleton);
 

@@ -6,20 +6,11 @@ public static class PostConversionExtensions
         new()
         {
             Id = post.Id,
+            WebDataFileId = post.WebDataFileId,
             Title = post.Title,
-            Text = post.Body,
-            ExternalLastActivityDate = post.LastActivityDate,
-            AcceptedAnswer = post.AcceptedAnswer!.ToEntity(post.Id), // we save only answered posts
-            WebDataFileId = post.WebDataFileId
-        };
-
-    private static AcceptedAnswerEntity ToEntity(this PostModel post, int postId) =>
-        new()
-        {
-            Id = post.Id,
-            Text = post.Body,
-            ExternalLastActivityDate = post.LastActivityDate,
-            PostId = postId,
-            PostWebDataFileId = post.WebDataFileId
+            Question = post.Body,
+            Answer = post.AcceptedAnswer.Body,
+            QuestionExternalLastActivityDate = post.LastActivityDate,
+            AnswerExternalLastActivityDate = post.AcceptedAnswer.LastActivityDate
         };
 }

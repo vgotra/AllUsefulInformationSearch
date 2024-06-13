@@ -10,12 +10,9 @@ public static class Startup
         services.AddMediator(); //TODO Add db context fabric because Mediator registered as Singleton
 
         //TODO Find a way to register DbContextPool as Transient, also batches
-        services.AddDbContext<StackOverflowDbContext>(
-            options =>
-            {
-                options.UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance);
-                options.UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow"));
-            },
+        services.AddDbContext<StackOverflowDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow"))
+                    .UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance),
             ServiceLifetime.Transient,
             ServiceLifetime.Singleton);
 

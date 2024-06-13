@@ -16,14 +16,11 @@ namespace Auis.StackOverflow.DataAccess.Compiledmodels
     {
         partial void Initialize()
         {
-            var acceptedAnswerEntity = AcceptedAnswerEntityEntityType.Create(this);
             var postEntity = PostEntityEntityType.Create(this);
             var webDataFileEntity = WebDataFileEntityEntityType.Create(this);
 
-            AcceptedAnswerEntityEntityType.CreateForeignKey1(acceptedAnswerEntity, postEntity);
             PostEntityEntityType.CreateForeignKey1(postEntity, webDataFileEntity);
 
-            AcceptedAnswerEntityEntityType.CreateAnnotations(acceptedAnswerEntity);
             PostEntityEntityType.CreateAnnotations(postEntity);
             WebDataFileEntityEntityType.CreateAnnotations(webDataFileEntity);
 
@@ -37,81 +34,21 @@ namespace Auis.StackOverflow.DataAccess.Compiledmodels
         {
             var relationalModel = new RelationalModel(this);
 
-            var acceptedAnswerEntity = FindEntityType("Auis.StackOverflow.Models.Entities.AcceptedAnswerEntity")!;
-
-            var defaultTableMappings = new List<TableMappingBase<ColumnMappingBase>>();
-            acceptedAnswerEntity.SetRuntimeAnnotation("Relational:DefaultMappings", defaultTableMappings);
-            var auisStackOverflowModelsEntitiesAcceptedAnswerEntityTableBase = new TableBase("Auis.StackOverflow.Models.Entities.AcceptedAnswerEntity", null, relationalModel);
-            var externalLastActivityDateColumnBase = new ColumnBase<ColumnMappingBase>("ExternalLastActivityDate", "datetimeoffset", auisStackOverflowModelsEntitiesAcceptedAnswerEntityTableBase);
-            auisStackOverflowModelsEntitiesAcceptedAnswerEntityTableBase.Columns.Add("ExternalLastActivityDate", externalLastActivityDateColumnBase);
-            var idColumnBase = new ColumnBase<ColumnMappingBase>("Id", "int", auisStackOverflowModelsEntitiesAcceptedAnswerEntityTableBase);
-            auisStackOverflowModelsEntitiesAcceptedAnswerEntityTableBase.Columns.Add("Id", idColumnBase);
-            var postIdColumnBase = new ColumnBase<ColumnMappingBase>("PostId", "int", auisStackOverflowModelsEntitiesAcceptedAnswerEntityTableBase);
-            auisStackOverflowModelsEntitiesAcceptedAnswerEntityTableBase.Columns.Add("PostId", postIdColumnBase);
-            var postWebDataFileIdColumnBase = new ColumnBase<ColumnMappingBase>("PostWebDataFileId", "int", auisStackOverflowModelsEntitiesAcceptedAnswerEntityTableBase);
-            auisStackOverflowModelsEntitiesAcceptedAnswerEntityTableBase.Columns.Add("PostWebDataFileId", postWebDataFileIdColumnBase);
-            var textColumnBase = new ColumnBase<ColumnMappingBase>("Text", "nvarchar(max)", auisStackOverflowModelsEntitiesAcceptedAnswerEntityTableBase);
-            auisStackOverflowModelsEntitiesAcceptedAnswerEntityTableBase.Columns.Add("Text", textColumnBase);
-            relationalModel.DefaultTables.Add("Auis.StackOverflow.Models.Entities.AcceptedAnswerEntity", auisStackOverflowModelsEntitiesAcceptedAnswerEntityTableBase);
-            var auisStackOverflowModelsEntitiesAcceptedAnswerEntityMappingBase = new TableMappingBase<ColumnMappingBase>(acceptedAnswerEntity, auisStackOverflowModelsEntitiesAcceptedAnswerEntityTableBase, true);
-            auisStackOverflowModelsEntitiesAcceptedAnswerEntityTableBase.AddTypeMapping(auisStackOverflowModelsEntitiesAcceptedAnswerEntityMappingBase, false);
-            defaultTableMappings.Add(auisStackOverflowModelsEntitiesAcceptedAnswerEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)idColumnBase, acceptedAnswerEntity.FindProperty("Id")!, auisStackOverflowModelsEntitiesAcceptedAnswerEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)postWebDataFileIdColumnBase, acceptedAnswerEntity.FindProperty("PostWebDataFileId")!, auisStackOverflowModelsEntitiesAcceptedAnswerEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)externalLastActivityDateColumnBase, acceptedAnswerEntity.FindProperty("ExternalLastActivityDate")!, auisStackOverflowModelsEntitiesAcceptedAnswerEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)postIdColumnBase, acceptedAnswerEntity.FindProperty("PostId")!, auisStackOverflowModelsEntitiesAcceptedAnswerEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)textColumnBase, acceptedAnswerEntity.FindProperty("Text")!, auisStackOverflowModelsEntitiesAcceptedAnswerEntityMappingBase);
-
-            var tableMappings = new List<TableMapping>();
-            acceptedAnswerEntity.SetRuntimeAnnotation("Relational:TableMappings", tableMappings);
-            var acceptedAnswersTable = new Table("AcceptedAnswers", "StackOverflow", relationalModel);
-            var postWebDataFileIdColumn = new Column("PostWebDataFileId", "int", acceptedAnswersTable);
-            acceptedAnswersTable.Columns.Add("PostWebDataFileId", postWebDataFileIdColumn);
-            var idColumn = new Column("Id", "int", acceptedAnswersTable);
-            acceptedAnswersTable.Columns.Add("Id", idColumn);
-            var externalLastActivityDateColumn = new Column("ExternalLastActivityDate", "datetimeoffset", acceptedAnswersTable);
-            acceptedAnswersTable.Columns.Add("ExternalLastActivityDate", externalLastActivityDateColumn);
-            var postIdColumn = new Column("PostId", "int", acceptedAnswersTable);
-            acceptedAnswersTable.Columns.Add("PostId", postIdColumn);
-            var textColumn = new Column("Text", "nvarchar(max)", acceptedAnswersTable);
-            acceptedAnswersTable.Columns.Add("Text", textColumn);
-            var pK_AcceptedAnswers = new UniqueConstraint("PK_AcceptedAnswers", acceptedAnswersTable, new[] { postWebDataFileIdColumn, idColumn });
-            acceptedAnswersTable.PrimaryKey = pK_AcceptedAnswers;
-            var pK_AcceptedAnswersUc = RelationalModel.GetKey(this,
-                "Auis.StackOverflow.Models.Entities.AcceptedAnswerEntity",
-                new[] { "PostWebDataFileId", "Id" });
-            pK_AcceptedAnswers.MappedKeys.Add(pK_AcceptedAnswersUc);
-            RelationalModel.GetOrCreateUniqueConstraints(pK_AcceptedAnswersUc).Add(pK_AcceptedAnswers);
-            acceptedAnswersTable.UniqueConstraints.Add("PK_AcceptedAnswers", pK_AcceptedAnswers);
-            var iX_AcceptedAnswers_PostWebDataFileId_PostId = new TableIndex(
-            "IX_AcceptedAnswers_PostWebDataFileId_PostId", acceptedAnswersTable, new[] { postWebDataFileIdColumn, postIdColumn }, true);
-            var iX_AcceptedAnswers_PostWebDataFileId_PostIdIx = RelationalModel.GetIndex(this,
-                "Auis.StackOverflow.Models.Entities.AcceptedAnswerEntity",
-                new[] { "PostWebDataFileId", "PostId" });
-            iX_AcceptedAnswers_PostWebDataFileId_PostId.MappedIndexes.Add(iX_AcceptedAnswers_PostWebDataFileId_PostIdIx);
-            RelationalModel.GetOrCreateTableIndexes(iX_AcceptedAnswers_PostWebDataFileId_PostIdIx).Add(iX_AcceptedAnswers_PostWebDataFileId_PostId);
-            acceptedAnswersTable.Indexes.Add("IX_AcceptedAnswers_PostWebDataFileId_PostId", iX_AcceptedAnswers_PostWebDataFileId_PostId);
-            relationalModel.Tables.Add(("AcceptedAnswers", "StackOverflow"), acceptedAnswersTable);
-            var acceptedAnswersTableMapping = new TableMapping(acceptedAnswerEntity, acceptedAnswersTable, true);
-            acceptedAnswersTable.AddTypeMapping(acceptedAnswersTableMapping, false);
-            tableMappings.Add(acceptedAnswersTableMapping);
-            RelationalModel.CreateColumnMapping(idColumn, acceptedAnswerEntity.FindProperty("Id")!, acceptedAnswersTableMapping);
-            RelationalModel.CreateColumnMapping(postWebDataFileIdColumn, acceptedAnswerEntity.FindProperty("PostWebDataFileId")!, acceptedAnswersTableMapping);
-            RelationalModel.CreateColumnMapping(externalLastActivityDateColumn, acceptedAnswerEntity.FindProperty("ExternalLastActivityDate")!, acceptedAnswersTableMapping);
-            RelationalModel.CreateColumnMapping(postIdColumn, acceptedAnswerEntity.FindProperty("PostId")!, acceptedAnswersTableMapping);
-            RelationalModel.CreateColumnMapping(textColumn, acceptedAnswerEntity.FindProperty("Text")!, acceptedAnswersTableMapping);
-
             var postEntity = FindEntityType("Auis.StackOverflow.Models.Entities.PostEntity")!;
 
-            var defaultTableMappings0 = new List<TableMappingBase<ColumnMappingBase>>();
-            postEntity.SetRuntimeAnnotation("Relational:DefaultMappings", defaultTableMappings0);
+            var defaultTableMappings = new List<TableMappingBase<ColumnMappingBase>>();
+            postEntity.SetRuntimeAnnotation("Relational:DefaultMappings", defaultTableMappings);
             var auisStackOverflowModelsEntitiesPostEntityTableBase = new TableBase("Auis.StackOverflow.Models.Entities.PostEntity", null, relationalModel);
-            var externalLastActivityDateColumnBase0 = new ColumnBase<ColumnMappingBase>("ExternalLastActivityDate", "datetimeoffset", auisStackOverflowModelsEntitiesPostEntityTableBase);
-            auisStackOverflowModelsEntitiesPostEntityTableBase.Columns.Add("ExternalLastActivityDate", externalLastActivityDateColumnBase0);
-            var idColumnBase0 = new ColumnBase<ColumnMappingBase>("Id", "int", auisStackOverflowModelsEntitiesPostEntityTableBase);
-            auisStackOverflowModelsEntitiesPostEntityTableBase.Columns.Add("Id", idColumnBase0);
-            var textColumnBase0 = new ColumnBase<ColumnMappingBase>("Text", "nvarchar(max)", auisStackOverflowModelsEntitiesPostEntityTableBase);
-            auisStackOverflowModelsEntitiesPostEntityTableBase.Columns.Add("Text", textColumnBase0);
+            var answerColumnBase = new ColumnBase<ColumnMappingBase>("Answer", "nvarchar(max)", auisStackOverflowModelsEntitiesPostEntityTableBase);
+            auisStackOverflowModelsEntitiesPostEntityTableBase.Columns.Add("Answer", answerColumnBase);
+            var answerExternalLastActivityDateColumnBase = new ColumnBase<ColumnMappingBase>("AnswerExternalLastActivityDate", "datetimeoffset", auisStackOverflowModelsEntitiesPostEntityTableBase);
+            auisStackOverflowModelsEntitiesPostEntityTableBase.Columns.Add("AnswerExternalLastActivityDate", answerExternalLastActivityDateColumnBase);
+            var idColumnBase = new ColumnBase<ColumnMappingBase>("Id", "int", auisStackOverflowModelsEntitiesPostEntityTableBase);
+            auisStackOverflowModelsEntitiesPostEntityTableBase.Columns.Add("Id", idColumnBase);
+            var questionColumnBase = new ColumnBase<ColumnMappingBase>("Question", "nvarchar(max)", auisStackOverflowModelsEntitiesPostEntityTableBase);
+            auisStackOverflowModelsEntitiesPostEntityTableBase.Columns.Add("Question", questionColumnBase);
+            var questionExternalLastActivityDateColumnBase = new ColumnBase<ColumnMappingBase>("QuestionExternalLastActivityDate", "datetimeoffset", auisStackOverflowModelsEntitiesPostEntityTableBase);
+            auisStackOverflowModelsEntitiesPostEntityTableBase.Columns.Add("QuestionExternalLastActivityDate", questionExternalLastActivityDateColumnBase);
             var titleColumnBase = new ColumnBase<ColumnMappingBase>("Title", "nvarchar(250)", auisStackOverflowModelsEntitiesPostEntityTableBase);
             auisStackOverflowModelsEntitiesPostEntityTableBase.Columns.Add("Title", titleColumnBase);
             var webDataFileIdColumnBase = new ColumnBase<ColumnMappingBase>("WebDataFileId", "int", auisStackOverflowModelsEntitiesPostEntityTableBase);
@@ -119,27 +56,33 @@ namespace Auis.StackOverflow.DataAccess.Compiledmodels
             relationalModel.DefaultTables.Add("Auis.StackOverflow.Models.Entities.PostEntity", auisStackOverflowModelsEntitiesPostEntityTableBase);
             var auisStackOverflowModelsEntitiesPostEntityMappingBase = new TableMappingBase<ColumnMappingBase>(postEntity, auisStackOverflowModelsEntitiesPostEntityTableBase, true);
             auisStackOverflowModelsEntitiesPostEntityTableBase.AddTypeMapping(auisStackOverflowModelsEntitiesPostEntityMappingBase, false);
-            defaultTableMappings0.Add(auisStackOverflowModelsEntitiesPostEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)idColumnBase0, postEntity.FindProperty("Id")!, auisStackOverflowModelsEntitiesPostEntityMappingBase);
+            defaultTableMappings.Add(auisStackOverflowModelsEntitiesPostEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)idColumnBase, postEntity.FindProperty("Id")!, auisStackOverflowModelsEntitiesPostEntityMappingBase);
             RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)webDataFileIdColumnBase, postEntity.FindProperty("WebDataFileId")!, auisStackOverflowModelsEntitiesPostEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)externalLastActivityDateColumnBase0, postEntity.FindProperty("ExternalLastActivityDate")!, auisStackOverflowModelsEntitiesPostEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)textColumnBase0, postEntity.FindProperty("Text")!, auisStackOverflowModelsEntitiesPostEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)answerColumnBase, postEntity.FindProperty("Answer")!, auisStackOverflowModelsEntitiesPostEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)answerExternalLastActivityDateColumnBase, postEntity.FindProperty("AnswerExternalLastActivityDate")!, auisStackOverflowModelsEntitiesPostEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)questionColumnBase, postEntity.FindProperty("Question")!, auisStackOverflowModelsEntitiesPostEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)questionExternalLastActivityDateColumnBase, postEntity.FindProperty("QuestionExternalLastActivityDate")!, auisStackOverflowModelsEntitiesPostEntityMappingBase);
             RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)titleColumnBase, postEntity.FindProperty("Title")!, auisStackOverflowModelsEntitiesPostEntityMappingBase);
 
-            var tableMappings0 = new List<TableMapping>();
-            postEntity.SetRuntimeAnnotation("Relational:TableMappings", tableMappings0);
+            var tableMappings = new List<TableMapping>();
+            postEntity.SetRuntimeAnnotation("Relational:TableMappings", tableMappings);
             var postsTable = new Table("Posts", "StackOverflow", relationalModel);
             var webDataFileIdColumn = new Column("WebDataFileId", "int", postsTable);
             postsTable.Columns.Add("WebDataFileId", webDataFileIdColumn);
-            var idColumn0 = new Column("Id", "int", postsTable);
-            postsTable.Columns.Add("Id", idColumn0);
-            var externalLastActivityDateColumn0 = new Column("ExternalLastActivityDate", "datetimeoffset", postsTable);
-            postsTable.Columns.Add("ExternalLastActivityDate", externalLastActivityDateColumn0);
-            var textColumn0 = new Column("Text", "nvarchar(max)", postsTable);
-            postsTable.Columns.Add("Text", textColumn0);
+            var idColumn = new Column("Id", "int", postsTable);
+            postsTable.Columns.Add("Id", idColumn);
+            var answerColumn = new Column("Answer", "nvarchar(max)", postsTable);
+            postsTable.Columns.Add("Answer", answerColumn);
+            var answerExternalLastActivityDateColumn = new Column("AnswerExternalLastActivityDate", "datetimeoffset", postsTable);
+            postsTable.Columns.Add("AnswerExternalLastActivityDate", answerExternalLastActivityDateColumn);
+            var questionColumn = new Column("Question", "nvarchar(max)", postsTable);
+            postsTable.Columns.Add("Question", questionColumn);
+            var questionExternalLastActivityDateColumn = new Column("QuestionExternalLastActivityDate", "datetimeoffset", postsTable);
+            postsTable.Columns.Add("QuestionExternalLastActivityDate", questionExternalLastActivityDateColumn);
             var titleColumn = new Column("Title", "nvarchar(250)", postsTable);
             postsTable.Columns.Add("Title", titleColumn);
-            var pK_Posts = new UniqueConstraint("PK_Posts", postsTable, new[] { webDataFileIdColumn, idColumn0 });
+            var pK_Posts = new UniqueConstraint("PK_Posts", postsTable, new[] { webDataFileIdColumn, idColumn });
             postsTable.PrimaryKey = pK_Posts;
             var pK_PostsUc = RelationalModel.GetKey(this,
                 "Auis.StackOverflow.Models.Entities.PostEntity",
@@ -150,22 +93,24 @@ namespace Auis.StackOverflow.DataAccess.Compiledmodels
             relationalModel.Tables.Add(("Posts", "StackOverflow"), postsTable);
             var postsTableMapping = new TableMapping(postEntity, postsTable, true);
             postsTable.AddTypeMapping(postsTableMapping, false);
-            tableMappings0.Add(postsTableMapping);
-            RelationalModel.CreateColumnMapping(idColumn0, postEntity.FindProperty("Id")!, postsTableMapping);
+            tableMappings.Add(postsTableMapping);
+            RelationalModel.CreateColumnMapping(idColumn, postEntity.FindProperty("Id")!, postsTableMapping);
             RelationalModel.CreateColumnMapping(webDataFileIdColumn, postEntity.FindProperty("WebDataFileId")!, postsTableMapping);
-            RelationalModel.CreateColumnMapping(externalLastActivityDateColumn0, postEntity.FindProperty("ExternalLastActivityDate")!, postsTableMapping);
-            RelationalModel.CreateColumnMapping(textColumn0, postEntity.FindProperty("Text")!, postsTableMapping);
+            RelationalModel.CreateColumnMapping(answerColumn, postEntity.FindProperty("Answer")!, postsTableMapping);
+            RelationalModel.CreateColumnMapping(answerExternalLastActivityDateColumn, postEntity.FindProperty("AnswerExternalLastActivityDate")!, postsTableMapping);
+            RelationalModel.CreateColumnMapping(questionColumn, postEntity.FindProperty("Question")!, postsTableMapping);
+            RelationalModel.CreateColumnMapping(questionExternalLastActivityDateColumn, postEntity.FindProperty("QuestionExternalLastActivityDate")!, postsTableMapping);
             RelationalModel.CreateColumnMapping(titleColumn, postEntity.FindProperty("Title")!, postsTableMapping);
 
             var webDataFileEntity = FindEntityType("Auis.StackOverflow.Models.Entities.WebDataFileEntity")!;
 
-            var defaultTableMappings1 = new List<TableMappingBase<ColumnMappingBase>>();
-            webDataFileEntity.SetRuntimeAnnotation("Relational:DefaultMappings", defaultTableMappings1);
+            var defaultTableMappings0 = new List<TableMappingBase<ColumnMappingBase>>();
+            webDataFileEntity.SetRuntimeAnnotation("Relational:DefaultMappings", defaultTableMappings0);
             var auisStackOverflowModelsEntitiesWebDataFileEntityTableBase = new TableBase("Auis.StackOverflow.Models.Entities.WebDataFileEntity", null, relationalModel);
             var externalLastModifiedColumnBase = new ColumnBase<ColumnMappingBase>("ExternalLastModified", "datetimeoffset", auisStackOverflowModelsEntitiesWebDataFileEntityTableBase);
             auisStackOverflowModelsEntitiesWebDataFileEntityTableBase.Columns.Add("ExternalLastModified", externalLastModifiedColumnBase);
-            var idColumnBase1 = new ColumnBase<ColumnMappingBase>("Id", "int", auisStackOverflowModelsEntitiesWebDataFileEntityTableBase);
-            auisStackOverflowModelsEntitiesWebDataFileEntityTableBase.Columns.Add("Id", idColumnBase1);
+            var idColumnBase0 = new ColumnBase<ColumnMappingBase>("Id", "int", auisStackOverflowModelsEntitiesWebDataFileEntityTableBase);
+            auisStackOverflowModelsEntitiesWebDataFileEntityTableBase.Columns.Add("Id", idColumnBase0);
             var isSynchronizationEnabledColumnBase = new ColumnBase<ColumnMappingBase>("IsSynchronizationEnabled", "bit", auisStackOverflowModelsEntitiesWebDataFileEntityTableBase);
             auisStackOverflowModelsEntitiesWebDataFileEntityTableBase.Columns.Add("IsSynchronizationEnabled", isSynchronizationEnabledColumnBase);
             var linkColumnBase = new ColumnBase<ColumnMappingBase>("Link", "nvarchar(255)", auisStackOverflowModelsEntitiesWebDataFileEntityTableBase);
@@ -179,8 +124,8 @@ namespace Auis.StackOverflow.DataAccess.Compiledmodels
             relationalModel.DefaultTables.Add("Auis.StackOverflow.Models.Entities.WebDataFileEntity", auisStackOverflowModelsEntitiesWebDataFileEntityTableBase);
             var auisStackOverflowModelsEntitiesWebDataFileEntityMappingBase = new TableMappingBase<ColumnMappingBase>(webDataFileEntity, auisStackOverflowModelsEntitiesWebDataFileEntityTableBase, true);
             auisStackOverflowModelsEntitiesWebDataFileEntityTableBase.AddTypeMapping(auisStackOverflowModelsEntitiesWebDataFileEntityMappingBase, false);
-            defaultTableMappings1.Add(auisStackOverflowModelsEntitiesWebDataFileEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)idColumnBase1, webDataFileEntity.FindProperty("Id")!, auisStackOverflowModelsEntitiesWebDataFileEntityMappingBase);
+            defaultTableMappings0.Add(auisStackOverflowModelsEntitiesWebDataFileEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)idColumnBase0, webDataFileEntity.FindProperty("Id")!, auisStackOverflowModelsEntitiesWebDataFileEntityMappingBase);
             RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)externalLastModifiedColumnBase, webDataFileEntity.FindProperty("ExternalLastModified")!, auisStackOverflowModelsEntitiesWebDataFileEntityMappingBase);
             RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)isSynchronizationEnabledColumnBase, webDataFileEntity.FindProperty("IsSynchronizationEnabled")!, auisStackOverflowModelsEntitiesWebDataFileEntityMappingBase);
             RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)linkColumnBase, webDataFileEntity.FindProperty("Link")!, auisStackOverflowModelsEntitiesWebDataFileEntityMappingBase);
@@ -188,11 +133,11 @@ namespace Auis.StackOverflow.DataAccess.Compiledmodels
             RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)processingStatusColumnBase, webDataFileEntity.FindProperty("ProcessingStatus")!, auisStackOverflowModelsEntitiesWebDataFileEntityMappingBase);
             RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)sizeColumnBase, webDataFileEntity.FindProperty("Size")!, auisStackOverflowModelsEntitiesWebDataFileEntityMappingBase);
 
-            var tableMappings1 = new List<TableMapping>();
-            webDataFileEntity.SetRuntimeAnnotation("Relational:TableMappings", tableMappings1);
+            var tableMappings0 = new List<TableMapping>();
+            webDataFileEntity.SetRuntimeAnnotation("Relational:TableMappings", tableMappings0);
             var webDataFilesTable = new Table("WebDataFiles", "StackOverflow", relationalModel);
-            var idColumn1 = new Column("Id", "int", webDataFilesTable);
-            webDataFilesTable.Columns.Add("Id", idColumn1);
+            var idColumn0 = new Column("Id", "int", webDataFilesTable);
+            webDataFilesTable.Columns.Add("Id", idColumn0);
             var externalLastModifiedColumn = new Column("ExternalLastModified", "datetimeoffset", webDataFilesTable);
             webDataFilesTable.Columns.Add("ExternalLastModified", externalLastModifiedColumn);
             var isSynchronizationEnabledColumn = new Column("IsSynchronizationEnabled", "bit", webDataFilesTable);
@@ -205,7 +150,7 @@ namespace Auis.StackOverflow.DataAccess.Compiledmodels
             webDataFilesTable.Columns.Add("ProcessingStatus", processingStatusColumn);
             var sizeColumn = new Column("Size", "bigint", webDataFilesTable);
             webDataFilesTable.Columns.Add("Size", sizeColumn);
-            var pK_WebDataFiles = new UniqueConstraint("PK_WebDataFiles", webDataFilesTable, new[] { idColumn1 });
+            var pK_WebDataFiles = new UniqueConstraint("PK_WebDataFiles", webDataFilesTable, new[] { idColumn0 });
             webDataFilesTable.PrimaryKey = pK_WebDataFiles;
             var pK_WebDataFilesUc = RelationalModel.GetKey(this,
                 "Auis.StackOverflow.Models.Entities.WebDataFileEntity",
@@ -216,27 +161,14 @@ namespace Auis.StackOverflow.DataAccess.Compiledmodels
             relationalModel.Tables.Add(("WebDataFiles", "StackOverflow"), webDataFilesTable);
             var webDataFilesTableMapping = new TableMapping(webDataFileEntity, webDataFilesTable, true);
             webDataFilesTable.AddTypeMapping(webDataFilesTableMapping, false);
-            tableMappings1.Add(webDataFilesTableMapping);
-            RelationalModel.CreateColumnMapping(idColumn1, webDataFileEntity.FindProperty("Id")!, webDataFilesTableMapping);
+            tableMappings0.Add(webDataFilesTableMapping);
+            RelationalModel.CreateColumnMapping(idColumn0, webDataFileEntity.FindProperty("Id")!, webDataFilesTableMapping);
             RelationalModel.CreateColumnMapping(externalLastModifiedColumn, webDataFileEntity.FindProperty("ExternalLastModified")!, webDataFilesTableMapping);
             RelationalModel.CreateColumnMapping(isSynchronizationEnabledColumn, webDataFileEntity.FindProperty("IsSynchronizationEnabled")!, webDataFilesTableMapping);
             RelationalModel.CreateColumnMapping(linkColumn, webDataFileEntity.FindProperty("Link")!, webDataFilesTableMapping);
             RelationalModel.CreateColumnMapping(nameColumn, webDataFileEntity.FindProperty("Name")!, webDataFilesTableMapping);
             RelationalModel.CreateColumnMapping(processingStatusColumn, webDataFileEntity.FindProperty("ProcessingStatus")!, webDataFilesTableMapping);
             RelationalModel.CreateColumnMapping(sizeColumn, webDataFileEntity.FindProperty("Size")!, webDataFilesTableMapping);
-            var fK_AcceptedAnswers_Posts_PostWebDataFileId_PostId = new ForeignKeyConstraint(
-                "FK_AcceptedAnswers_Posts_PostWebDataFileId_PostId", acceptedAnswersTable, postsTable,
-                new[] { postWebDataFileIdColumn, postIdColumn },
-                postsTable.FindUniqueConstraint("PK_Posts")!, ReferentialAction.NoAction);
-            var fK_AcceptedAnswers_Posts_PostWebDataFileId_PostIdFk = RelationalModel.GetForeignKey(this,
-                "Auis.StackOverflow.Models.Entities.AcceptedAnswerEntity",
-                new[] { "PostWebDataFileId", "PostId" },
-                "Auis.StackOverflow.Models.Entities.PostEntity",
-                new[] { "WebDataFileId", "Id" });
-            fK_AcceptedAnswers_Posts_PostWebDataFileId_PostId.MappedForeignKeys.Add(fK_AcceptedAnswers_Posts_PostWebDataFileId_PostIdFk);
-            RelationalModel.GetOrCreateForeignKeyConstraints(fK_AcceptedAnswers_Posts_PostWebDataFileId_PostIdFk).Add(fK_AcceptedAnswers_Posts_PostWebDataFileId_PostId);
-            acceptedAnswersTable.ForeignKeyConstraints.Add(fK_AcceptedAnswers_Posts_PostWebDataFileId_PostId);
-            postsTable.ReferencingForeignKeyConstraints.Add(fK_AcceptedAnswers_Posts_PostWebDataFileId_PostId);
             var fK_Posts_WebDataFiles_WebDataFileId = new ForeignKeyConstraint(
                 "FK_Posts_WebDataFiles_WebDataFileId", postsTable, webDataFilesTable,
                 new[] { webDataFileIdColumn },

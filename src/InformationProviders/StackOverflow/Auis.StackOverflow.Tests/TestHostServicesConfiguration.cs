@@ -19,8 +19,7 @@ public static class TestHostServicesConfiguration
         else
         {
             services.AddDbContext<StackOverflowDbContext>(opt =>
-                    opt.UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow"))
-                        .UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance),
+                    opt.UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow")),
                 ServiceLifetime.Transient,
                 ServiceLifetime.Singleton);
         }

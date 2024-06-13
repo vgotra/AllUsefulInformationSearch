@@ -21,24 +21,9 @@ public partial class StackOverflowDbContext
         {
             entity.ToTable("Posts").HasKey(e => new { e.WebDataFileId, e.Id });
             entity.Property(e => e.Title).IsRequired().HasMaxLength(250);
-            entity.Property(e => e.Text).IsRequired().HasMaxLength(-1);
+            entity.Property(e => e.Question).IsRequired().HasMaxLength(-1);
+            entity.Property(e => e.Answer).IsRequired().HasMaxLength(-1);
         });
-
-        //modelBuilder.Entity<PostCommentEntity>(entity =>
-        //{
-        //    entity.ToTable("PostComments").HasKey(e => new { e.WebDataFileId, e.Id });
-        //});
-
-        modelBuilder.Entity<AcceptedAnswerEntity>(entity =>
-        {
-            entity.ToTable("AcceptedAnswers").HasKey(e => new { e.PostWebDataFileId, e.Id });
-            entity.Property(e => e.Text).IsRequired().HasMaxLength(-1);
-        });
-
-        //modelBuilder.Entity<AcceptedAnswerCommentEntity>(entity =>
-        //{
-        //    entity.ToTable("AcceptedAnswerComments").HasKey(e => new { e.WebDataFileId, e.Id });
-        //});
 
         modelBuilder.Model.GetEntityTypes().ToList()
             .ForEach(e =>
@@ -47,11 +32,10 @@ public partial class StackOverflowDbContext
                 e.GetForeignKeys().ToList().ForEach(x => x.DeleteBehavior = DeleteBehavior.NoAction);
 
                 var lastUpdatedProperty = e.FindProperty(nameof(IUpdatableEntity.LastUpdated));
-                if (lastUpdatedProperty != null && lastUpdatedProperty.ClrType == typeof(DateTimeOffset))
-                {
-                    lastUpdatedProperty.ValueGenerated = ValueGenerated.OnAddOrUpdate;
-                    lastUpdatedProperty.SetDefaultValueSql("GETUTCDATE()");
-                }
+                if (lastUpdatedProperty == null || lastUpdatedProperty.ClrType != typeof(DateTimeOffset))
+                    return;
+                lastUpdatedProperty.ValueGenerated = ValueGenerated.OnAddOrUpdate;
+                lastUpdatedProperty.SetDefaultValueSql("GETUTCDATE()");
             });
     }
 }
