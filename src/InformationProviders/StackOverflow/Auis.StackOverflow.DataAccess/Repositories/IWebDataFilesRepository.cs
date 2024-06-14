@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.DataAccess;
+﻿namespace Auis.StackOverflow.DataAccess.Repositories;
 
 public interface IWebDataFilesRepository
 {

@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.App;
+﻿using Auis.StackOverflow.DataAccess.Repositories;
+
+namespace Auis.StackOverflow.App;
 
 public static class Startup
 {

@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.Services.Handlers;
+﻿using Auis.StackOverflow.DataAccess.Repositories;
+
+namespace Auis.StackOverflow.Services.Handlers;
 
 public class PostsProcessingHandler(IOptions<StackOverflowOptions> options, IServiceProvider serviceProvider, IMediator mediator, ILogger<PostsProcessingHandler> logger) : ICommandHandler<PostsProcessingCommand>
 {

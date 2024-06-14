@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.Services.Workflows;
+﻿using Auis.StackOverflow.DataAccess.Repositories;
+
+namespace Auis.StackOverflow.Services.Workflows;
 
 public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, IMediator mediator, ILogger<StackOverflowProcessingWorkflow> logger) : IStackOverflowProcessingWorkflow
 {

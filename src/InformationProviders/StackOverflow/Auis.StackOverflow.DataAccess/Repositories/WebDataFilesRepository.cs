@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.DataAccess;
+﻿namespace Auis.StackOverflow.DataAccess.Repositories;
 
 public class WebDataFilesRepository(IDbContextFactory<StackOverflowDbContext> dbContextFactory) : IWebDataFilesRepository
 {

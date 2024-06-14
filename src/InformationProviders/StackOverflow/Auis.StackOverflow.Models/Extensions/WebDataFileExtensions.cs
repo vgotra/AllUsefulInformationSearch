@@ -1,6 +1,4 @@
-﻿using Auis.StackOverflow.Common;
-
-namespace Auis.StackOverflow.Models.Extensions;
+﻿namespace Auis.StackOverflow.Models.Extensions;
 
 public static class WebDataFileExtensions
 {
