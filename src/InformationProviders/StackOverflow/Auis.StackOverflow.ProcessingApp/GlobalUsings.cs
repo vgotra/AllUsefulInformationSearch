@@ -2,10 +2,8 @@
 
 global using Auis.StackOverflow.Common;
 global using Auis.StackOverflow.DataAccess;
-global using Auis.StackOverflow.Services;
 global using Auis.StackOverflow.Services.Handlers;
 global using Auis.StackOverflow.Services.Utilities;
-global using Auis.StackOverflow.Workflows;
 
 global using Mediator;
 
@@ -13,5 +11,4 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
-global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;

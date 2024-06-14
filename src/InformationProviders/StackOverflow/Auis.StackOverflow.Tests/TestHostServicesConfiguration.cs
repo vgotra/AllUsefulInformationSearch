@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.Tests;
+﻿using Auis.StackOverflow.Services.Workflows;
+
+namespace Auis.StackOverflow.Tests;
 
 public static class TestHostServicesConfiguration
 {

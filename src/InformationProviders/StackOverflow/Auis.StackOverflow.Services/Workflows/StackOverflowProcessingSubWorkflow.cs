@@ -1,11 +1,4 @@
-﻿using Auis.StackOverflow.Services.Extensions;
-
-namespace Auis.StackOverflow.Workflows;
-
-public interface IStackOverflowProcessingSubWorkflow
-{
-    Task ExecuteAsync(WebDataFileEntity webDataFileEntity, CancellationToken cancellationToken = default);
-}
+﻿namespace Auis.StackOverflow.Services.Workflows;
 
 public class StackOverflowProcessingSubWorkflow(IOptions<StackOverflowOptions> options, IMediator mediator, ILogger<StackOverflowProcessingSubWorkflow> logger) : IStackOverflowProcessingSubWorkflow
 {

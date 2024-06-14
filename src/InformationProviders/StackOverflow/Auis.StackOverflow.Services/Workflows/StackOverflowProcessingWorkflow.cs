@@ -1,9 +1,4 @@
-﻿namespace Auis.StackOverflow.Workflows;
-
-public interface IStackOverflowProcessingWorkflow
-{
-    Task ExecuteAsync(CancellationToken cancellationToken = default);
-}
+﻿namespace Auis.StackOverflow.Services.Workflows;
 
 public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, IMediator mediator, ILogger<StackOverflowProcessingWorkflow> logger) : IStackOverflowProcessingWorkflow
 {

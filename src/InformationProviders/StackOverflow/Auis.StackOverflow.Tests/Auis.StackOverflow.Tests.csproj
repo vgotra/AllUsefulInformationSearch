@@ -34,7 +34,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\Auis.Tests.Common\Auis.Tests.Common.csproj"/>
-        <ProjectReference Include="..\Auis.StackOverflow.Workflows\Auis.StackOverflow.Workflows.csproj"/>
+        <ProjectReference Include="..\Auis.StackOverflow.Services\Auis.StackOverflow.Services.csproj" />
     </ItemGroup>
 
 </Project>
