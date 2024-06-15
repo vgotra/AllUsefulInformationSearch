@@ -2,28 +2,30 @@
 
 public static class StackOverflowFileParser
 {
-    public static async Task<List<PostModel>> DeserializePostsAsync(this string filePath, long fileSize, CancellationToken cancellationToken = default)
+    public static async Task<List<PostEntity>> DeserializePostsAsync(this string filePath, int webDataFileId, long fileSize, CancellationToken cancellationToken = default)
     {
-        var list = new List<PostModel>(fileSize.GetApproximateItemsCount());
-        using var streamReader = new StreamReader(filePath);
+        var questions = new List<PostEntity>((int)(fileSize / FileSize.Mb * 100));
+        var answers = new Dictionary<int, PostEntity>((int)(fileSize / FileSize.Mb * 100));
 
-        // skip 2 lines for xml files
+        using var streamReader = new StreamReader(filePath, new FileStreamOptions { Options = FileOptions.Asynchronous });
         await streamReader.ReadLineAsync(cancellationToken); // <xml>
         await streamReader.ReadLineAsync(cancellationToken); // </posts>
-
         while (!streamReader.EndOfStream && !cancellationToken.IsCancellationRequested)
         {
             var line = await streamReader.ReadLineAsync(cancellationToken);
-            if (line.IsXmlRow()) //TODO Avoid double check of row
-                list.Add(line!.ParsePostXmlRowLine());
+            ParseLine(line!, questions, answers);
         }
 
-        return list;
+        questions.ForEach(x =>
+        {
+            var answer = answers[x.AcceptedAnswerId];
+            x.WebDataFileId = webDataFileId;
+            x.Answer = answer.Answer;
+            x.AnswerExternalLastActivityDate = answer.AnswerExternalLastActivityDate;
+        });
+
+        return questions;
     }
-
-    private static bool IsXmlRow(this string? line) => line?.IndexOf("<row", StringComparison.InvariantCultureIgnoreCase) != -1;
-
-    private static int GetApproximateItemsCount(this long fileSize) => (int)(fileSize / FileSize.Mb * 100);
 
     private static ReadOnlySpan<char> GetValue(this string line, string attributeName)
     {
@@ -35,21 +37,48 @@ public static class StackOverflowFileParser
         return line.AsSpan().Slice(start, end - start);
     }
 
-    //TODO Parse Post and Answer separately
-    private static PostModel ParsePostXmlRowLine(this string line)
+    private static void ParseLine(this string line, List<PostEntity> questions, Dictionary<int, PostEntity> answers)
     {
-        var titleSpan = line.GetValue(nameof(PostModel.Title));
-        var bodySpan = line.GetValue(nameof(PostModel.Body));
-        var acceptedAnswerIdSpan = line.GetValue(nameof(PostModel.AcceptedAnswerId));
-
-        return new PostModel
+        var postType = line.GetValue("PostTypeId");
+        if (postType.IsEmpty) return;
+        if (postType == "1") //question
         {
-            Id = int.Parse(line.GetValue(nameof(PostModel.Id))),
+            var question = line.ParseQuestionEntity();
+            if (question != null)
+                questions.Add(question);
+        }
+        else if (postType == "2") //answer
+        {
+            var answer = line.ParseAnswerEntity();
+            answers.Add(answer.Id, answer);
+        }
+    }
+
+    private static PostEntity? ParseQuestionEntity(this string line)
+    {
+        var titleSpan = line.GetValue("Title");
+        var bodySpan = line.GetValue("Body");
+        var acceptedAnswerIdSpan = line.GetValue("AcceptedAnswerId");
+        if (acceptedAnswerIdSpan.IsEmpty) return null;
+
+        return new PostEntity
+        {
+            Id = int.Parse(line.GetValue("Id")),
             Title = !titleSpan.IsEmpty ? titleSpan.ToString() : string.Empty,
-            Body = !bodySpan.IsEmpty ? bodySpan.ToString() : string.Empty,
-            PostTypeId = (PostType)int.Parse(line.GetValue(nameof(PostModel.PostTypeId))),
-            LastActivityDate = DateTimeOffset.Parse(line.GetValue(nameof(PostModel.LastActivityDate))),
-            AcceptedAnswerId = acceptedAnswerIdSpan.IsEmpty ? (int?)null : int.Parse(acceptedAnswerIdSpan)
+            Question = !bodySpan.IsEmpty ? bodySpan.ToString() : string.Empty,
+            QuestionExternalLastActivityDate = DateTimeOffset.Parse(line.GetValue("LastActivityDate")),
+            AcceptedAnswerId = int.Parse(acceptedAnswerIdSpan)
+        };
+    }
+
+    private static PostEntity ParseAnswerEntity(this string line)
+    {
+        var bodySpan = line.GetValue("Body");
+        return new PostEntity
+        {
+            Id = int.Parse(line.GetValue("Id")),
+            Answer = !bodySpan.IsEmpty ? bodySpan.ToString() : string.Empty,
+            AnswerExternalLastActivityDate = DateTimeOffset.Parse(line.GetValue("LastActivityDate"))
         };
     }
 }

@@ -8,8 +8,8 @@ public class PostsSynchronizationHandler(IDbContextFactory<StackOverflowDbContex
     {
         await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-        var postsToAdd = new HashSet<PostModel>();
-        var postsToUpdate = new HashSet<PostModel>();
+        var postsToAdd = new HashSet<PostEntity>(command.ModifiedPosts.Count);
+        var postsToUpdate = new HashSet<PostEntity>(command.ModifiedPosts.Count);
 
         var existingPosts = await dbContext.Posts.AsNoTracking()
             .Where(x => x.WebDataFileId == command.WebFileInformation.WebDataFileId).Select(x => new { x.Id, x.QuestionExternalLastActivityDate, x.AnswerExternalLastActivityDate })
@@ -20,16 +20,16 @@ public class PostsSynchronizationHandler(IDbContextFactory<StackOverflowDbContex
             var existingPost = existingPosts.Find(x => x.Id == post.Id);
             if (existingPost == null)
                 postsToAdd.Add(post);
-            else if (existingPost.QuestionExternalLastActivityDate < post.LastActivityDate || existingPost.AnswerExternalLastActivityDate < post.AcceptedAnswer!.LastActivityDate)
+            else if (existingPost.QuestionExternalLastActivityDate < post.QuestionExternalLastActivityDate || existingPost.AnswerExternalLastActivityDate < post.AnswerExternalLastActivityDate)
                 postsToUpdate.Add(post);
         });
 
         if (postsToAdd.Count > 0)
         {
             if (options.Value.UseDatabaseBulkMethods)
-                await dbContext.BulkInsertAsync(postsToAdd.Select(x => x.ToEntity()), cancellationToken: cancellationToken);
+                await dbContext.BulkInsertAsync(postsToAdd, cancellationToken: cancellationToken);
             else
-                await dbContext.Posts.AddRangeAsync(postsToAdd.Select(x => x.ToEntity()), cancellationToken);
+                await dbContext.Posts.AddRangeAsync(postsToAdd, cancellationToken);
 
             await dbContext.SaveChangesAsync(cancellationToken);
         }
@@ -44,10 +44,10 @@ public class PostsSynchronizationHandler(IDbContextFactory<StackOverflowDbContex
             {
                 var modifiedPost = postsToUpdate.First(x => x.Id == post.Id);
                 post.Title = modifiedPost.Title;
-                post.Question = modifiedPost.Body;
-                post.Answer = modifiedPost.AcceptedAnswer!.Body;
-                post.QuestionExternalLastActivityDate = modifiedPost.LastActivityDate;
-                post.AnswerExternalLastActivityDate = modifiedPost.AcceptedAnswer.LastActivityDate;
+                post.Question = modifiedPost.Question;
+                post.Answer = modifiedPost.Answer;
+                post.QuestionExternalLastActivityDate = modifiedPost.QuestionExternalLastActivityDate;
+                post.AnswerExternalLastActivityDate = modifiedPost.AnswerExternalLastActivityDate;
             }
 
             await dbContext.SaveChangesAsync(cancellationToken);

@@ -21,8 +21,8 @@ public class PostModificationHandler : IRequestHandler<PostModificationRequest, 
     {
         foreach (var post in request.Posts)
         {
-            post.Body = CleanupText(post.Body);
-            post.AcceptedAnswer!.Body = CleanupText(post.AcceptedAnswer.Body);
+            post.Question = CleanupText(post.Question);
+            post.Answer = CleanupText(post.Answer);
         }
 
         return new ValueTask<PostModificationResponse>(new PostModificationResponse(request.Posts));

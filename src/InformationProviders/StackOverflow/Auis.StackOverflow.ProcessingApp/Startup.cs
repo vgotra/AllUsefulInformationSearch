@@ -1,6 +1,4 @@
-﻿using Auis.StackOverflow.DataAccess.Repositories;
-
-namespace Auis.StackOverflow.ProcessingApp;
+﻿namespace Auis.StackOverflow.ProcessingApp;
 
 public static class Startup
 {
@@ -21,5 +19,7 @@ public static class Startup
             { Platform: PlatformID.Unix } => new LinuxFileUtilityService(),
             _ => throw new InvalidOperationException("Unsupported OS.")
         });
+
+        services.AddTransient<IParsingService, ParsingService>();
     }
 }

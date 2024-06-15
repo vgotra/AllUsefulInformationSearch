@@ -6,7 +6,6 @@ public partial class StackOverflowDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //TODO Move those configurations to Entities for easy tracking of changes
         modelBuilder.Entity<WebDataFileEntity>(entity =>
         {
             entity.ToTable("WebDataFiles").HasKey(e => e.Id);
@@ -23,6 +22,7 @@ public partial class StackOverflowDbContext
             entity.Property(e => e.Title).IsRequired().HasMaxLength(250);
             entity.Property(e => e.Question).IsRequired().HasMaxLength(-1);
             entity.Property(e => e.Answer).IsRequired().HasMaxLength(-1);
+            entity.Ignore(e => e.AcceptedAnswerId); // Not needed in database
         });
 
         modelBuilder.Model.GetEntityTypes().ToList()

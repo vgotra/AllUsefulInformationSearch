@@ -1,6 +1,4 @@
-﻿using Auis.StackOverflow.DataAccess.Repositories;
-
-namespace Auis.StackOverflow.Tests.Mocks;
+﻿namespace Auis.StackOverflow.Tests.Mocks;
 
 public class WebDataFilesRepositoryMock(IDbContextFactory<StackOverflowDbContext> dbContextFactory) : IWebDataFilesRepository
 {

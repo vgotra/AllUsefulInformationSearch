@@ -2,6 +2,8 @@
 
 global using Auis.StackOverflow.Common;
 global using Auis.StackOverflow.DataAccess;
+global using Auis.StackOverflow.DataAccess.Repositories;
+global using Auis.StackOverflow.Services;
 global using Auis.StackOverflow.Services.Handlers;
 global using Auis.StackOverflow.Services.Utilities;
 

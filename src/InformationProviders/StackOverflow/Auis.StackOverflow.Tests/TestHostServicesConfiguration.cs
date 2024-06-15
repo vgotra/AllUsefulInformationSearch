@@ -1,7 +1,4 @@
-﻿using Auis.StackOverflow.DataAccess.Repositories;
-using Auis.StackOverflow.Services.Workflows;
-
-namespace Auis.StackOverflow.Tests;
+﻿namespace Auis.StackOverflow.Tests;
 
 public static class TestHostServicesConfiguration
 {
@@ -25,6 +22,7 @@ public static class TestHostServicesConfiguration
             _ => throw new InvalidOperationException("Unsupported OS.")
         });
 
+        services.AddTransient<IParsingService, ParsingService>();
         services.AddTransient<IStackOverflowProcessingWorkflow, StackOverflowProcessingWorkflow>();
     }
 }

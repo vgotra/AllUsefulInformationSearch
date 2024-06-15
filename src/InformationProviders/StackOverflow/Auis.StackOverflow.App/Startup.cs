@@ -1,4 +1,5 @@
 ﻿using Auis.StackOverflow.DataAccess.Repositories;
+using Auis.StackOverflow.Services;
 
 namespace Auis.StackOverflow.App;
 
@@ -22,6 +23,7 @@ public static class Startup
             _ => throw new InvalidOperationException("Unsupported OS.")
         });
 
+        services.AddTransient<IParsingService, ParsingService>();
         services.AddTransient<IStackOverflowProcessingSubWorkflow, StackOverflowProcessingSubWorkflow>();
         services.AddTransient<IStackOverflowProcessingWorkflow, StackOverflowProcessingWorkflow>();
     }
