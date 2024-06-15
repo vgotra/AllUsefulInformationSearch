@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.Services.Handlers;
+﻿namespace Auis.StackOverflow.BusinessLogic.Handlers;
 
 public sealed class WebArchiveParserHandler(HttpClient httpClient, ILogger<WebArchiveParserHandler> logger) : IQueryHandler<WebArchiveParserQuery, WebArchiveParserResponse>
 {

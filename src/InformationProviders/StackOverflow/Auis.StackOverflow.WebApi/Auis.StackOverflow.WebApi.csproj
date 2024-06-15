@@ -11,7 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Auis.StackOverflow.Services\Auis.StackOverflow.Services.csproj" />
+      <ProjectReference Include="..\Auis.StackOverflow.BusinessLogic\Auis.StackOverflow.BusinessLogic.csproj" />
     </ItemGroup>
 
 </Project>

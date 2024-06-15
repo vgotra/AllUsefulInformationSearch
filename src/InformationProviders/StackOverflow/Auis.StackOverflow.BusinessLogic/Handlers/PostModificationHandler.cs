@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.Services.Handlers;
+﻿namespace Auis.StackOverflow.BusinessLogic.Handlers;
 
 public class PostModificationHandler : IRequestHandler<PostModificationRequest, PostModificationResponse>
 {

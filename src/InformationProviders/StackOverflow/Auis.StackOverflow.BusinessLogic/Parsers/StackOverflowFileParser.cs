@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.Services.Parsers;
+﻿namespace Auis.StackOverflow.BusinessLogic.Parsers;
 
 public static class StackOverflowFileParser
 {

@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.Services.Workflows;
+﻿using Auis.StackOverflow.BusinessLogic.Handlers;
+
+namespace Auis.StackOverflow.BusinessLogic.Workflows;
 
 public class StackOverflowProcessingSubWorkflow(IOptions<StackOverflowOptions> options, IMediator mediator, ILogger<StackOverflowProcessingSubWorkflow> logger) : IStackOverflowProcessingSubWorkflow
 {

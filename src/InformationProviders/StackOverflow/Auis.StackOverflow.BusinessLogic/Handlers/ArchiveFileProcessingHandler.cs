@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.Services.Handlers;
+﻿using Auis.StackOverflow.BusinessLogic.Utilities;
+
+namespace Auis.StackOverflow.BusinessLogic.Handlers;
 
 public sealed class ArchiveFileProcessingHandler(IFileUtilityService fileUtilityService, IParsingService parsingService) : IRequestHandler<ArchiveFileProcessingRequest, ArchiveFileProcessingResponse>
 {

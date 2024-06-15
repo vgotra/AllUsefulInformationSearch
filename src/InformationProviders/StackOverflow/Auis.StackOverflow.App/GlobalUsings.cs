@@ -1,9 +1,11 @@
 ﻿// Global using directives
 
+global using Auis.StackOverflow.BusinessLogic;
 global using Auis.StackOverflow.Common;
 global using Auis.StackOverflow.DataAccess;
-global using Auis.StackOverflow.Services.Utilities;
-global using Auis.StackOverflow.Services.Workflows;
+global using Auis.StackOverflow.BusinessLogic.Utilities;
+global using Auis.StackOverflow.BusinessLogic.Workflows;
+global using Auis.StackOverflow.DataAccess.Repositories;
 
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Configuration;

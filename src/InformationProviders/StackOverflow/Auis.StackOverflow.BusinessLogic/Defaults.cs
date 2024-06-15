@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.Services;
+﻿namespace Auis.StackOverflow.BusinessLogic;
 
 public static class Defaults
 {

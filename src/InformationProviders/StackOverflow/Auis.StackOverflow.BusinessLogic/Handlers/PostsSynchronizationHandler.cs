@@ -1,6 +1,6 @@
 ﻿using EFCore.BulkExtensions;
 
-namespace Auis.StackOverflow.Services.Handlers;
+namespace Auis.StackOverflow.BusinessLogic.Handlers;
 
 public class PostsSynchronizationHandler(IDbContextFactory<StackOverflowDbContext> dbContextFactory, IOptions<StackOverflowOptions> options) : ICommandHandler<PostsSynchronizationCommand>
 {

@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.Services.Workflows;
+﻿namespace Auis.StackOverflow.BusinessLogic.Workflows;
 
 public interface IStackOverflowProcessingWorkflow
 {

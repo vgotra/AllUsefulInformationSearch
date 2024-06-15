@@ -1,4 +1,4 @@
-﻿using Auis.StackOverflow.Services.Handlers;
+﻿using Auis.StackOverflow.BusinessLogic.Handlers;
 
 namespace Auis.StackOverflow.Tests;
 

@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.Services.Utilities;
+﻿namespace Auis.StackOverflow.BusinessLogic.Utilities;
 
 public interface IFileUtilityService
 {

@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.Models",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.ProcessingApp", "InformationProviders\StackOverflow\Auis.StackOverflow.ProcessingApp\Auis.StackOverflow.ProcessingApp.csproj", "{8EF75B4F-1AF9-1D2D-A359-AE2A0F0FEC10}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.Services", "InformationProviders\StackOverflow\Auis.StackOverflow.Services\Auis.StackOverflow.Services.csproj", "{FB032162-9668-B09E-EC40-0EDA3CDD51D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.BusinessLogic", "InformationProviders\StackOverflow\Auis.StackOverflow.BusinessLogic\Auis.StackOverflow.BusinessLogic.csproj", "{FB032162-9668-B09E-EC40-0EDA3CDD51D9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.StackOverflow.Tests", "InformationProviders\StackOverflow\Auis.StackOverflow.Tests\Auis.StackOverflow.Tests.csproj", "{98A0F143-6A14-89EE-44A7-C2A3BC9F669A}"
 EndProject

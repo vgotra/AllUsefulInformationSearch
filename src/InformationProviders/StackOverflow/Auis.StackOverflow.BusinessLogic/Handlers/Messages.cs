@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.Services.Handlers;
+﻿namespace Auis.StackOverflow.BusinessLogic.Handlers;
 
 public sealed record RefreshWebArchiveFilesRequest : IRequest<Unit>;
 public sealed record WebArchiveParserQuery : IQuery<WebArchiveParserResponse>;

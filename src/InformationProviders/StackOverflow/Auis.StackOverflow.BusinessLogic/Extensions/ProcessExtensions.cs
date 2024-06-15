@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.Services.Extensions;
+﻿namespace Auis.StackOverflow.BusinessLogic.Extensions;
 
 public static class ProcessExtensions
 {

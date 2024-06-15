@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.Services.Handlers;
+﻿namespace Auis.StackOverflow.BusinessLogic.Handlers;
 
 public class WebArchiveSyncHandler(IDbContextFactory<StackOverflowDbContext> dbContextFactory, ILogger<WebArchiveSyncHandler> logger) : ICommandHandler<WebArchiveFilesSaveCommand>
 {

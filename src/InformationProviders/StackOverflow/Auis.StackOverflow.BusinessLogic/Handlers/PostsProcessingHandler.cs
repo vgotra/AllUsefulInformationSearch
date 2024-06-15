@@ -1,6 +1,6 @@
 ﻿using Auis.StackOverflow.DataAccess.Repositories;
 
-namespace Auis.StackOverflow.Services.Handlers;
+namespace Auis.StackOverflow.BusinessLogic.Handlers;
 
 public class PostsProcessingHandler(IOptions<StackOverflowOptions> options, IServiceProvider serviceProvider, IMediator mediator, ILogger<PostsProcessingHandler> logger) : ICommandHandler<PostsProcessingCommand>
 {
