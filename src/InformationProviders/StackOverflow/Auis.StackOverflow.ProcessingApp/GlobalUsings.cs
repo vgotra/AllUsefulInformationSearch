@@ -2,12 +2,8 @@
 
 global using Auis.StackOverflow.Common;
 global using Auis.StackOverflow.DataAccess;
-global using Auis.StackOverflow.DataAccess.Repositories;
 global using Auis.StackOverflow.BusinessLogic;
-global using Auis.StackOverflow.BusinessLogic.Handlers;
-global using Auis.StackOverflow.BusinessLogic.Utilities;
-
-global using Mediator;
+global using Auis.StackOverflow.BusinessLogic.Workflows;
 
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Configuration;

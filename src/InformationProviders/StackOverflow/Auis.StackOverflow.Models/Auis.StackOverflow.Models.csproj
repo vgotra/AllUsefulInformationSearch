@@ -11,8 +11,4 @@
       <ProjectReference Include="..\Auis.StackOverflow.Common\Auis.StackOverflow.Common.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Mediator.Abstractions" Version="2.1.7" />
-    </ItemGroup>
-
 </Project>

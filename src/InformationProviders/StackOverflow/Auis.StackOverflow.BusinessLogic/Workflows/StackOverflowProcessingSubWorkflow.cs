@@ -1,8 +1,7 @@
-﻿using Auis.StackOverflow.BusinessLogic.Handlers;
+﻿namespace Auis.StackOverflow.BusinessLogic.Workflows;
 
-namespace Auis.StackOverflow.BusinessLogic.Workflows;
-
-public class StackOverflowProcessingSubWorkflow(IOptions<StackOverflowOptions> options, IMediator mediator, ILogger<StackOverflowProcessingSubWorkflow> logger) : IStackOverflowProcessingSubWorkflow
+public class StackOverflowProcessingSubWorkflow(IOptions<StackOverflowOptions> options, IPostsArchiveFileProcessingService postsArchiveFileProcessingService, ILogger<StackOverflowProcessingSubWorkflow> logger)
+    : IStackOverflowProcessingSubWorkflow
 {
     public async Task ExecuteAsync(WebDataFileEntity webDataFileEntity, CancellationToken cancellationToken = default)
     {
@@ -20,8 +19,9 @@ public class StackOverflowProcessingSubWorkflow(IOptions<StackOverflowOptions> o
         }
         else
         {
-            await mediator.Send(new PostsProcessingCommand(webDataFileEntity), cancellationToken);
+            await postsArchiveFileProcessingService.ProcessArchiveFileAsync(webDataFileEntity, cancellationToken);
         }
+
         logger.LogInformation("Completed StackOverflow processing sub workflow for {WebFileName}", webDataFileEntity.Name);
     }
 }

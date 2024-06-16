@@ -1,6 +1,4 @@
-﻿using Auis.StackOverflow.BusinessLogic.Handlers;
-
-namespace Auis.StackOverflow.Tests;
+﻿namespace Auis.StackOverflow.Tests;
 
 [TestClass]
 public class WebDataFilesServiceFullWorkflowTests : BaseTests
@@ -18,9 +16,9 @@ public class WebDataFilesServiceFullWorkflowTests : BaseTests
 
         const int countOfFilesToProcess = 1;
         await using var dbContext = await host.Services.GetRequiredService<IDbContextFactory<StackOverflowDbContext>>().CreateDbContextAsync(cancellationTokenSource.Token);
-        var mediator = host.Services.GetRequiredService<IMediator>();
 
-        await mediator.Send(new RefreshWebArchiveFilesRequest(), cancellationTokenSource.Token);
+        var webArchivesSynchronizationService = host.Services.GetRequiredService<IWebArchivesSynchronizationService>();
+        await webArchivesSynchronizationService.SynchronizeWebArchiveFiles(cancellationTokenSource.Token);
 
         var itemsCount = await dbContext.WebDataFiles.CountAsync(cancellationTokenSource.Token);
         Assert.IsTrue(itemsCount > 0);
@@ -28,7 +26,8 @@ public class WebDataFilesServiceFullWorkflowTests : BaseTests
         var files = await dbContext.WebDataFiles.AsNoTracking().Where(x => x.Size < 10 * FileSize.Mb).OrderBy(x => x.Size).Take(countOfFilesToProcess).ToListAsync(cancellationTokenSource.Token);
         Assert.IsTrue(files.Count == countOfFilesToProcess);
 
-        await Parallel.ForEachAsync(files, cancellationTokenSource.Token, async (webDataFile, token) => await mediator.Send(new PostsProcessingCommand(webDataFile), token));
+        var postsArchiveFileProcessingService = host.Services.GetRequiredService<PostsArchiveFileProcessingServiceMock>();
+        await Parallel.ForEachAsync(files, cancellationTokenSource.Token, async (webDataFile, token) => await postsArchiveFileProcessingService.ProcessArchiveFileAsync(webDataFile, token));
 
         var processedFilesCount = await dbContext.WebDataFiles.AsNoTracking().Where(x => x.ProcessingStatus == ProcessingStatus.Processed).CountAsync(cancellationTokenSource.Token);
         Assert.IsTrue(processedFilesCount == countOfFilesToProcess);

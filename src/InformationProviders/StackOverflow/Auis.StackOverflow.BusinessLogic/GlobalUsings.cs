@@ -8,11 +8,9 @@ global using Auis.StackOverflow.Models.Entities;
 global using Auis.StackOverflow.Models.Extensions;
 global using Auis.StackOverflow.Models.XmlModels;
 global using Auis.StackOverflow.BusinessLogic.Extensions;
-global using Auis.StackOverflow.BusinessLogic.Handlers;
-global using Auis.StackOverflow.BusinessLogic.Parsers;
+global using Auis.StackOverflow.BusinessLogic.Services;
 global using Auis.StackOverflow.BusinessLogic.Utilities;
-
-global using Mediator;
+global using Auis.StackOverflow.BusinessLogic.Workflows;
 
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;

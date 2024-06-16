@@ -24,7 +24,7 @@ static class Program
         }
 
         Console.WriteLine($"Started processing file {fileName}");
-        await host.Services.GetRequiredService<IMediator>().Send(new PostsProcessingCommand(webDataFile));
+        await host.Services.GetRequiredService<IStackOverflowProcessingSubWorkflow>().ExecuteAsync(webDataFile);
         Console.WriteLine($"Completed processing file {fileName}");
     }
 }

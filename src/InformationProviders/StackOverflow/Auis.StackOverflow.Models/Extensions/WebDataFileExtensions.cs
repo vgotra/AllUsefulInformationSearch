@@ -2,11 +2,11 @@
 
 public static class WebDataFileExtensions
 {
-    public static WebFileInformation ToWebFilePaths(this WebDataFileEntity webDataFile, StackOverflowOptions options) =>
+    public static WebFileInformation ToWebFileInformation(this WebDataFileEntity webDataFile, StackOverflowOptions options) =>
         new()
         {
             WebDataFileId = webDataFile.Id,
-            WebDataFileSize = webDataFile.Size,
+            FileSize = webDataFile.Size,
             FileUri = options.IsNetworkShare ? Path.Combine(options.NetworkShareBasePath!, webDataFile.Name) : webDataFile.Link,
             TemporaryDownloadPath = Path.GetTempFileName(),
             ArchiveOutputDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()),

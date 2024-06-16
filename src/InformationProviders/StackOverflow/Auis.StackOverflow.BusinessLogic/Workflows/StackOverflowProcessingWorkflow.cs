@@ -1,9 +1,10 @@
-﻿using Auis.StackOverflow.BusinessLogic.Handlers;
-using Auis.StackOverflow.DataAccess.Repositories;
+﻿namespace Auis.StackOverflow.BusinessLogic.Workflows;
 
-namespace Auis.StackOverflow.BusinessLogic.Workflows;
-
-public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, IMediator mediator, ILogger<StackOverflowProcessingWorkflow> logger) : IStackOverflowProcessingWorkflow
+public class StackOverflowProcessingWorkflow(
+    IWebArchivesSynchronizationService webArchivesSynchronizationService,
+    IDbContextFactory<StackOverflowDbContext> dbContextFactory,
+    IStackOverflowProcessingSubWorkflow stackOverflowProcessingSubWorkflow,
+    ILogger<StackOverflowProcessingWorkflow> logger) : IStackOverflowProcessingWorkflow
 {
     //TODO Refactor later, SOLID, tracking or errors for every web files, etc.
     public async Task ExecuteAsync(CancellationToken cancellationToken = default)
@@ -12,18 +13,19 @@ public class StackOverflowProcessingWorkflow(IServiceProvider serviceProvider, I
         {
             logger.LogInformation("Starting StackOverflow processing workflow");
 
-            _ = await mediator.Send(new RefreshWebArchiveFilesRequest(), cancellationToken);
+            await webArchivesSynchronizationService.SynchronizeWebArchiveFiles(cancellationToken);
 
-            var webFilesRepository = serviceProvider.GetRequiredService<IWebDataFilesRepository>();
-            var webFiles = await webFilesRepository.GetWebDataFilesAsync(cancellationToken);
+            await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+            var webFiles = await dbContext.WebDataFiles
+                .Where(x => x.IsSynchronizationEnabled && (x.ProcessingStatus == ProcessingStatus.Updated || x.ProcessingStatus == ProcessingStatus.New))
+                .ToListAsync(cancellationToken);
 
-            var parallelOptions = new ParallelOptions { CancellationToken = cancellationToken, MaxDegreeOfParallelism = Environment.ProcessorCount == 1 ? 1 : Environment.ProcessorCount / 2};
+            var parallelOptions = new ParallelOptions { CancellationToken = cancellationToken, MaxDegreeOfParallelism = Environment.ProcessorCount == 1 ? 1 : Environment.ProcessorCount / 2 };
             await Parallel.ForEachAsync(webFiles, parallelOptions, async (webFile, token) =>
             {
                 try
                 {
-                    var subWorkflow = serviceProvider.GetRequiredService<IStackOverflowProcessingSubWorkflow>();
-                    await subWorkflow.ExecuteAsync(webFile, token);
+                    await stackOverflowProcessingSubWorkflow.ExecuteAsync(webFile, token);
                 }
                 catch (Exception e)
                 {

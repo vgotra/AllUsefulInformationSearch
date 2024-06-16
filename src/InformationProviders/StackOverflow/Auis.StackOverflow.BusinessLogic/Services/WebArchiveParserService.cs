@@ -1,21 +1,21 @@
-﻿namespace Auis.StackOverflow.BusinessLogic.Handlers;
+﻿namespace Auis.StackOverflow.BusinessLogic.Services;
 
-public sealed class WebArchiveParserHandler(HttpClient httpClient, ILogger<WebArchiveParserHandler> logger) : IQueryHandler<WebArchiveParserQuery, WebArchiveParserResponse>
+public sealed class WebArchiveParserService(HttpClient httpClient, ILogger<WebArchiveParserService> logger) : IWebArchiveParserService
 {
-    private const string ItemsPattern = """<tr\s*>\s*<td>\s*<a href="(?<Link>[^<]*?7z[^<]*?)">(?<Name>[^<]*?7z[^<]*?)<\/a>.*<\/td>\s*<td>(?<LastModified>.*?)<\/td>\s*<td>(?<Size>[\d,\.]+[KMG]?)<\/td>\s*<\/tr>""";
+    private static readonly Regex RegexItemsPattern =
+        new("""<tr\s*>\s*<td>\s*<a href="(?<Link>[^<]*?7z[^<]*?)">(?<Name>[^<]*?7z[^<]*?)<\/a>.*<\/td>\s*<td>(?<LastModified>.*?)<\/td>\s*<td>(?<Size>[\d,\.]+[KMG]?)<\/td>\s*<\/tr>""", RegexOptions.Compiled);
 
-    public async ValueTask<WebArchiveParserResponse> Handle(WebArchiveParserQuery query, CancellationToken cancellationToken)
+    public async ValueTask<List<WebDataFile>> GetWebDataFilesAsync(CancellationToken cancellationToken = default)
     {
         var archiveHtmlPage = await httpClient.GetStringAsync(string.Empty, cancellationToken);
         var result = ParseLines(archiveHtmlPage);
-
-        return new WebArchiveParserResponse(result);
+        return result;
     }
 
     private List<WebDataFile> ParseLines(string htmlText)
     {
         var result = new List<WebDataFile>();
-        var matches = Regex.Matches(htmlText, ItemsPattern, RegexOptions.Multiline);
+        var matches = RegexItemsPattern.Matches(htmlText);
         foreach (Match match in matches)
         {
             try

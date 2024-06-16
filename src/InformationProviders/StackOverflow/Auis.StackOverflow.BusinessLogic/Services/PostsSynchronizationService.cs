@@ -1,21 +1,22 @@
 ﻿using EFCore.BulkExtensions;
 
-namespace Auis.StackOverflow.BusinessLogic.Handlers;
+namespace Auis.StackOverflow.BusinessLogic.Services;
 
-public class PostsSynchronizationHandler(IDbContextFactory<StackOverflowDbContext> dbContextFactory, IOptions<StackOverflowOptions> options) : ICommandHandler<PostsSynchronizationCommand>
+public class PostsSynchronizationService(IDbContextFactory<StackOverflowDbContext> dbContextFactory, IOptions<StackOverflowOptions> options) : IPostsSynchronizationService
 {
-    public async ValueTask<Unit> Handle(PostsSynchronizationCommand command, CancellationToken cancellationToken)
+    public async ValueTask SynchronizeToDatabaseAsync(WebFileInformation webFileInformation, List<PostEntity> posts, CancellationToken cancellationToken = default)
     {
         await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-        var postsToAdd = new HashSet<PostEntity>(command.ModifiedPosts.Count);
-        var postsToUpdate = new HashSet<PostEntity>(command.ModifiedPosts.Count);
+        var postsToAdd = new HashSet<PostEntity>(posts.Count);
+        var postsToUpdate = new HashSet<PostEntity>(posts.Count);
 
         var existingPosts = await dbContext.Posts.AsNoTracking()
-            .Where(x => x.WebDataFileId == command.WebFileInformation.WebDataFileId).Select(x => new { x.Id, x.QuestionExternalLastActivityDate, x.AnswerExternalLastActivityDate })
+            .Where(x => x.WebDataFileId == webFileInformation.WebDataFileId)
+            .Select(x => new { x.Id, x.QuestionExternalLastActivityDate, x.AnswerExternalLastActivityDate })
             .ToListAsync(cancellationToken);
 
-        command.ModifiedPosts.ForEach(post =>
+        posts.ForEach(post =>
         {
             var existingPost = existingPosts.Find(x => x.Id == post.Id);
             if (existingPost == null)
@@ -37,10 +38,10 @@ public class PostsSynchronizationHandler(IDbContextFactory<StackOverflowDbContex
         if (postsToUpdate.Count > 0)
         {
             var ids = postsToUpdate.Select(x => x.Id).Distinct();
-            var posts = await dbContext.Posts.Where(x => x.WebDataFileId == command.WebFileInformation.WebDataFileId && ids.Contains(x.Id))
+            var postsInDatabase = await dbContext.Posts.Where(x => x.WebDataFileId == webFileInformation.WebDataFileId && ids.Contains(x.Id))
                 .ToListAsync(cancellationToken);
 
-            foreach (var post in posts)
+            foreach (var post in postsInDatabase)
             {
                 var modifiedPost = postsToUpdate.First(x => x.Id == post.Id);
                 post.Title = modifiedPost.Title;
@@ -52,7 +53,5 @@ public class PostsSynchronizationHandler(IDbContextFactory<StackOverflowDbContex
 
             await dbContext.SaveChangesAsync(cancellationToken);
         }
-
-        return Unit.Value;
     }
 }

@@ -1,13 +1,20 @@
-﻿namespace Auis.StackOverflow.BusinessLogic.Handlers;
+﻿namespace Auis.StackOverflow.BusinessLogic.Services;
 
-public class WebArchiveSyncHandler(IDbContextFactory<StackOverflowDbContext> dbContextFactory, ILogger<WebArchiveSyncHandler> logger) : ICommandHandler<WebArchiveFilesSaveCommand>
+public class WebArchivesSynchronizationService(IWebArchiveParserService webArchiveParserService, IDbContextFactory<StackOverflowDbContext> dbContextFactory, ILogger<WebArchivesSynchronizationService> logger)
+    : IWebArchivesSynchronizationService
 {
-    public async ValueTask<Unit> Handle(WebArchiveFilesSaveCommand command, CancellationToken cancellationToken)
+    public async ValueTask SynchronizeWebArchiveFiles(CancellationToken cancellationToken = default)
+    {
+        var result = await webArchiveParserService.GetWebDataFilesAsync(cancellationToken);
+        await SaveToDatabaseAsync(result, cancellationToken);
+    }
+
+    private async ValueTask SaveToDatabaseAsync(List<WebDataFile> files, CancellationToken cancellationToken)
     {
         await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
         var dataFiles = await dbContext.WebDataFiles.ToListAsync(cancellationToken);
 
-        var webFiles = GetWebDataFilesToSync(command.Files, dataFiles);
+        var webFiles = GetWebDataFilesToSync(files, dataFiles);
         if (webFiles.Count > 0)
         {
             await dbContext.AddRangeAsync(webFiles, cancellationToken);
@@ -15,7 +22,6 @@ public class WebArchiveSyncHandler(IDbContextFactory<StackOverflowDbContext> dbC
         }
 
         logger.LogInformation("Web archive files synchronized");
-        return Unit.Value;
     }
 
     private static List<WebDataFileEntity> GetWebDataFilesToSync(List<WebDataFile> files, List<WebDataFileEntity> dataFiles)

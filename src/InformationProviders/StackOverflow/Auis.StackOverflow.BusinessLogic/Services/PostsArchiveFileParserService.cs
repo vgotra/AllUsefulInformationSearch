@@ -1,13 +1,15 @@
-﻿namespace Auis.StackOverflow.BusinessLogic.Parsers;
+﻿namespace Auis.StackOverflow.BusinessLogic.Services;
 
-public static class StackOverflowFileParser
+public class PostsArchiveFileParserService(IPostTextCleanupService postTextCleanupService) : IPostsArchiveFileParserService
 {
-    public static async Task<List<PostEntity>> DeserializePostsAsync(this string filePath, int webDataFileId, long fileSize, CancellationToken cancellationToken = default)
+    public async Task<List<PostEntity>> DeserializePostsAsync(WebFileInformation webFileInformation, CancellationToken cancellationToken = default)
     {
-        var questions = new List<PostEntity>((int)(fileSize / FileSize.Mb * 100));
-        var answers = new Dictionary<int, PostEntity>((int)(fileSize / FileSize.Mb * 100));
+        var pathToPostsFile = Path.Combine(webFileInformation.ArchiveOutputDirectory, "Posts.xml");
 
-        using var streamReader = new StreamReader(filePath, new FileStreamOptions { Options = FileOptions.Asynchronous });
+        var questions = new List<PostEntity>((int)(webFileInformation.FileSize / FileSize.Mb * 100));
+        var answers = new Dictionary<int, PostEntity>((int)(webFileInformation.FileSize / FileSize.Mb * 100));
+
+        using var streamReader = new StreamReader(pathToPostsFile, new FileStreamOptions { Options = FileOptions.Asynchronous });
         await streamReader.ReadLineAsync(cancellationToken); // <xml>
         await streamReader.ReadLineAsync(cancellationToken); // </posts>
         while (!streamReader.EndOfStream && !cancellationToken.IsCancellationRequested)
@@ -19,42 +21,34 @@ public static class StackOverflowFileParser
         questions.ForEach(x =>
         {
             var answer = answers[x.AcceptedAnswerId];
-            x.WebDataFileId = webDataFileId;
-            x.Answer = answer.Answer;
+            x.WebDataFileId = webFileInformation.WebDataFileId;
+            x.Title = postTextCleanupService.CleanupHtmlText(x.Title);
+            x.Question = postTextCleanupService.CleanupHtmlText(x.Question);
+            x.Answer = postTextCleanupService.CleanupHtmlText(answer.Answer);
             x.AnswerExternalLastActivityDate = answer.AnswerExternalLastActivityDate;
         });
 
         return questions;
     }
 
-    private static ReadOnlySpan<char> GetValue(this string line, string attributeName)
-    {
-        var start = line.IndexOf(attributeName + "=\"", StringComparison.OrdinalIgnoreCase);
-        if (start == -1)
-            return default;
-        start += attributeName.Length + 2;
-        var end = line.IndexOf('"', start);
-        return line.AsSpan().Slice(start, end - start);
-    }
-
-    private static void ParseLine(this string line, List<PostEntity> questions, Dictionary<int, PostEntity> answers)
+    private static void ParseLine(string line, List<PostEntity> questions, Dictionary<int, PostEntity> answers)
     {
         var postType = line.GetValue("PostTypeId");
         if (postType.IsEmpty) return;
         if (postType == "1") //question
         {
-            var question = line.ParseQuestionEntity();
+            var question = ParseQuestionEntity(line);
             if (question != null)
                 questions.Add(question);
         }
         else if (postType == "2") //answer
         {
-            var answer = line.ParseAnswerEntity();
+            var answer = ParseAnswerEntity(line);
             answers.Add(answer.Id, answer);
         }
     }
 
-    private static PostEntity? ParseQuestionEntity(this string line)
+    private static PostEntity? ParseQuestionEntity(string line)
     {
         var titleSpan = line.GetValue("Title");
         var bodySpan = line.GetValue("Body");
@@ -71,7 +65,7 @@ public static class StackOverflowFileParser
         };
     }
 
-    private static PostEntity ParseAnswerEntity(this string line)
+    private static PostEntity ParseAnswerEntity(string line)
     {
         var bodySpan = line.GetValue("Body");
         return new PostEntity

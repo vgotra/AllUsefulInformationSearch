@@ -2,8 +2,8 @@
 
 public static class FileSize
 {
-    public static long Kb => 1024;
-    public static long Mb => Kb * Kb;
-    public static long Gb => Mb * Kb;
-    public static long Tb => Gb * Kb;
+    public static int Kb => 1024;
+    public static int Mb => Kb * Kb;
+    public static int Gb => Mb * Kb;
+    public static int Tb => Gb * Kb;
 }
