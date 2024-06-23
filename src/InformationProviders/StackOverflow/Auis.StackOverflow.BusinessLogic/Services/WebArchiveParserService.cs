@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.BusinessLogic.Services;
+﻿using Auis.StackOverflow.Common.Helpers;
+
+namespace Auis.StackOverflow.BusinessLogic.Services;
 
 public sealed class WebArchiveParserService(HttpClient httpClient, ILogger<WebArchiveParserService> logger) : IWebArchiveParserService
 {

@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.BusinessLogic.Services;
+﻿using Auis.StackOverflow.Common.Options;
+
+namespace Auis.StackOverflow.BusinessLogic.Services;
 
 public class PostsArchiveFileProcessingService(
     IPostsDeserializationService postsDeserializationService,

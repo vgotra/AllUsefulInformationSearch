@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.Tests;
+﻿using Auis.StackOverflow.Common.Options;
+
+namespace Auis.StackOverflow.Tests;
 
 public class PostsArchiveFileProcessingServiceMock(
     IPostsDeserializationService postsDeserializationService,

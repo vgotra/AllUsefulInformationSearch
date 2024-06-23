@@ -1,6 +1,6 @@
 ﻿namespace Auis.StackOverflow.Models.Common;
 
-public record WebFileInformation
+public sealed record WebFileInformation
 {
     public int WebDataFileId { get; set; }
     public long FileSize { get; set; }

@@ -1,4 +1,6 @@
-﻿using EFCore.BulkExtensions;
+﻿using Auis.StackOverflow.Common.Options;
+
+using EFCore.BulkExtensions;
 
 namespace Auis.StackOverflow.BusinessLogic.Services;
 

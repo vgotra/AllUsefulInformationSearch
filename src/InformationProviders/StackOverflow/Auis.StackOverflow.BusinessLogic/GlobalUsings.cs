@@ -7,7 +7,6 @@ global using Auis.StackOverflow.Models.Common;
 global using Auis.StackOverflow.Models.Entities;
 global using Auis.StackOverflow.Models.Extensions;
 global using Auis.StackOverflow.Models.XmlModels;
-global using Auis.StackOverflow.BusinessLogic.Extensions;
 global using Auis.StackOverflow.BusinessLogic.Services;
 global using Auis.StackOverflow.BusinessLogic.Utilities;
 global using Auis.StackOverflow.BusinessLogic.Workflows;

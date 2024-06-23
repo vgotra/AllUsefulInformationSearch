@@ -1,4 +1,4 @@
-﻿namespace Auis.StackOverflow.Common;
+﻿namespace Auis.StackOverflow.Common.Options;
 
 public class StackOverflowOptions
 {

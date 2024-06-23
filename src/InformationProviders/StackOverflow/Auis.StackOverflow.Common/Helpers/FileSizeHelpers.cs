@@ -1,8 +1,6 @@
-using System.Globalization;
+namespace Auis.StackOverflow.Common.Helpers;
 
-namespace Auis.StackOverflow.Models.Extensions;
-
-public static class FileSizeExtensions
+public static class FileSizeHelpers
 {
     public static long GetFileSize(this string fileSize)
     {
@@ -15,7 +13,7 @@ public static class FileSizeExtensions
     }
 
     private static long GetMultiplier(string fileSize) =>
-        fileSize.LastOrDefault() switch
+        fileSize.ToUpper().LastOrDefault() switch
         {
             'K' => 1024,
             'M' => 1024 * 1024,

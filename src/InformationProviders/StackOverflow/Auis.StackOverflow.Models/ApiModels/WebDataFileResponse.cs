@@ -1,6 +1,6 @@
 ﻿namespace Auis.StackOverflow.Models.ApiModels;
 
-public class WebDataFileResponse
+public sealed class WebDataFileResponse
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;

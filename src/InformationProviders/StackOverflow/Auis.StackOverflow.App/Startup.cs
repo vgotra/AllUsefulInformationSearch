@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.App;
+﻿using Auis.StackOverflow.Common.Options;
+
+namespace Auis.StackOverflow.App;
 
 public static class Startup
 {

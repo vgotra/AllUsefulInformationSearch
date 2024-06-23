@@ -1,6 +1,6 @@
-﻿namespace Auis.StackOverflow.BusinessLogic.Extensions;
+﻿namespace Auis.StackOverflow.BusinessLogic.Helpers;
 
-public static class ProcessExtensions
+public static class ProcessHelpers
 {
     public static async Task ExecuteProcessAsync(this string fileName, string arguments, CancellationToken cancellationToken = default)
     {

@@ -1,6 +1,6 @@
-﻿namespace Auis.StackOverflow.BusinessLogic.Extensions;
+﻿namespace Auis.StackOverflow.BusinessLogic.Helpers;
 
-public static class ReadOnlySpanExtensions
+public static class ReadOnlySpanHelpers
 {
     public static ReadOnlySpan<char> GetValue(this string line, string attributeName)
     {

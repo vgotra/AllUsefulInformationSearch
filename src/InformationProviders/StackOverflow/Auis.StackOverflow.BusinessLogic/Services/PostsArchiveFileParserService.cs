@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.BusinessLogic.Services;
+﻿using Auis.StackOverflow.BusinessLogic.Helpers;
+
+namespace Auis.StackOverflow.BusinessLogic.Services;
 
 public class PostsArchiveFileParserService(IPostTextCleanupService postTextCleanupService) : IPostsArchiveFileParserService
 {

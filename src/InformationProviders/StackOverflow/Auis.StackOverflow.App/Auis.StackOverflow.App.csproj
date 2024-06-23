@@ -17,7 +17,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Auis.StackOverflow.ProcessingApp\Auis.StackOverflow.ProcessingApp.csproj"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Auis.StackOverflow.BusinessLogic\Auis.StackOverflow.BusinessLogic.csproj"/>
     </ItemGroup>
 
 </Project>
