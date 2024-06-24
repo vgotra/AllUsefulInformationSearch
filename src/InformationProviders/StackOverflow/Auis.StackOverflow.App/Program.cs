@@ -7,7 +7,7 @@ static class Program
         // if we have correct arguments specified, then process the file, otherwise process all files
 
         var host = Host.CreateDefaultBuilder(args)
-            .ConfigureServices((context, services) => services.ConfigureServices(context))
+            .ConfigureServices((context, services) => services.ConfigureServices(context, args?.Length > 0))
             .Build();
 
         if (args == null || args.Length == 0)
@@ -33,6 +33,8 @@ static class Program
         }
 
         Console.WriteLine($"Started processing StackOverflow file: '{fileName}'");
+
+
 
         var subWorkflow = host.Services.GetRequiredService<IStackOverflowProcessingSubWorkflow>();
         await subWorkflow.ExecuteAsync(webDataFile);
