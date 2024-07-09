@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Auis.DataAccess\Auis.DataAccess.csproj" />
+        <ProjectReference Include="..\Auis.Wikipedia.Models\Auis.Wikipedia.Models.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="CompiledModels\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="EFCore.BulkExtensions" Version="8.0.4" />
+    </ItemGroup>
+
+</Project>

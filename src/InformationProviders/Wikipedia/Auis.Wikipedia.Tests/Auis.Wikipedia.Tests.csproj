@@ -8,14 +8,29 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
-        <PackageReference Include="coverlet.collector" Version="6.0.0"/>
-        <PackageReference Include="MSTest.TestAdapter" Version="3.1.1"/>
-        <PackageReference Include="MSTest.TestFramework" Version="3.1.1"/>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="appsettings.Development.json" DependentUpon="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
-    
+
     <ItemGroup>
-      <ProjectReference Include="..\Auis.Tests.Common\Auis.Tests.Common.csproj" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0"/>
+        <PackageReference Include="coverlet.collector" Version="6.0.2">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="MSTest.TestAdapter" Version="3.4.3"/>
+        <PackageReference Include="MSTest.TestFramework" Version="3.4.3"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.6"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Auis.Tests.Common\Auis.Tests.Common.csproj"/>
+        <ProjectReference Include="..\Auis.Wikipedia.BusinessLogic\Auis.Wikipedia.BusinessLogic.csproj" />
     </ItemGroup>
 
 </Project>

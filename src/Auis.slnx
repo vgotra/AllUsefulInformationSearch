@@ -3,16 +3,34 @@
   <Folder Name="/InformationProviders/StackOverflow/">
     <File Path="InformationProviders\StackOverflow\README.md" />
     <Project Path="InformationProviders\StackOverflow\Auis.StackOverflow.App\Auis.StackOverflow.App.csproj" />
+    <Project Path="InformationProviders\StackOverflow\Auis.StackOverflow.BusinessLogic\Auis.StackOverflow.BusinessLogic.csproj" />
+    <Project Path="InformationProviders\StackOverflow\Auis.StackOverflow.Common\Auis.StackOverflow.Common.csproj" />
     <Project Path="InformationProviders\StackOverflow\Auis.StackOverflow.DataAccess\Auis.StackOverflow.DataAccess.csproj" />
     <Project Path="InformationProviders\StackOverflow\Auis.StackOverflow.DatabaseMigrations\Auis.StackOverflow.DatabaseMigrations.csproj" />
     <Project Path="InformationProviders\StackOverflow\Auis.StackOverflow.Models\Auis.StackOverflow.Models.csproj" />
-    <Project Path="InformationProviders\StackOverflow\Auis.StackOverflow.ProcessingApp\Auis.StackOverflow.ProcessingApp.csproj" />
-    <Project Path="InformationProviders\StackOverflow\Auis.StackOverflow.Services\Auis.StackOverflow.Services.csproj" />
     <Project Path="InformationProviders\StackOverflow\Auis.StackOverflow.Tests\Auis.StackOverflow.Tests.csproj" />
     <Project Path="InformationProviders\StackOverflow\Auis.StackOverflow.WebApi\Auis.StackOverflow.WebApi.csproj" />
-    <Project Path="InformationProviders\StackOverflow\Auis.StackOverflow.Workflows\Auis.StackOverflow.Workflows.csproj" />
+    <Project Path="InformationProviders\StackOverflow\Auis.StackOverflow.WebApp\Auis.StackOverflow.WebApp.esproj" Type="54a90642-561a-4bb1-a94e-469adee60c69">
+      <BuildType Project="Debug" />
+    </Project>
   </Folder>
-  <Folder Name="/Solution Items/" />
+  <Folder Name="/InformationProviders/Wikipedia/">
+    <Project Path="InformationProviders\Wikipedia\Auis.Wikipedia.App\Auis.Wikipedia.App.csproj" />
+    <Project Path="InformationProviders\Wikipedia\Auis.Wikipedia.BusinessLogic\Auis.Wikipedia.BusinessLogic.csproj" />
+    <Project Path="InformationProviders\Wikipedia\Auis.Wikipedia.Common\Auis.Wikipedia.Common.csproj" />
+    <Project Path="InformationProviders\Wikipedia\Auis.Wikipedia.DataAccess\Auis.Wikipedia.DataAccess.csproj" />
+    <Project Path="InformationProviders\Wikipedia\Auis.Wikipedia.DatabaseMigrations\Auis.Wikipedia.DatabaseMigrations.csproj" />
+    <Project Path="InformationProviders\Wikipedia\Auis.Wikipedia.Models\Auis.Wikipedia.Models.csproj" />
+    <Project Path="InformationProviders\Wikipedia\Auis.Wikipedia.Tests\Auis.Wikipedia.Tests.csproj" />
+    <Project Path="InformationProviders\Wikipedia\Auis.Wikipedia.WebApi\Auis.Wikipedia.WebApi.csproj" />
+    <Project Path="InformationProviders\Wikipedia\Auis.Wikipedia.WebApp\Auis.Wikipedia.WebApp.esproj" Type="54a90642-561a-4bb1-a94e-469adee60c69">
+      <Deploy />
+    </Project>
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="README.md" />
+  </Folder>
   <Project Path="Auis.ApiService\Auis.ApiService.csproj" />
   <Project Path="Auis.AppHost\Auis.AppHost.csproj" />
   <Project Path="Auis.Common\Auis.Common.csproj" />
@@ -23,4 +41,7 @@
   <Project Path="Auis.ServiceDefaults\Auis.ServiceDefaults.csproj" />
   <Project Path="Auis.Tests.Common\Auis.Tests.Common.csproj" />
   <Project Path="Auis.Web\Auis.Web.csproj" />
+  <Properties Name="Visual Studio">
+    <Property Name="OpenWith" Value="17" />
+  </Properties>
 </Solution>
