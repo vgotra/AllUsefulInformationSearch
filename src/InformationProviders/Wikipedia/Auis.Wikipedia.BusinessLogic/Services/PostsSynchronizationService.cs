@@ -1,6 +1,4 @@
-﻿using Auis.Wikipedia.Common.Options;
-
-using EFCore.BulkExtensions;
+﻿using EFCore.BulkExtensions;
 
 namespace Auis.Wikipedia.BusinessLogic.Services;
 

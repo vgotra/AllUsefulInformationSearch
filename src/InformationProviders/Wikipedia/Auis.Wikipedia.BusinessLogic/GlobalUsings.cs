@@ -10,6 +10,8 @@ global using Auis.Wikipedia.Models.XmlModels;
 global using Auis.Wikipedia.BusinessLogic.Services;
 global using Auis.Wikipedia.BusinessLogic.Utilities;
 global using Auis.Wikipedia.BusinessLogic.Workflows;
+global using Auis.Wikipedia.Common.Helpers;
+global using Auis.Wikipedia.Common.Options;
 
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;

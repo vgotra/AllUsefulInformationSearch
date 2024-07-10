@@ -1,17 +1,16 @@
-﻿using Auis.Wikipedia.Common.Helpers;
+﻿namespace Auis.Wikipedia.BusinessLogic.Services;
 
-namespace Auis.Wikipedia.BusinessLogic.Services;
-
-public sealed class WebArchiveParserService(HttpClient httpClient, ILogger<WebArchiveParserService> logger) : IWebArchiveParserService
+public sealed class WebArchiveParserService(HttpClient httpClient, IOptions<WikipediaOptions> options, ILogger<WebArchiveParserService> logger) : IWebArchiveParserService
 {
     private static readonly Regex RegexItemsPattern =
-        new("""<tr\s*>\s*<td>\s*<a href="(?<Link>[^<]*?7z[^<]*?)">(?<Name>[^<]*?7z[^<]*?)<\/a>.*<\/td>\s*<td>(?<LastModified>.*?)<\/td>\s*<td>(?<Size>[\d,\.]+[KMG]?)<\/td>\s*<\/tr>""", RegexOptions.Compiled);
+        new("""<a href="(?<Link>[^"]+)">(?<Name>[^<]+)<\/a>\s*(?<LastModified>\d{2}-\w{3}-\d{4} \d{2}:\d{2})\s*(?<Size>[\d,]+)""", RegexOptions.Compiled);
 
     public async ValueTask<List<WebDataFile>> GetWebDataFilesAsync(CancellationToken cancellationToken = default)
     {
         var archiveHtmlPage = await httpClient.GetStringAsync(string.Empty, cancellationToken);
         var result = ParseLines(archiveHtmlPage);
-        return result;
+        var files = result.Where(x => x.Link.StartsWith(options.Value.FileLinkStartsWith) && !x.Link.EndsWith(".xml")).ToList();
+        return files;
     }
 
     private List<WebDataFile> ParseLines(string htmlText)
@@ -36,7 +35,7 @@ public sealed class WebArchiveParserService(HttpClient httpClient, ILogger<WebAr
     private static WebDataFile ParseLine(Match match)
     {
         var link = match.Groups["Link"].Value;
-        var name = match.Groups["Name"].Value;
+        var name = link; //INFO: Name is not correct sometimes
         var lastModified = DateTime.Parse(match.Groups["LastModified"].Value);
         var size = match.Groups["Size"].Value.GetFileSize();
         return new WebDataFile { Name = name, Link = link, Size = size, LastModified = lastModified };

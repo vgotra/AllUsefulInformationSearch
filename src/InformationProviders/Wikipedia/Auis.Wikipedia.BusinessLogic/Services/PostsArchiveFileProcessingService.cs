@@ -1,6 +1,4 @@
-﻿using Auis.Wikipedia.Common.Options;
-
-namespace Auis.Wikipedia.BusinessLogic.Services;
+﻿namespace Auis.Wikipedia.BusinessLogic.Services;
 
 public class PostsArchiveFileProcessingService(
     IPostsDeserializationService postsDeserializationService,
