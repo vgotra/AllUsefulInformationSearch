@@ -73,6 +73,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auis.Wikipedia.WebApi", "In
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Auis.Wikipedia.WebApp", "InformationProviders\Wikipedia\Auis.Wikipedia.WebApp\Auis.Wikipedia.WebApp.esproj", "{77FF869F-5C5E-45E3-B6AB-FE059BE6CA5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auis.FileHelpers", "Auis.FileHelpers\Auis.FileHelpers.csproj", "{62514B6F-127D-4391-92DC-254D4FAAB07C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -193,6 +195,10 @@ Global
 		{77FF869F-5C5E-45E3-B6AB-FE059BE6CA5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77FF869F-5C5E-45E3-B6AB-FE059BE6CA5C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{77FF869F-5C5E-45E3-B6AB-FE059BE6CA5C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{62514B6F-127D-4391-92DC-254D4FAAB07C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62514B6F-127D-4391-92DC-254D4FAAB07C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62514B6F-127D-4391-92DC-254D4FAAB07C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62514B6F-127D-4391-92DC-254D4FAAB07C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

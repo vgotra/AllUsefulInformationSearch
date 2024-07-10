@@ -1,0 +1,1 @@
+﻿Copyrights and licenses for the code can be found by link: https://github.com/jaime-olivares/bzip2
