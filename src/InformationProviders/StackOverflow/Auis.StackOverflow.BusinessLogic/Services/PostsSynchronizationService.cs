@@ -29,7 +29,7 @@ public class PostsSynchronizationService(IDbContextFactory<StackOverflowDbContex
 
         if (postsToAdd.Count > 0)
         {
-            if (options.Value.UseDatabaseBulkMethods)
+            if (options.Value.DatabaseOptions.UseDatabaseBulkMethods)
                 await dbContext.BulkInsertAsync(postsToAdd, cancellationToken: cancellationToken);
             else
                 await dbContext.Posts.AddRangeAsync(postsToAdd, cancellationToken);
