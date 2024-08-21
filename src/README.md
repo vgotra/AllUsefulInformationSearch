@@ -1,3 +1,3 @@
 ## Getting Started
 
-[Visual Studio 2022](https://visualstudio.microsoft.com/launch/) is recommended for developing Blazor Apps.
+Check some info in README.md https://github.com/vgotra/AllUsefulInformationSearch/blob/main/src/InformationProviders/StackOverflow/README.md
