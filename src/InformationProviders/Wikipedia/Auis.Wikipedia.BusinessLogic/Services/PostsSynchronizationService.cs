@@ -1,6 +1,4 @@
-﻿using EFCore.BulkExtensions;
-
-namespace Auis.Wikipedia.BusinessLogic.Services;
+﻿namespace Auis.Wikipedia.BusinessLogic.Services;
 
 public class PostsSynchronizationService(IDbContextFactory<WikipediaDbContext> dbContextFactory, IOptions<WikipediaOptions> options) : IPostsSynchronizationService
 {
@@ -27,10 +25,10 @@ public class PostsSynchronizationService(IDbContextFactory<WikipediaDbContext> d
 
         if (postsToAdd.Count > 0)
         {
-            if (options.Value.UseDatabaseBulkMethods)
-                await dbContext.BulkInsertAsync(postsToAdd, cancellationToken: cancellationToken);
-            else
-                await dbContext.Posts.AddRangeAsync(postsToAdd, cancellationToken);
+            //if (options.Value.UseDatabaseBulkMethods)
+                // await dbContext.BulkInsertAsync(postsToAdd, cancellationToken: cancellationToken); //TODO Check for compatible version for NET 9.0
+            //else
+            await dbContext.Posts.AddRangeAsync(postsToAdd, cancellationToken);
 
             await dbContext.SaveChangesAsync(cancellationToken);
         }

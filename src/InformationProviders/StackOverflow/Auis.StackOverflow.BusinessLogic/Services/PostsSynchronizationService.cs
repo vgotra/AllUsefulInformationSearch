@@ -1,7 +1,5 @@
 ﻿using Auis.StackOverflow.Common.Options;
 
-using EFCore.BulkExtensions;
-
 namespace Auis.StackOverflow.BusinessLogic.Services;
 
 public class PostsSynchronizationService(IDbContextFactory<StackOverflowDbContext> dbContextFactory, IOptions<StackOverflowOptions> options) : IPostsSynchronizationService
@@ -29,10 +27,10 @@ public class PostsSynchronizationService(IDbContextFactory<StackOverflowDbContex
 
         if (postsToAdd.Count > 0)
         {
-            if (options.Value.DatabaseOptions.UseDatabaseBulkMethods)
-                await dbContext.BulkInsertAsync(postsToAdd, cancellationToken: cancellationToken);
-            else
-                await dbContext.Posts.AddRangeAsync(postsToAdd, cancellationToken);
+            // if (options.Value.DatabaseOptions.UseDatabaseBulkMethods)
+                // await dbContext.BulkInsertAsync(postsToAdd, cancellationToken: cancellationToken); //TODO Check for compatible version for NET 9.0
+            // else
+            await dbContext.Posts.AddRangeAsync(postsToAdd, cancellationToken);
 
             await dbContext.SaveChangesAsync(cancellationToken);
         }
