@@ -1,6 +1,6 @@
 # AllUsefulInformationSearch
 
-Check some info in README.md https://github.com/vgotra/AllUsefulInformationSearch/blob/main/src/InformationProviders/StackOverflow/README.md
+Check some info in README.md https://github.com/vgotra/AllUsefulInformationSearch/blob/main/InformationProviders/StackOverflow/README.md
 
 Pet project for keeping all useful information from the useful information providers, with possible incremental updates and maybe integration with AI.
 
