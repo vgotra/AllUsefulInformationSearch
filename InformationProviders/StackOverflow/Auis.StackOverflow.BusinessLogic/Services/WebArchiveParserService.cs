@@ -2,10 +2,10 @@
 
 namespace Auis.StackOverflow.BusinessLogic.Services;
 
-public sealed class WebArchiveParserService(HttpClient httpClient, ILogger<WebArchiveParserService> logger) : IWebArchiveParserService
+public sealed partial class WebArchiveParserService(HttpClient httpClient, ILogger<WebArchiveParserService> logger) : IWebArchiveParserService
 {
-    private static readonly Regex RegexItemsPattern =
-        new("""<tr\s*>\s*<td>\s*<a href="(?<Link>[^<]*?7z[^<]*?)">(?<Name>[^<]*?7z[^<]*?)<\/a>.*<\/td>\s*<td>(?<LastModified>.*?)<\/td>\s*<td>(?<Size>[\d,\.]+[KMG]?)<\/td>\s*<\/tr>""", RegexOptions.Compiled);
+    [GeneratedRegex("""<tr\s*>\s*<td>\s*<a href="(?<Link>[^<]*?7z[^<]*?)">(?<Name>[^<]*?7z[^<]*?)<\/a>.*<\/td>\s*<td>(?<LastModified>.*?)<\/td>\s*<td>(?<Size>[\d,\.]+[KMG]?)<\/td>\s*<\/tr>""", RegexOptions.Compiled)]
+    private static partial Regex RegexItemsPattern();
 
     public async ValueTask<List<WebDataFile>> GetWebDataFilesAsync(CancellationToken cancellationToken = default)
     {
@@ -17,7 +17,7 @@ public sealed class WebArchiveParserService(HttpClient httpClient, ILogger<WebAr
     private List<WebDataFile> ParseLines(string htmlText)
     {
         var result = new List<WebDataFile>();
-        var matches = RegexItemsPattern.Matches(htmlText);
+        var matches = RegexItemsPattern().Matches(htmlText);
         foreach (Match match in matches)
         {
             try

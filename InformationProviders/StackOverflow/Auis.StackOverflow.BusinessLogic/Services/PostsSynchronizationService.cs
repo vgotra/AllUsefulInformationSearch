@@ -2,7 +2,7 @@
 
 namespace Auis.StackOverflow.BusinessLogic.Services;
 
-public class PostsSynchronizationService(IDbContextFactory<StackOverflowDbContext> dbContextFactory, IOptions<StackOverflowOptions> options) : IPostsSynchronizationService
+public class PostsSynchronizationService(IDbContextFactory<StackOverflowDbContext> dbContextFactory) : IPostsSynchronizationService
 {
     public async ValueTask SynchronizeToDatabaseAsync(WebFileInformation webFileInformation, List<PostEntity> posts, CancellationToken cancellationToken = default)
     {
@@ -27,11 +27,7 @@ public class PostsSynchronizationService(IDbContextFactory<StackOverflowDbContex
 
         if (postsToAdd.Count > 0)
         {
-            // if (options.Value.DatabaseOptions.UseDatabaseBulkMethods)
-                // await dbContext.BulkInsertAsync(postsToAdd, cancellationToken: cancellationToken); //TODO Check for compatible version for NET 9.0
-            // else
             await dbContext.Posts.AddRangeAsync(postsToAdd, cancellationToken);
-
             await dbContext.SaveChangesAsync(cancellationToken);
         }
 

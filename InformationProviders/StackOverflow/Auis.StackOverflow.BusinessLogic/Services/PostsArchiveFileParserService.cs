@@ -4,6 +4,9 @@ namespace Auis.StackOverflow.BusinessLogic.Services;
 
 public class PostsArchiveFileParserService(IPostTextCleanupService postTextCleanupService) : IPostsArchiveFileParserService
 {
+    private const string PostTypeQuestion = "1";
+    private const string PostTypeAnswer = "2";
+    
     public async Task<List<PostEntity>> DeserializePostsAsync(WebFileInformation webFileInformation, CancellationToken cancellationToken = default)
     {
         var pathToPostsFile = Path.Combine(webFileInformation.ArchiveOutputDirectory, "Posts.xml");
@@ -37,13 +40,13 @@ public class PostsArchiveFileParserService(IPostTextCleanupService postTextClean
     {
         var postType = line.GetValue("PostTypeId");
         if (postType.IsEmpty) return;
-        if (postType == "1") //question
+        if (postType is PostTypeQuestion)
         {
             var question = ParseQuestionEntity(line);
             if (question != null)
                 questions.Add(question);
         }
-        else if (postType == "2") //answer
+        else if (postType is PostTypeAnswer)
         {
             var answer = ParseAnswerEntity(line);
             answers.Add(answer.Id, answer);
