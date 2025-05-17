@@ -1,6 +1,0 @@
-@Auis.Wikipedia.WebApi_HostAddress = http://localhost:5249
-
-GET {{Auis.Wikipedia.WebApi_HostAddress}}/webdatafiles/
-Accept: application/json
-
-###
