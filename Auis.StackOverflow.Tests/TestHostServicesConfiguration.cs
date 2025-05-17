@@ -12,7 +12,7 @@ public static class TestHostServicesConfiguration
 
         services.AddSingleton(inMemoryDb
             ? new DbContextOptionsBuilder<StackOverflowDbContext>().UseInMemoryDatabase("Auis_StackOverflow").Options
-            : new DbContextOptionsBuilder<StackOverflowDbContext>().UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow")).Options);
+            : new DbContextOptionsBuilder<StackOverflowDbContext>().UseNpgsql(configuration.GetConnectionString("Auis_StackOverflow")).Options);
         services.AddSingleton<IDbContextFactory<StackOverflowDbContext>, StackOverflowDbContextFactory>();
 
         services.AddStackOverflowServices();

@@ -17,11 +17,8 @@ public class PostsArchiveFileParserService(IPostTextCleanupService postTextClean
         using var streamReader = new StreamReader(pathToPostsFile, new FileStreamOptions { Options = FileOptions.Asynchronous });
         await streamReader.ReadLineAsync(cancellationToken); // <xml>
         await streamReader.ReadLineAsync(cancellationToken); // </posts>
-        while (!streamReader.EndOfStream && !cancellationToken.IsCancellationRequested)
-        {
-            var line = await streamReader.ReadLineAsync(cancellationToken);
-            ParseLine(line!, questions, answers);
-        }
+        while (await streamReader.ReadLineAsync(cancellationToken) is { } line && !cancellationToken.IsCancellationRequested)
+            ParseLine(line, questions, answers);
 
         questions.ForEach(x =>
         {

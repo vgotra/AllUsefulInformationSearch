@@ -10,7 +10,7 @@ public static class Startup
         services.Configure<StackOverflowOptions>(configuration.GetSection(nameof(StackOverflowOptions)));
         services.AddHttpClient("", (sp, client) => client.BaseAddress = new Uri(sp.GetRequiredService<IOptions<StackOverflowOptions>>().Value.BaseUrl));
         services.AddSingleton(new DbContextOptionsBuilder<StackOverflowDbContext>()
-            .UseSqlServer(configuration.GetConnectionString("Auis_StackOverflow")));
+            .UseNpgsql(configuration.GetConnectionString("Auis_StackOverflow")));
             //.UseModel(DataAccess.Compiledmodels.StackOverflowDbContextModel.Instance).Options);
         services.AddSingleton<IDbContextFactory<StackOverflowDbContext>, StackOverflowDbContextFactory>();
 

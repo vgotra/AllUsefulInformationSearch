@@ -1,5 +1,4 @@
 ﻿using Downloader;
-using System.Diagnostics;
 
 namespace Auis.FileUtility;
 

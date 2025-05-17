@@ -1,31 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Update="appsettings.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Update="appsettings.Development.json" DependentUpon="appsettings.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.0-preview-25107-01" />
         <PackageReference Include="coverlet.collector" Version="6.0.4">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="MSTest.TestAdapter" Version="3.8.3" />
-        <PackageReference Include="MSTest.TestFramework" Version="3.8.3" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.3" />
+        <PackageReference Include="MSTest.TestAdapter" Version="3.9.0-preview.25167.10" />
+        <PackageReference Include="MSTest.TestFramework" Version="3.9.0-preview.25167.10" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.0-preview.4.25258.110" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.4.25258.110" />
     </ItemGroup>
 
     <ItemGroup>
