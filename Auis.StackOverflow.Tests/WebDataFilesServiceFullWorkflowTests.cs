@@ -21,15 +21,15 @@ public class WebDataFilesServiceFullWorkflowTests : BaseTests
         await webArchivesSynchronizationService.SynchronizeWebArchiveFiles(cancellationTokenSource.Token);
 
         var itemsCount = await dbContext.WebDataFiles.CountAsync(cancellationTokenSource.Token);
-        Assert.IsTrue(itemsCount > 0);
+        Assert.IsGreaterThan(0, itemsCount);
 
         var files = await dbContext.WebDataFiles.AsNoTracking().Where(x => x.Size < 10 * FileSize.Mb).OrderBy(x => x.Size).Take(countOfFilesToProcess).ToListAsync(cancellationTokenSource.Token);
-        Assert.IsTrue(files.Count == countOfFilesToProcess);
+        Assert.HasCount(countOfFilesToProcess, files);
 
         var postsArchiveFileProcessingService = host.Services.GetRequiredService<PostsArchiveFileProcessingServiceMock>();
         await Parallel.ForEachAsync(files, cancellationTokenSource.Token, async (webDataFile, token) => await postsArchiveFileProcessingService.ProcessArchiveFileAsync(webDataFile, token));
 
         var processedFilesCount = await dbContext.WebDataFiles.AsNoTracking().Where(x => x.ProcessingStatus == ProcessingStatus.Processed).CountAsync(cancellationTokenSource.Token);
-        Assert.IsTrue(processedFilesCount == countOfFilesToProcess);
+        Assert.AreEqual(countOfFilesToProcess, processedFilesCount);
     }
 }

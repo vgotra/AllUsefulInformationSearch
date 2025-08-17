@@ -34,8 +34,6 @@ static class Program
 
         Console.WriteLine($"Started processing StackOverflow file: '{fileName}'");
 
-
-
         var subWorkflow = host.Services.GetRequiredService<IStackOverflowProcessingSubWorkflow>();
         await subWorkflow.ExecuteAsync(webDataFile);
 
