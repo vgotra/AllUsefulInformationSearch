@@ -11,8 +11,11 @@ public class WebDataFilesServiceFullWorkflowTests : BaseTests
     public async Task CanProcessFirstFiles()
     {
         var cancellationTokenSource = new CancellationTokenSource();
-
-        var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) => services.ConfigureServices(context)).Build();
+        var host = Host.CreateDefaultBuilder().ConfigureAppConfiguration((context, config) =>
+        {
+            if (context.HostingEnvironment.IsDevelopment()) 
+                config.AddUserSecrets<WebDataFilesServiceFullWorkflowTests>();
+        }).ConfigureServices((context, services) => services.ConfigureServices(context)).Build();
 
         const int countOfFilesToProcess = 1;
         await using var dbContext = await host.Services.GetRequiredService<IDbContextFactory<StackOverflowDbContext>>().CreateDbContextAsync(cancellationTokenSource.Token);
@@ -31,5 +34,8 @@ public class WebDataFilesServiceFullWorkflowTests : BaseTests
 
         var processedFilesCount = await dbContext.WebDataFiles.AsNoTracking().Where(x => x.ProcessingStatus == ProcessingStatus.Processed).CountAsync(cancellationTokenSource.Token);
         Assert.AreEqual(countOfFilesToProcess, processedFilesCount);
+        
+        var posts = await dbContext.Posts.Where(x => x.WebDataFileId == files.First().Id).ToListAsync(cancellationTokenSource.Token);
+        Assert.IsGreaterThan(0, posts.Count, "Posts should be processed and saved to the database");
     }
 }

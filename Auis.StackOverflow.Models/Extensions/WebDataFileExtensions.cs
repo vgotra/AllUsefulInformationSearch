@@ -9,7 +9,7 @@ public static class WebDataFileExtensions
         {
             WebDataFileId = webDataFile.Id,
             FileSize = webDataFile.Size,
-            FileUri = options.IsNetworkShare ? Path.Combine(options.NetworkShareBasePath!, webDataFile.Name) : webDataFile.Link,
+            FileUri = options.IsNetworkShare ? Path.Combine(options.NetworkShareBasePath!, webDataFile.Name) : $"{options.BaseUrl}/{webDataFile.Link}",
             TemporaryDownloadPath = Path.GetTempFileName(),
             ArchiveOutputDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()),
             FileLocation = options.IsNetworkShare ? FileLocation.Network : FileLocation.Web

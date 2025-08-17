@@ -1,12 +1,16 @@
 ﻿namespace Auis.StackOverflow.App;
 
-static class Program
+class Program
 {
     static async Task Main(string[]? args)
     {
         // if we have correct arguments specified, then process the file, otherwise process all files
-
         var host = Host.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((context, config) =>
+            {
+                if (context.HostingEnvironment.IsDevelopment()) 
+                    config.AddUserSecrets<Program>();
+            })
             .ConfigureServices((context, services) => services.ConfigureServices(context, args?.Length > 0))
             .Build();
 

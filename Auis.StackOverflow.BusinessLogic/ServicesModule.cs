@@ -19,12 +19,7 @@ public static class ServicesModule
         services.AddTransient<IStackOverflowProcessingSubWorkflow, StackOverflowProcessingSubWorkflow>();
         services.AddTransient<IStackOverflowProcessingWorkflow, StackOverflowProcessingWorkflow>();
 
-        services.AddTransient<IFileUtilityService>(_ => Environment.OSVersion switch
-        {
-            { Platform: PlatformID.Win32NT } => new WindowsFileUtilityService(),
-            { Platform: PlatformID.Unix } => new LinuxFileUtilityService(),
-            _ => throw new InvalidOperationException("Unsupported OS.")
-        });
+        services.AddTransient<IFileUtilityService, FileUtilityService>();
 
         return services;
     }
