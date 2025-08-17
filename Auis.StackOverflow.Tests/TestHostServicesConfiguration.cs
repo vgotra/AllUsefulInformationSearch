@@ -11,8 +11,8 @@ public static class TestHostServicesConfiguration
         services.AddHttpClient("", (sp, client) => client.BaseAddress = new Uri(sp.GetRequiredService<IOptions<StackOverflowOptions>>().Value.BaseUrl));
 
         services.AddSingleton(inMemoryDb
-            ? new DbContextOptionsBuilder<StackOverflowDbContext>().UseInMemoryDatabase("Auis").Options
-            : new DbContextOptionsBuilder<StackOverflowDbContext>().UseNpgsql(configuration.GetConnectionString("Auis_StackOverflow_PostgreSql")).Options);
+            ? new DbContextOptionsBuilder<StackOverflowDbContext>().UseInMemoryDatabase("Auis")
+            : new DbContextOptionsBuilder<StackOverflowDbContext>().UseNpgsql(configuration.GetConnectionString("Auis_StackOverflow_PostgreSql")));
         services.AddSingleton<IDbContextFactory<StackOverflowDbContext>, StackOverflowDbContextFactory>();
 
         services.AddStackOverflowServices();
