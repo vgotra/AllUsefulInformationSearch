@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.DataAccess;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
+namespace Auis.StackOverflow.DataAccess;
 
 public partial class StackOverflowDbContext
 {
@@ -25,6 +27,10 @@ public partial class StackOverflowDbContext
             entity.Ignore(e => e.AcceptedAnswerId); // Not needed in database
         });
 
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        foreach (var property in entityType.GetProperties().Where(p => p.ClrType == typeof(DateTimeOffset))) 
+            property.SetValueConverter(new ValueConverter<DateTimeOffset, DateTimeOffset>(v => v.ToUniversalTime(), v => DateTime.SpecifyKind(v.DateTime, DateTimeKind.Utc)));
+        
         modelBuilder.Model.GetEntityTypes().ToList()
             .ForEach(e =>
             {
@@ -34,8 +40,9 @@ public partial class StackOverflowDbContext
                 var lastUpdatedProperty = e.FindProperty(nameof(IUpdatableEntity.LastUpdated));
                 if (lastUpdatedProperty == null || lastUpdatedProperty.ClrType != typeof(DateTimeOffset))
                     return;
+                
                 lastUpdatedProperty.ValueGenerated = ValueGenerated.OnAddOrUpdate;
-                lastUpdatedProperty.SetDefaultValueSql("GETUTCDATE()");
+                lastUpdatedProperty.SetDefaultValueSql("CURRENT_TIMESTAMP");
             });
     }
 }
