@@ -10,6 +10,7 @@ class Program
             {
                 if (context.HostingEnvironment.IsDevelopment()) 
                     config.AddUserSecrets<Program>();
+                // Add logging configuration (for local development something compatible with Loki, later something compatible with OLTP for Aspire)
             })
             .ConfigureServices((context, services) => services.ConfigureServices(context, args?.Length > 0))
             .Build();

@@ -1,4 +1,4 @@
-﻿using Auis.StackOverflow.Common.Helpers;
+﻿using Auis.Common.Helpers;
 
 namespace Auis.StackOverflow.BusinessLogic.Services;
 

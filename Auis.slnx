@@ -4,9 +4,6 @@
     <File Path="README.md" />
   </Folder>
   <Project Path="Auis.Common\Auis.Common.csproj" />
-  <Project Path="Auis.DataAccess\Auis.DataAccess.csproj" />
-  <Project Path="Auis.DatabaseMigrations\Auis.DatabaseMigrations.csproj" />
-  <Project Path="Auis.FileUtility\Auis.FileUtility.csproj" />
   <Project Path="Auis.Models\Auis.Models.csproj" />
   <Project Path="Auis.StackOverflow.App\Auis.StackOverflow.App.csproj" />
   <Project Path="Auis.StackOverflow.BusinessLogic\Auis.StackOverflow.BusinessLogic.csproj" />

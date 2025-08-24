@@ -1,4 +1,6 @@
-namespace Auis.StackOverflow.Common.Helpers;
+using System.Globalization;
+
+namespace Auis.Common.Helpers;
 
 public static class FileSizeHelpers
 {
@@ -15,9 +17,9 @@ public static class FileSizeHelpers
     private static long GetMultiplier(string fileSize) =>
         fileSize.ToUpper().LastOrDefault() switch
         {
-            'K' => 1024,
-            'M' => 1024 * 1024,
-            'G' => 1024 * 1024 * 1024,
+            'K' => FileSize.Kb,
+            'M' => FileSize.Mb,
+            'G' => FileSize.Gb,
             _ => 1
         };
 }

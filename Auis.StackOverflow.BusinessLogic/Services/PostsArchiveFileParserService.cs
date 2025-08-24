@@ -1,4 +1,5 @@
-﻿using Auis.StackOverflow.BusinessLogic.Helpers;
+﻿using Auis.Common.Helpers;
+using Auis.StackOverflow.BusinessLogic.Helpers;
 
 namespace Auis.StackOverflow.BusinessLogic.Services;
 
@@ -20,6 +21,7 @@ public class PostsArchiveFileParserService(IPostTextCleanupService postTextClean
         while (await streamReader.ReadLineAsync(cancellationToken) is { } line && !cancellationToken.IsCancellationRequested)
             ParseLine(line, questions, answers);
 
+        questions = questions.Where(x => answers.ContainsKey(x.AcceptedAnswerId)).ToList(); // We only want questions with accepted answers
         questions.ForEach(x =>
         {
             var answer = answers[x.AcceptedAnswerId];

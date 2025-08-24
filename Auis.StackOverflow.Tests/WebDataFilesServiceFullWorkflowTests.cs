@@ -1,4 +1,6 @@
-﻿namespace Auis.StackOverflow.Tests;
+﻿using Auis.Common.Helpers;
+
+namespace Auis.StackOverflow.Tests;
 
 [TestClass]
 public class WebDataFilesServiceFullWorkflowTests : BaseTests

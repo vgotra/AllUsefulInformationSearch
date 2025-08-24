@@ -7,7 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Auis.DataAccess\Auis.DataAccess.csproj" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    </ItemGroup>
+    
+    <ItemGroup>
         <ProjectReference Include="..\Auis.StackOverflow.Models\Auis.StackOverflow.Models.csproj" />
     </ItemGroup>
 
